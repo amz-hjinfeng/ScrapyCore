@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kerrigan", "Kerrigan", "{D703265F-057E-4136-9AB9-1129A2D47CA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hydralisk", "Hydralisk", "{90F2769A-9525-4EA3-88E9-FFA34CD2388C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utralisks", "Utralisks", "{5EA3156D-36E5-40D6-B014-B0F1821AF4CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Kerrigan", "ScrapyCore.Kerrigan\ScrapyCore.Kerrigan.csproj", "{1131A267-AE8D-45AA-8BB5-15DE7B99520C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Hydralisk", "ScrapyCore.Hydralisk\ScrapyCore.Hydralisk.csproj", "{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Core", "ScrapyCore.Core\ScrapyCore.Core.csproj", "{381752F6-2A5F-4C26-A4C8-20D3D0C06928}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1131A267-AE8D-45AA-8BB5-15DE7B99520C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1131A267-AE8D-45AA-8BB5-15DE7B99520C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1131A267-AE8D-45AA-8BB5-15DE7B99520C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1131A267-AE8D-45AA-8BB5-15DE7B99520C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381752F6-2A5F-4C26-A4C8-20D3D0C06928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381752F6-2A5F-4C26-A4C8-20D3D0C06928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381752F6-2A5F-4C26-A4C8-20D3D0C06928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381752F6-2A5F-4C26-A4C8-20D3D0C06928}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1131A267-AE8D-45AA-8BB5-15DE7B99520C} = {D703265F-057E-4136-9AB9-1129A2D47CA9}
+		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB} = {90F2769A-9525-4EA3-88E9-FFA34CD2388C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B12EFF85-45DA-4F80-81D2-AE9F351EC9F1}
+	EndGlobalSection
+EndGlobal
