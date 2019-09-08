@@ -8,9 +8,7 @@
     <Folder Include="Cookies\" />
     <Folder Include="Analyzer\" />
     <Folder Include="Proxy\" />
-    <Folder Include="Storage\" />
     <Folder Include="Cache\" />
-    <Folder Include="Consts\" />
   </ItemGroup>
 
   <ItemGroup>

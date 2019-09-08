@@ -18,7 +18,7 @@ namespace ScrapyCore.Core.Threading.ThreadManagers
 
         protected override void RunActionOnDedicatedThread(Action action)
         {
-            new Thread(() => RunAction(action)).Start();
+            new Thread(() => RunAction(action, true)).Start();
         }
     }
 }
