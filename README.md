@@ -1,1 +1,1 @@
-# CrawlerCore
+# ScrapyCore
