@@ -7,7 +7,7 @@ namespace ScrapyCore.Core.Configure
     {
         string MessageQueueEngine { get; }
 
-        string QueueName { get; set; }
+        string QueueName { get; }
 
         IDictionary<string,string> ConfigureDetail { get;  }
     }

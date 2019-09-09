@@ -16,8 +16,7 @@ namespace ScrapyCore.Tests.Core.Storages
 
         public LocalFileSystemStorageTests()
         {
-            string location = Assembly.GetCallingAssembly().Location;
-            fileSystemStorage = new LocalFileSystemStorage(Path.GetDirectoryName(location));
+            fileSystemStorage = new LocalFileSystemStorage(ConstVariable.ApplicationPath);
         }
 
         [Fact]
@@ -32,6 +31,12 @@ namespace ScrapyCore.Tests.Core.Storages
         {
             var testStr = await fileSystemStorage.GetStringAsync("MockData/Core/Storage/localfsmockdata.txt");
             Assert.Equal(expect,testStr);
+        }
+
+        [Fact]
+        public void NameTest()
+        {
+            Assert.Equal(expected: "LocalFileSystem", fileSystemStorage.StorageName);
         }
 
     }

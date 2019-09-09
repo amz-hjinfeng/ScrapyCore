@@ -6,6 +6,8 @@ namespace ScrapyCore.Core.Consts
 {
     public class PathConstants
     {
-        public const string UserAgentPath = "Configure/UserAgent.json";
+        public const string UserAgentConfigurePath = "Configure/UserAgent.json";
+
+        public const string MessageQueueConfigurePath = "Configure/MessageQueue.json";
     }
 }

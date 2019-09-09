@@ -9,7 +9,7 @@ namespace ScrapyCore.Core.Configure
     public class UserAgentsConfigure : IUserAgentsConfigure
     {
         private List<Tuple<string, string, string>> tuples;
-        private readonly IStorage storage;
+        protected readonly IStorage storage;
 
         public UserAgentsConfigure(IStorage storage,string path)
         {
@@ -26,7 +26,7 @@ namespace ScrapyCore.Core.Configure
         }
 
         public UserAgentsConfigure(IStorage storage)
-            :this(storage,PathConstants.UserAgentPath)
+            :this(storage,PathConstants.UserAgentConfigurePath)
         {
 
         }

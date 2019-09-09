@@ -23,6 +23,12 @@
     <None Update="MockData\Core\Storage\localfsmockdata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="MockData\Core\Configure\example.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\UserAgents\" />
+  </ItemGroup>
 </Project>

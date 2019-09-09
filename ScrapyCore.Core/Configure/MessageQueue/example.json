@@ -1,3 +1,11 @@
 ﻿{
+    "MessageQueueEngine": "AmazonSQS",
+    "QueueName": "Kerrigan",
+    "Configure": [
+        [ "region","ap-southeast-1"],
+        [ "buffer-size","8196"]
+
+    ],
+
 
 }

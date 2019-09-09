@@ -9,6 +9,9 @@
     <Folder Include="Analyzer\" />
     <Folder Include="Proxy\" />
     <Folder Include="Cache\" />
+    <Folder Include="Configure\UserAgents\" />
+    <Folder Include="External\Conventor\" />
+    <Folder Include="Configure\MessageQueue\" />
   </ItemGroup>
 
   <ItemGroup>

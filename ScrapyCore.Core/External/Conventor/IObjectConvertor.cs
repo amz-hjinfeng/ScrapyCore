@@ -1,10 +1,8 @@
 ﻿using System;
 namespace ScrapyCore.Core.External.Conventor
 {
-    public class IObjectConvert
+    public interface IObjectConvertor<OUTPUT,INPUT>
     {
-        public IObjectConvert()
-        {
-        }
+        OUTPUT Parse(INPUT input);
     }
 }

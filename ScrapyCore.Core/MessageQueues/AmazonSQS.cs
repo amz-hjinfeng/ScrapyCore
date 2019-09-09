@@ -1,21 +1,29 @@
-﻿using Amazon.SQS;
+﻿using Amazon;
+using Amazon.SQS;
 using Amazon.SQS.Model;
 using Newtonsoft.Json;
+using ScrapyCore.Core.Configure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using ScrapyCore.Core.External;
+using ScrapyCore.Core.External.Conventor;
 
 namespace ScrapyCore.Core.MessageQueues
 {
     public class AmazonSQS : MessageQueue
     {
-        private AmazonSQSClient amazonSQSClient;
-        public AmazonSQS(string queueName)
-            : base(queueName)
+        private IAmazonSQS amazonSQSClient;
+        public AmazonSQS(IMessageQueueConfigure queueConfigure)
+            : base(queueConfigure)
         {
-            amazonSQSClient = new AmazonSQSClient();
+            AmazonSQSConfig sqsConfigure = new AmazonSQSConfig()
+            {
+                RegionEndpoint = RegionEndpoint.GetBySystemName(queueConfigure.ConfigureDetail.DefaultValue("region")),
+                BufferSize = queueConfigure.ConfigureDetail.GetKeyAndConvertTo("buffer-size",StringToInt32Conventor.Instance)
+            };
+            amazonSQSClient = new AmazonSQSClient(sqsConfigure);
         }
 
         public override async Task<IMessageQueueHandler<T>> GetMessage<T>()
@@ -38,13 +46,13 @@ namespace ScrapyCore.Core.MessageQueues
 
         public override async Task<IList<IMessageQueueHandler<T>>> GetMessages<T>()
         {
-            var response = await amazonSQSClient.ReceiveMessageAsync(queueName);
+            var response = await amazonSQSClient.ReceiveMessageAsync(queueConfigure.QueueName);
             List<IMessageQueueHandler<T>> messageHandlers = new List<IMessageQueueHandler<T>>();
             if (response.Messages.Count > 0)
             {
                 foreach (var item in response.Messages)
                 {
-                    AmazonSQSMessageQueueHandler<T> handler = new AmazonSQSMessageQueueHandler<T>(this.amazonSQSClient, item, queueName);
+                    AmazonSQSMessageQueueHandler<T> handler = new AmazonSQSMessageQueueHandler<T>(this.amazonSQSClient, item, queueConfigure.QueueName);
                     messageHandlers.Add(handler);
                 }
             }
@@ -57,7 +65,7 @@ namespace ScrapyCore.Core.MessageQueues
             var response = await amazonSQSClient.SendMessageAsync(new SendMessageRequest()
             {
                 MessageBody = jsonStr,
-                QueueUrl = queueName
+                QueueUrl = queueConfigure.QueueName
             });
             if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
             {
