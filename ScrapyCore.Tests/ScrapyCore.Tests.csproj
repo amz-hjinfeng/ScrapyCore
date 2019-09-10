@@ -26,6 +26,9 @@
     <None Update="MockData\Core\Configure\example.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="MockData\Core\Configure\messagequeueconfigure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

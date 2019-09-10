@@ -39,7 +39,7 @@ namespace ScrapyCore.Core.Threading
         public virtual void DoWork(Action action)
         {
             if (action == null)
-                throw new ArgumentNullException("action");
+                throw new ArgumentNullException(nameof(action));
 
             if (_abortAllCalled)
                 throw new InvalidOperationException("Cannot call DoWork() after AbortAll() or Dispose() have been called.");
