@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ScrapyCore.Core.Configure
 {
-    public interface IStorageConfigure
+    public interface IStorageConfigure : IConfigure
     {
         string Prefix { get; }
 

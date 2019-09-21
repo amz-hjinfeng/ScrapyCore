@@ -9,5 +9,7 @@ namespace ScrapyCore.Core.Consts
         public const string UserAgentConfigurePath = "Configure/UserAgent.json";
 
         public const string MessageQueueConfigurePath = "Configure/MessageQueue.json";
+
+        public const string StroageConfigurePath = "Configure/Storage.json";
     }
 }

@@ -1,0 +1,50 @@
+﻿{
+    "Bootstrap": {
+        "Storage": "configure/boostrap-storage.json",
+        "ThreadMode": "Task"
+    },
+    "Provisioning": {
+        "Storages": [
+            {
+                "Name": "hydralisk",
+                "ConfigureFile": "configure/hydralisk.json"
+            },
+            {
+                "Name" "kerrigan",
+                "ConfigureFile": "configure/kerrigan.json"
+            }
+        ],
+        "MessageQueues": [
+            {
+                "Name": "kerrigan-hydralisk",
+                "ConfigureFile": "configure/kerrigan-hydralisk.json"
+            },
+            {
+                "Name": "hydralisk-utralisks",
+                "ConfigureFile": "configure/hydralisk-utralisk.json"
+            },
+            {
+                "Name": "utralisks-kerrigan",
+                "ConfigureFile": "configure/utralisk-kerrigan.json"
+            }
+        ],
+        "UserAgents": [
+            {
+                "Name": "default-agents",
+                "ConfigureFile": "configure/user-agents.json"
+            }
+        ],
+        "Caches": [
+            {
+                "Name": "default-cache",
+                "ConfigureFile": "configure/cache-in-memory.json"
+            }
+        ]
+    },
+    "LazyLoad": {
+        "Storage": [],
+        "MessageQueues"[],
+        "UserAgent": [],
+        "Caches":[]
+    }
+}

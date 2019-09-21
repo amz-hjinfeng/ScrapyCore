@@ -1,0 +1,7 @@
+﻿{
+    "CacheEngine": "LocalMemoryCache",
+
+    "ConfigureDetail": [
+      ["max-objects","10000"]
+    ]
+}

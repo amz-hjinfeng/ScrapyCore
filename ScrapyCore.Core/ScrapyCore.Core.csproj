@@ -8,11 +8,12 @@
     <Folder Include="Cookies\" />
     <Folder Include="Analyzer\" />
     <Folder Include="Proxy\" />
-    <Folder Include="Cache\" />
+    <Folder Include="Caches\" />
     <Folder Include="Configure\UserAgents\" />
     <Folder Include="External\Conventor\" />
     <Folder Include="Configure\MessageQueue\" />
     <Folder Include="Configure\Storage\" />
+    <Folder Include="Configure\Caches\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,7 @@
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.104.24" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
   </ItemGroup>
 
   <ItemGroup>

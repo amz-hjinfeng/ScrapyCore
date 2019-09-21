@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using ScrapyCore.Core.Consts;
 
@@ -16,11 +17,7 @@ namespace ScrapyCore.Core.Configure
             string configureData = configurefile.GetString(path);
             Model model = JsonConvert.DeserializeObject<Model>(configureData);
             this.QueueName = model.QueueName;
-            ConfigureDetail = new Dictionary<string, string>();
-            foreach(var item in model.Configure)
-            {
-                ConfigureDetail.Add(item[0], item[1]);
-            }
+            ConfigureDetail = model.Configure.ToDictionary(x => x[0], x => x[1]);
         }
 
         public string MessageQueueEngine => "AmazonSQS";

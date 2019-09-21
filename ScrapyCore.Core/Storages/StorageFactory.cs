@@ -7,11 +7,11 @@ using ScrapyCore.Core.Configure;
 
 namespace ScrapyCore.Core.Storages
 {
-    public class StorageFactory
+    public class StorageFactory : IServiceFactory<IStorage,IStorageConfigure>
     {
         private static StorageFactory instance;
     
-        public static StorageFactory Factory
+        public static StorageFactory Factory 
         {
             get
             {
@@ -31,19 +31,19 @@ namespace ScrapyCore.Core.Storages
                 .ToDictionary(x => x.Name, x => x);
         }
 
-        public IStorage GetStorage(string name,IStorageConfigure configure)
+        public IStorage GetLocalStorage(string prefix)
         {
-            var storageType = storageTypes.DefaultValue(name);
+            return new LocalFileSystemStorage(prefix);
+        }
+
+        public IStorage GetService(IStorageConfigure configure)
+        {
+            var storageType = storageTypes.DefaultValue(configure.StorageType);
             if (storageType != null)
             {
                 return Activator.CreateInstance(storageType, configure) as IStorage;
             }
             return null;
-        }
-
-        public IStorage GetLocalStorage(string prefix)
-        {
-            return new LocalFileSystemStorage(prefix);
         }
     }
 }

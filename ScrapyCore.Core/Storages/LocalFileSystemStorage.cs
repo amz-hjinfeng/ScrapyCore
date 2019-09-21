@@ -8,9 +8,7 @@ namespace ScrapyCore.Core.Storages
     {
         public LocalFileSystemStorage(IStorageConfigure configure)
             : this(configure.Prefix)
-        {
-
-        }
+        { }
 
 
         public LocalFileSystemStorage(string prefix) : base(prefix)

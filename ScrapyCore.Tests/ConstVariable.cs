@@ -12,7 +12,6 @@ namespace ScrapyCore.Tests
         {
             string location = Assembly.GetCallingAssembly().Location;
             ApplicationPath = Path.GetDirectoryName(location);
-
         }
     }
 }

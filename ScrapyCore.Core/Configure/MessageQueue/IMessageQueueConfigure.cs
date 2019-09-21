@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ScrapyCore.Core.Configure
 {
-    public interface IMessageQueueConfigure
+    public interface IMessageQueueConfigure : IConfigure
     {
         string MessageQueueEngine { get; }
 
