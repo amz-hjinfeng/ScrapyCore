@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using ScrapyCore.Core.Consts;
 
 namespace ScrapyCore.Core.Configure
 {

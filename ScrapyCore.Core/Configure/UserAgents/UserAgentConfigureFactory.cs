@@ -15,13 +15,14 @@ namespace ScrapyCore.Core.Configure.UserAgents
             }
         }
 
-        public UserAgentConfigureFactory()
+        private UserAgentConfigureFactory()
         {
+
         }
 
         public IUserAgentsConfigure CreateConfigure(IStorage storage, string Path)
         {
-            return new UserAgentsConfigure(storage, path:);
+            return new UserAgentsConfigure(storage, path:Path);
         }
     }
 }

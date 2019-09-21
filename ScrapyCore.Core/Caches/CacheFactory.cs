@@ -22,6 +22,8 @@ namespace ScrapyCore.Core.Caches
             }
         }
 
+        
+
 
         public ICache GetService(ICachingConfigure configure)
         {
