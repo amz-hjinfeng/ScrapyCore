@@ -13,21 +13,21 @@ namespace ScrapyCore.Core.Caches
     {
         private int expireInMiniSeconds;
 
-        private ConcurrentDictionary<string, CacheModel> memory; 
+        private ConcurrentDictionary<string, CacheModel> memory;
 
         public LocalMemoryCache(ICachingConfigure cachingConfigure) : base(cachingConfigure)
         {
             var maxObjects = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("max-objects", StringToInt32Conventor.Instance);
             var maxConcurrency = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("max-concurrency", StringToInt32Conventor.Instance);
             expireInMiniSeconds = cachingConfigure.ExpireInMiniSeconds;
-            memory = new ConcurrentDictionary<string, CacheModel>(maxConcurrency,maxObjects);
+            memory = new ConcurrentDictionary<string, CacheModel>(maxConcurrency, maxObjects);
 
             Task.Run(() =>
             {
                 var keys = memory.Keys.ToList();
-                foreach(var item in keys)
+                foreach (var item in keys)
                 {
-                    if(memory.ContainsKey(item) && memory.TryGetValue(item,out var model) &&  IsExpire(model))
+                    if (memory.ContainsKey(item) && memory.TryGetValue(item, out var model) && IsExpire(model))
                     {
                         memory.TryRemove(item, out var cacheModel);
                     }
@@ -37,9 +37,33 @@ namespace ScrapyCore.Core.Caches
 
         }
 
+        public override bool IsKeyExist(string key)
+        {
+            return memory.ContainsKey(key);
+        }
+
+        public override Task<bool> IsKeyExistAsync(string key)
+        {
+            return Task.FromResult(IsKeyExist(key));
+        }
+
+        public override bool Remove(string key)
+        {
+            if (memory.ContainsKey(key))
+            {
+                return memory.TryRemove(key, out var cacheModel);
+            }
+            return false;
+        }
+
+        public override Task<bool> RemoveAsync(string key)
+        {
+            return Task.FromResult(Remove(key));
+        }
+
         public override T Restore<T>(string key)
         {
-            if ( memory.ContainsKey(key) && memory.TryGetValue(key,out var model) && !IsExpire(model))
+            if (memory.ContainsKey(key) && memory.TryGetValue(key, out var model) && !IsExpire(model))
             {
                 return model.data as T;
             }
@@ -76,6 +100,6 @@ namespace ScrapyCore.Core.Caches
             public Object data { get; set; }
 
         }
-           
+
     }
 }

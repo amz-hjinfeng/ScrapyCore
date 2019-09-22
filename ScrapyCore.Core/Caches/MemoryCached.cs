@@ -11,6 +11,26 @@ namespace ScrapyCore.Core.Caches
         {
         }
 
+        public override bool IsKeyExist(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<bool> IsKeyExistAsync(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool Remove(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<bool> RemoveAsync(string key)
+        {
+            throw new NotImplementedException();
+        }
+
         public override T Restore<T>(string key)
         {
             throw new NotImplementedException();

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ScrapyCore.Core.Configure.Caches
 {
-    public class CacheConfigureFactory :IConfigurationFactory<ICachingConfigure>
+    public class CacheConfigureFactory : IConfigurationFactory<ICachingConfigure>
     {
         private static CacheConfigureFactory _factory;
         private readonly Dictionary<string, Type> cacheTypes;
@@ -33,7 +33,7 @@ namespace ScrapyCore.Core.Configure.Caches
 
         public ICachingConfigure CreateConfigure(IStorage storage, string path)
         {
-            var cacheObject= JsonConvert.DeserializeObject<CacheConfigureModel>(storage.GetString(path));
+            var cacheObject = JsonConvert.DeserializeObject<CacheConfigureModel>(storage.GetString(path));
             if (cacheTypes.ContainsKey(cacheObject.CacheEngine))
             {
                 return Activator.CreateInstance(cacheTypes[cacheObject.CacheEngine], cacheObject) as ICachingConfigure;

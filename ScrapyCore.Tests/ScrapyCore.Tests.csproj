@@ -26,6 +26,9 @@
     <None Update="MockData\Core\Configure\rabbitmq.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="MockData\Core\Configure\RedisConfigure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="MockData\Core\Storage\localfsmockdata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

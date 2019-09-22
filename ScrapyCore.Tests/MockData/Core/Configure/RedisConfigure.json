@@ -9,7 +9,7 @@
     [ "connectRetry", "10" ],
     [ "connectTimeout", "30000" ],
     [ "configChannel", "" ],
-    [ "defaultDatabase", "1" ],
+    [ "defaultDatabase", "0" ],
     [ "keepAlive", "1000" ],
     [ "name", "default" ],
     [ "password", "" ],
