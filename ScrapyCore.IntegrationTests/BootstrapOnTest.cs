@@ -66,10 +66,20 @@ namespace ScrapyCore.IntegrationTests
                 Assert.NotNull(handler.MessageObject);
                 Assert.Equal(messageModel.Messages, handler.MessageObject.Messages);
                 await handler.Complete();
-
             }
+        }
+
+        [Fact]
+        public async Task CacheTests()
+        {
+            var cache = bootstrap.Provisioning.Caches["default-cache"];
+            Assert.NotNull(cache);
+            await cache.StoreAsync("testKey", messageModel);
+            Assert.True(cache.IsKeyExist("testKey"));
+            Assert.Equal(messageModel.Messages, cache.Restore<MessageModel>("testKey").Messages);
 
         }
+
 
         public class MessageModel
         {

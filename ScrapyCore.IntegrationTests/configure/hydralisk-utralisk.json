@@ -4,7 +4,7 @@
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
     [ "route-key", "Hydralisk" ],
-    [ "host-name", "" ],
+    [ "host-name", "localhost" ],
     [ "user-name", "usr-hydralisk" ],
     [ "password", "usr-hydralisk" ],
     [ "virtual-host", "/" ],

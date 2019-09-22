@@ -4,7 +4,7 @@
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
     [ "route-key", "Utralisks" ],
-    [ "host-name", "" ],
+    [ "host-name", "localhost" ],
     [ "user-name", "usr-utralisk" ],
     [ "password", "usr-utralisk" ],
     [ "virtual-host", "/" ],

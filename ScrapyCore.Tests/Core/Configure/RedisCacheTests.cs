@@ -10,6 +10,7 @@ using Xunit;
 
 namespace ScrapyCore.Tests.Core.Configure
 {
+
     public class RedisCacheTests
     {
         private readonly ICache redisCache;
