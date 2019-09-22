@@ -77,7 +77,6 @@ namespace ScrapyCore.IntegrationTests
             await cache.StoreAsync("testKey", messageModel);
             Assert.True(cache.IsKeyExist("testKey"));
             Assert.Equal(messageModel.Messages, cache.Restore<MessageModel>("testKey").Messages);
-
         }
 
 

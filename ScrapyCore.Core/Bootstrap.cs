@@ -22,7 +22,11 @@ namespace ScrapyCore.Core
         private static ILog logger = LogManager.GetLogger(typeof(Bootstrap));
 
         private IStorage initialStorage;
+
         public Bootstrap()
+            : this("Bootstrap.json") { }
+
+        public Bootstrap(string boostrapFile)
         {
             ILoggerRepository repository = LogManager.CreateRepository("Scrapy-Repo");
             log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
@@ -32,7 +36,7 @@ namespace ScrapyCore.Core
             logger.Debug("Application Location:" + applicationPath);
 
             initialStorage = StorageFactory.Factory.GetLocalStorage(applicationPath);
-            var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString("Bootstrap.json"));
+            var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString(boostrapFile));
             Provisioning = new ProvisioningModel(model, initialStorage);
         }
 
