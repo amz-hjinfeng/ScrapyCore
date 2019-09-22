@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Behaviour\" />
     <Folder Include="Models\Message\" />
     <Folder Include="Models\Transform\" />
     <Folder Include="Models\Extract\" />
