@@ -36,9 +36,9 @@ namespace ScrapyCore.Core.Configure.Storage
         {
             string configureData = storage.GetString(path);
             StorageConfigureModel model = JsonConvert.DeserializeObject<StorageConfigureModel>(configureData);
-            if (this.storageTypes.ContainsKey(model.storageConfigureType))
+            if (this.storageTypes.ContainsKey(model.StorageType))
             {
-                return Activator.CreateInstance(this.storageTypes[model.storageConfigureType], model) as IStorageConfigure;
+                return Activator.CreateInstance(this.storageTypes[model.StorageType], model) as IStorageConfigure;
             }
             return null;
         }

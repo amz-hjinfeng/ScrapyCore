@@ -12,9 +12,9 @@ namespace ScrapyCore.Tests.Core.Configure
         IMessageQueueConfigure messageQueueConfigure;
         public AmazonSQSConfigureTests()
         {
-            IStorage storage = new LocalFileSystemStorage(ConstVariable.ApplicationPath);
+            IStorage storage = StorageFactory.Factory.GetLocalStorage(ConstVariable.ApplicationPath);
             messageQueueConfigure =
-                MessageQueueConfigureFactory.Factory.CreateConfigure(storage, "MockData/Core/Configure/messagequeueconfigure.json");
+                MessageQueueConfigureFactory.Factory.CreateConfigure(storage, "MockData/Core/Configure/amazonsqs.json");
 
         }
 
