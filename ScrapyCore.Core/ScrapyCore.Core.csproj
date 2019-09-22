@@ -14,6 +14,7 @@
     <Folder Include="Configure\MessageQueue\" />
     <Folder Include="Configure\Storage\" />
     <Folder Include="Configure\Caches\" />
+    <Folder Include="Configure\Analyzer\" />
   </ItemGroup>
 
   <ItemGroup>

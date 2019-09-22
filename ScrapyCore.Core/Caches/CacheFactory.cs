@@ -9,8 +9,6 @@ namespace ScrapyCore.Core.Caches
         {
 
         }
-
-
         private static CacheFactory _factory;
         public static CacheFactory Factory
         {
@@ -21,9 +19,6 @@ namespace ScrapyCore.Core.Caches
                 return _factory;
             }
         }
-
-        
-
 
         public ICache GetService(ICachingConfigure configure)
         {

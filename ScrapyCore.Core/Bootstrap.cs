@@ -15,7 +15,7 @@ using ScrapyCore.Core.UserAgents;
 
 namespace ScrapyCore.Core
 {
-    public class Bootstrap
+    public class Bootstrap 
     {
 
         private IStorage initialStorage;
@@ -83,7 +83,6 @@ namespace ScrapyCore.Core
             }
 
             public IReadOnlyDictionary<string,IStorage> Storages { get; }
-
             public IReadOnlyDictionary<string,ICache> Caches { get; }
             public IReadOnlyDictionary<string, IUserAgentPool> UseragentPools { get; }
             public IReadOnlyDictionary<string, IMessageQueue> MessageQueues { get; }

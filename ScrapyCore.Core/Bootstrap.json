@@ -39,6 +39,12 @@
                 "Name": "default-cache",
                 "ConfigureFile": "configure/cache-in-memory.json"
             }
+        ],
+        "Analyzer":[
+            {
+                "Name": "regex-url",
+                "ConfigureFile": "configure/regex-url.json"
+            }
         ]
     },
     "LazyLoad": {

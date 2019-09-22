@@ -1,0 +1,7 @@
+﻿{
+    "CacheEngine": "RedisCache",
+
+    "ConfigureDetail": [
+        [ "end-points", "192,168,3,4:6379;" ]
+    ]
+}

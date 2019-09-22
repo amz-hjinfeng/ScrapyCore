@@ -1,6 +1,6 @@
 ﻿{
     "CacheEngine": "LocalMemoryCache",
-
+    "ExpireMiniSeconds": "20000",
     "ConfigureDetail": [
       ["max-objects","10000"]
     ]

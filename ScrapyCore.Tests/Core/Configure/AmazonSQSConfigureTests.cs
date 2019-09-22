@@ -1,6 +1,7 @@
 ﻿using System;
 using ScrapyCore.Core;
 using ScrapyCore.Core.Configure;
+using ScrapyCore.Core.Configure.MessageQueue;
 using ScrapyCore.Core.Storages;
 using Xunit;
 
@@ -12,7 +13,9 @@ namespace ScrapyCore.Tests.Core.Configure
         public AmazonSQSConfigureTests()
         {
             IStorage storage = new LocalFileSystemStorage(ConstVariable.ApplicationPath);
-            messageQueueConfigure = new AmazonSQSConfigure(storage, "MockData/Core/Configure/messagequeueconfigure.json");
+            messageQueueConfigure =
+                MessageQueueConfigureFactory.Factory.CreateConfigure(storage, "MockData/Core/Configure/messagequeueconfigure.json");
+
         }
 
         [Fact]
