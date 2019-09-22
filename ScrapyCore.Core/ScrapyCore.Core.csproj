@@ -12,6 +12,7 @@
     <Folder Include="Configure\UserAgents\" />
     <Folder Include="External\Conventor\" />
     <Folder Include="Configure\Analyzer\" />
+    <Folder Include="Simulator\" />
   </ItemGroup>
 
   <ItemGroup>
