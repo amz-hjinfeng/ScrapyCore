@@ -1,17 +1,17 @@
 {
   "MessageQueueEngine": "RabbitMQ",
-  "QueueName": "Hydralisk",
+  "QueueName": "Utralisks",
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
-    [ "route-key", "Kerrigan" ],
+    [ "route-key", "Utralisks" ],
     [ "host-name", "" ],
-    [ "user-name", "usr-kerrigan" ],
-    [ "password", "usr-kerrigan" ],
-    [ "virtual-host", "" ],
+    [ "user-name", "usr-utralisk" ],
+    [ "password", "usr-utralisk" ],
+    [ "virtual-host", "/" ],
     [ "type", "direct" ],
     [ "ex-durable", "false" ],
     [ "ex-auto-delete", "false" ],
-    [ "q-durable", "false" ],
+    [ "q-durable", "true" ],
     [ "q-exclusive", "false" ],
     [ "q-auto-delete", "false" ]
   ]

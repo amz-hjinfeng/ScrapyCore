@@ -28,7 +28,7 @@ namespace ScrapyCore.Tests.Core.Configure
         [Fact]
         public void QueueNameTest()
         {
-            Assert.Equal("Kerrigan", messageQueueConfigure.QueueName);
+            Assert.Equal("Hydralisk", messageQueueConfigure.QueueName);
         }
 
         [Fact]

@@ -48,7 +48,8 @@ namespace ScrapyCore.Core.MessageQueues
                 messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-auto-delete", StringToBoolConvertor.Instance)
                 );
 
-        }
+        
+            }
 
         public Task<IMessageQueueHandler<T>> GetMessage<T>()
         {

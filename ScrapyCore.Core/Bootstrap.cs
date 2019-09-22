@@ -44,6 +44,7 @@ namespace ScrapyCore.Core
             public ProvisioningModel(Model model, IStorage storage)
             {
                 this.ThreadManager = Threading.ThreadManager.BuildThreadManager(model.Bootstrap.ThreadMode, 100);
+                Storage = storage;
                 Dictionary<string, IStorage> storages = new Dictionary<string, IStorage>();
                 Dictionary<string, ICache> caches = new Dictionary<string, ICache>();
                 Dictionary<string, IUserAgentPool> useragentPools = new Dictionary<string, IUserAgentPool>();

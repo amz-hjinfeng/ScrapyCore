@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ScrapyCore.Core.Configure;
 
 namespace ScrapyCore.Core.MessageQueues
@@ -6,6 +8,7 @@ namespace ScrapyCore.Core.MessageQueues
     public class MessageQueueFactory : IServiceFactory<IMessageQueue, IMessageQueueConfigure>
     {
         private static MessageQueueFactory _factory;
+        private Dictionary<string, Type> messageQueueTypes;
 
         public static MessageQueueFactory Factory
         {
@@ -21,11 +24,20 @@ namespace ScrapyCore.Core.MessageQueues
         }
         public MessageQueueFactory()
         {
+            messageQueueTypes = typeof(MessageQueueFactory).Assembly.GetTypes()
+                 .Where(x => !x.IsAbstract)
+                 .Where(x => !x.IsInterface)
+                 .Where(x => x.GetInterface(nameof(IMessageQueue)) != null)
+                 .ToDictionary(x => x.Name, x => x);
         }
 
         public IMessageQueue GetService(IMessageQueueConfigure configure)
         {
-            throw new NotImplementedException();
+            if (messageQueueTypes.ContainsKey(configure.MessageQueueEngine))
+            {
+                return Activator.CreateInstance(messageQueueTypes[configure.MessageQueueEngine], configure) as IMessageQueue;
+            }
+            return null;
         }
     }
 }

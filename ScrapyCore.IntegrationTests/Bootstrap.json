@@ -10,7 +10,7 @@
         "ConfigureFile": "configure/hydralisk.json"
       },
       {
-        "Name" "kerrigan",
+        "Name": "kerrigan",
         "ConfigureFile": "configure/kerrigan.json"
       }
     ],
@@ -37,7 +37,7 @@
     "Caches": [
       {
         "Name": "default-cache",
-        "ConfigureFile": "configure/cache-in-memory.json"
+        "ConfigureFile": "configure/redis-cache.json"
       }
     ],
     "Analyzer": [
@@ -49,7 +49,7 @@
   },
   "LazyLoad": {
     "Storage": [],
-    "MessageQueues" [],
+    "MessageQueues": [],
     "UserAgent": [],
     "Caches": []
   }
