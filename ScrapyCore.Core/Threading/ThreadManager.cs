@@ -1,4 +1,5 @@
 ﻿using log4net;
+using ScrapyCore.Core.Threading.ThreadManagers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -117,5 +118,17 @@ namespace ScrapyCore.Core.Threading
         /// Runs the action on a seperate thread
         /// </summary>
         protected abstract void RunActionOnDedicatedThread(Action action);
+
+
+        public static ThreadManager BuildThreadManager(string managerType, int maxConcurrency)
+        {
+            switch (managerType)
+            {
+                case "Task":
+                    return new TaskThreadManager(maxConcurrency);
+                default:
+                    return new ManualThreadManager(maxConcurrency);
+            }
+        }
     }
 }

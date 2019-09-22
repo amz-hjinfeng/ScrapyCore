@@ -9,13 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hydralisk", "Hydralisk", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utralisks", "Utralisks", "{5EA3156D-36E5-40D6-B014-B0F1821AF4CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Kerrigan", "ScrapyCore.Kerrigan\ScrapyCore.Kerrigan.csproj", "{1131A267-AE8D-45AA-8BB5-15DE7B99520C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Kerrigan", "ScrapyCore.Kerrigan\ScrapyCore.Kerrigan.csproj", "{1131A267-AE8D-45AA-8BB5-15DE7B99520C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Hydralisk", "ScrapyCore.Hydralisk\ScrapyCore.Hydralisk.csproj", "{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Hydralisk", "ScrapyCore.Hydralisk\ScrapyCore.Hydralisk.csproj", "{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Core", "ScrapyCore.Core\ScrapyCore.Core.csproj", "{381752F6-2A5F-4C26-A4C8-20D3D0C06928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Core", "ScrapyCore.Core\ScrapyCore.Core.csproj", "{381752F6-2A5F-4C26-A4C8-20D3D0C06928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Tests", "ScrapyCore.Tests\ScrapyCore.Tests.csproj", "{02853D76-7EC3-46A9-935C-374A17F3A6AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Tests", "ScrapyCore.Tests\ScrapyCore.Tests.csproj", "{02853D76-7EC3-46A9-935C-374A17F3A6AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartOfSwarm", "HeartOfSwarm", "{88E15548-74DC-45DA-AC69-03E89C8440A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.HeartOfSwarm", "ScrapyCore.HeartOfSwarm\ScrapyCore.HeartOfSwarm.csproj", "{3FA027FE-0742-4F76-944E-C58F9AC392FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.IntegrationTests", "ScrapyCore.IntegrationTests\ScrapyCore.IntegrationTests.csproj", "{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.Utralisks", "ScrapyCore.Utralisks\ScrapyCore.Utralisks.csproj", "{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,18 @@ Global
 		{02853D76-7EC3-46A9-935C-374A17F3A6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02853D76-7EC3-46A9-935C-374A17F3A6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02853D76-7EC3-46A9-935C-374A17F3A6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA027FE-0742-4F76-944E-C58F9AC392FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA027FE-0742-4F76-944E-C58F9AC392FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FA027FE-0742-4F76-944E-C58F9AC392FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA027FE-0742-4F76-944E-C58F9AC392FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +66,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1131A267-AE8D-45AA-8BB5-15DE7B99520C} = {D703265F-057E-4136-9AB9-1129A2D47CA9}
 		{01DE5FD6-DEE3-40B2-BC48-7581B6B31EBB} = {90F2769A-9525-4EA3-88E9-FFA34CD2388C}
+		{3FA027FE-0742-4F76-944E-C58F9AC392FD} = {88E15548-74DC-45DA-AC69-03E89C8440A4}
+		{A149B427-2DE2-47E7-A30B-3671D1B0CB4D} = {5EA3156D-36E5-40D6-B014-B0F1821AF4CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B12EFF85-45DA-4F80-81D2-AE9F351EC9F1}

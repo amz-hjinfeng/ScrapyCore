@@ -23,6 +23,9 @@
     <None Remove="Core\Configure\AmazonS3ConfigureTest.css" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="MockData\Core\Configure\rabbitmq.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="MockData\Core\Storage\localfsmockdata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

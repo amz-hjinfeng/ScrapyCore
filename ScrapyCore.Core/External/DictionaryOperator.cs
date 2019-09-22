@@ -16,7 +16,7 @@ namespace ScrapyCore.Core.External
             {
                 return referenceDictionary[key];
             }
-            return default;
+            return default(T);
         }
 
         public static F GetKeyAndConvertTo<K,V,F>(this IDictionary<K,V> referenceDictionary, K key, IObjectConvertor<F,V> convertor)

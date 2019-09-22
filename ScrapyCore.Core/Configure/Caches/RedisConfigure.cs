@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ScrapyCore.Core.Configure.Caches
 {
-    public class RedisConfigure :ICachingConfigure
+    public class RedisConfigure : ICachingConfigure
     {
         private readonly CacheConfigureModel cacheConfigureModel;
 
@@ -14,7 +14,7 @@ namespace ScrapyCore.Core.Configure.Caches
             this.ConfigureDetail = cacheConfigureModel.ConfigureDetail.ToDictionary(x => x[0], x => x[1]);
         }
 
-        public string CacheType => "Redis";
+        public string CacheType => "RedisCache";
 
         public int ExpireInMiniSeconds => cacheConfigureModel.ExpireMiniSeconds;
 

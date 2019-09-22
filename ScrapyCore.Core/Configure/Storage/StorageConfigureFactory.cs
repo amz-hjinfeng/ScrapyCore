@@ -10,7 +10,8 @@ namespace ScrapyCore.Core.Configure.Storage
         private static StorageConfigureFactory _instance;
         public static StorageConfigureFactory Instance
         {
-            get {
+            get
+            {
                 if (_instance == null)
                 {
                     _instance = new StorageConfigureFactory();
@@ -27,7 +28,7 @@ namespace ScrapyCore.Core.Configure.Storage
                 .Where(x => !x.IsAbstract)
                 .Where(x => !x.IsInterface)
                 .Where(x => x.GetInterfaces().Contains(typeof(IStorageConfigure)))
-                .ToDictionary(x=>x.Name.Substring(0,x.Name.Length - "Configure".Length),x=>x);
+                .ToDictionary(x => x.Name.Substring(0, x.Name.Length - "Configure".Length), x => x);
 
         }
 
@@ -35,9 +36,9 @@ namespace ScrapyCore.Core.Configure.Storage
         {
             string configureData = storage.GetString(path);
             StorageConfigureModel model = JsonConvert.DeserializeObject<StorageConfigureModel>(configureData);
-            if (this.storageTypes.ContainsKey(model.StorageType))
+            if (this.storageTypes.ContainsKey(model.storageConfigureType))
             {
-                return Activator.CreateInstance(this.storageTypes[model.StorageType], model) as IStorageConfigure;
+                return Activator.CreateInstance(this.storageTypes[model.storageConfigureType], model) as IStorageConfigure;
             }
             return null;
         }

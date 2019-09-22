@@ -1,0 +1,18 @@
+{
+  "MessageQueueEngine": "RabbitMQ",
+  "QueueName": "Kerrigan",
+  "Configure": [
+    [ "exchange", "ex-heartofswarm" ],
+    [ "route-key", "Kerrigan" ],
+    [ "host-name", "" ],
+    [ "user-name", "usr-kerrigan" ],
+    [ "password", "usr-kerrigan" ],
+    [ "virtual-host", "" ],
+    [ "type", "direct" ],
+    [ "ex-durable", "false" ],
+    [ "ex-auto-delete", "false" ],
+    [ "q-durable", "false" ],
+    [ "q-exclusive", "false" ],
+    [ "q-auto-delete", "false" ]
+  ]
+}

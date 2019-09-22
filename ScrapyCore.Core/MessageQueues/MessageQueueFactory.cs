@@ -3,7 +3,7 @@ using ScrapyCore.Core.Configure;
 
 namespace ScrapyCore.Core.MessageQueues
 {
-    public class MessageQueueFactory :IServiceFactory<IMessageQueue,IMessageQueueConfigure>
+    public class MessageQueueFactory : IServiceFactory<IMessageQueue, IMessageQueueConfigure>
     {
         private static MessageQueueFactory _factory;
 
@@ -12,15 +12,13 @@ namespace ScrapyCore.Core.MessageQueues
 
             get
             {
-                if(_factory == null)
+                if (_factory == null)
                 {
                     _factory = new MessageQueueFactory();
                 }
                 return _factory;
             }
         }
-
-
         public MessageQueueFactory()
         {
         }

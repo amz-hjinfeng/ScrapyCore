@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ScrapyCore.Core.Configure.MessageQueue
 {
-    public class MessageQueueConfigureFactory :IConfigurationFactory<IMessageQueueConfigure>
+    public class MessageQueueConfigureFactory : IConfigurationFactory<IMessageQueueConfigure>
     {
 
         private static MessageQueueConfigureFactory _factory;
@@ -19,11 +19,12 @@ namespace ScrapyCore.Core.Configure.MessageQueue
             }
         }
 
-        public  Dictionary<string, Type> messageQueueTypes { get; }
+        private Dictionary<string, Type> MessageQueueTypes { get; }
 
         private MessageQueueConfigureFactory()
         {
-            messageQueueTypes = typeof(MessageQueueConfigureFactory).Assembly.GetTypes()
+            MessageQueueTypes = typeof(MessageQueueConfigureFactory)
+                .Assembly.GetTypes()
                 .Where(x => !x.IsAbstract)
                 .Where(x => !x.IsInterface)
                 .Where(x => x.GetInterfaces().Contains(typeof(IMessageQueueConfigure)))
@@ -32,10 +33,10 @@ namespace ScrapyCore.Core.Configure.MessageQueue
 
         public IMessageQueueConfigure CreateConfigure(IStorage storage, string path)
         {
-            var configureModel =JsonConvert.DeserializeObject<MessageQueueConfigureModel>(storage.GetString(path));
-            if (messageQueueTypes.ContainsKey(configureModel.MessageQueueEngine))
+            var configureModel = JsonConvert.DeserializeObject<MessageQueueConfigureModel>(storage.GetString(path));
+            if (MessageQueueTypes.ContainsKey(configureModel.MessageQueueEngine))
             {
-                return Activator.CreateInstance(messageQueueTypes[configureModel.MessageQueueEngine], configureModel) as IMessageQueueConfigure;
+                return Activator.CreateInstance(MessageQueueTypes[configureModel.MessageQueueEngine], configureModel) as IMessageQueueConfigure;
             }
             return null;
         }

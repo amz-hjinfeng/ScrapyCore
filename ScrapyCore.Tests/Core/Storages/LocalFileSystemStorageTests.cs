@@ -36,7 +36,7 @@ namespace ScrapyCore.Tests.Core.Storages
         [Fact]
         public void NameTest()
         {
-            Assert.Equal(expected: "LocalFileSystem", fileSystemStorage.StorageName);
+            Assert.Equal( "LocalFileSystem", fileSystemStorage.StorageName);
         }
 
     }

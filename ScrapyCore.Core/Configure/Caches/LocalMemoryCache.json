@@ -1,7 +1,7 @@
 ﻿{
-    "CacheEngine": "LocalMemoryCache",
-    "ExpireMiniSeconds": "20000",
-    "ConfigureDetail": [
-      ["max-objects","10000"]
-    ]
+  "CacheEngine": "LocalMemoryCache",
+  "ExpireMiniSeconds": "20000",
+  "ConfigureDetail": [
+    [ "max-objects", "10000" ]
+  ]
 }
