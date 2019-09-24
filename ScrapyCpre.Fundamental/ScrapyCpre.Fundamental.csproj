@@ -8,7 +8,19 @@
     <Folder Include="Models\Message\" />
     <Folder Include="Models\Transform\" />
     <Folder Include="Models\Extract\" />
-    <Folder Include="Extract\" />
+    <Folder Include="Sink\" />
+    <Folder Include="Physical\" />
+    <Folder Include="Physical\KerriganObject\" />
+    <Folder Include="Physical\HydraliskObject\" />
+    <Folder Include="Physical\UtralisksObject\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Benhavior\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Swarm.cs" />
+  </ItemGroup>
 </Project>
