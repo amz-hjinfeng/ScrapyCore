@@ -6,7 +6,7 @@ using ScrapyCpre.Fundamental.Models;
 
 namespace ScrapyCpre.Fundamental.Physical.HydraliskObject
 {
-    public class HydraliskCore :SwarmPhy,IHydraliskPhy
+    public class HydraliskCore : SwarmPhy, IHydraliskPhy
     {
         private readonly ICache cache;
         private readonly Guid guid;
@@ -27,6 +27,6 @@ namespace ScrapyCpre.Fundamental.Physical.HydraliskObject
         {
             return cache.RestoreAsync<SwarmPhysicalStatus>(Id);
         }
-        
+
     }
 }

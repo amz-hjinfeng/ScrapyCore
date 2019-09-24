@@ -10,7 +10,7 @@ namespace ScrapyCpre.Fundamental
 
         public IKerriganBenhavior kerriganBenhavior;
 
-        
+
 
         public Kerrigan()
         {
