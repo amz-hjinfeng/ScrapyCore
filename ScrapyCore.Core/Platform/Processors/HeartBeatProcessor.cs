@@ -6,7 +6,7 @@ using ScrapyCore.Core.Platform.Message;
 
 namespace ScrapyCore.Core.Platform.Processors
 {
-    public class HeartBeatProcessor : IMessagePrretocessor
+    public class HeartBeatProcessor : IMessageProcessor
     {
         public Task ProcessAsync(PlatformMessage platformMessage)
         {
