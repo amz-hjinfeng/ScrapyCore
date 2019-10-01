@@ -9,7 +9,7 @@ namespace ScrapyCore.Core.Platform.MessageOperation
 {
     public abstract class MessageRawOperation : IMessageRawOperation
     {
-        protected static ILog logger = LogManager.GetLogger(typeof(MessageRawOperation));
+        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(MessageRawOperation));
 
         public abstract Task Push(PlatformMessage platformMessage);
 

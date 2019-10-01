@@ -5,9 +5,7 @@ namespace ScrapyCore.Core.Platform.System
     {
         void Start();
 
-        void Break();
-
-        void DirectMessageCall();
+        void Pause();
 
         void Stop();
     }

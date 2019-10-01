@@ -10,7 +10,7 @@ namespace ScrapyCore.Core.Threading
     [Serializable]
     public abstract class ThreadManager : IThreadManager
     {
-        protected static ILog logger = LogManager.GetLogger(typeof(ThreadManager));
+        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(ThreadManager));
         protected bool _abortAllCalled = false;
         protected int numberOfRunningThread = 0;
         protected ManualResetEvent autoResetEvent = new ManualResetEvent(true);

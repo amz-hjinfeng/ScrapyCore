@@ -1,0 +1,20 @@
+﻿{
+  "CacheEngine": "RedisCache",
+
+  "ConfigureDetail": [
+    [ "end-points", "localhost:6379" ],
+    [ "abortConnect", "false" ],
+    [ "allowAdmin", "false" ],
+    [ "channelPrefix", "" ],
+    [ "connectRetry", "10" ],
+    [ "connectTimeout", "30000" ],
+    [ "configChannel", "" ],
+    [ "defaultDatabase", "0" ],
+    [ "keepAlive", "1000" ],
+    [ "name", "default" ],
+    [ "password", "" ],
+    [ "proxy", "None" ],
+    [ "resolveDns", "true" ],
+    [ "ssl", "false" ]
+  ]
+}

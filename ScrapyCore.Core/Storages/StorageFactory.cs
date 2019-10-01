@@ -4,14 +4,16 @@ using System.Linq;
 using ScrapyCore.Core.External;
 using System.Reflection;
 using ScrapyCore.Core.Configure;
+using log4net;
 
 namespace ScrapyCore.Core.Storages
 {
-    public class StorageFactory : IServiceFactory<IStorage,IStorageConfigure>
+    public class StorageFactory : IServiceFactory<IStorage, IStorageConfigure>
     {
+        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(StorageFactory));
         private static StorageFactory instance;
-    
-        public static StorageFactory Factory 
+
+        public static StorageFactory Factory
         {
             get
             {
@@ -24,11 +26,14 @@ namespace ScrapyCore.Core.Storages
         private readonly Dictionary<string, Type> storageTypes;
         private StorageFactory()
         {
+
             storageTypes = typeof(StorageFactory).Assembly.GetTypes()
                 .Where(x => !x.IsAbstract)
                 .Where(x => !x.IsInterface)
                 .Where(x => x.GetInterface(nameof(IStorage)) != null)
                 .ToDictionary(x => x.Name, x => x);
+
+            logger.Info("Number of storage types:" + storageTypes.Count);
         }
 
         public IStorage GetLocalStorage(string prefix)
@@ -41,6 +46,7 @@ namespace ScrapyCore.Core.Storages
             var storageType = storageTypes.DefaultValue(configure.StorageType);
             if (storageType != null)
             {
+                logger.Info("Create storage:" + storageType.Name);
                 return Activator.CreateInstance(storageType, configure) as IStorage;
             }
             return null;

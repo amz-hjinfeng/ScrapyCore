@@ -5,7 +5,7 @@ namespace ScrapyCore.Core.Storages
 {
     public abstract class Storage : IStorage
     {
-        protected static ILog logger = LogManager.GetLogger(typeof(Storage));
+        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(Storage));
 
         protected string Prefix { get; }
 

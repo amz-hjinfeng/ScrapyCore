@@ -13,7 +13,6 @@
     <Folder Include="External\Conventor\" />
     <Folder Include="Configure\Analyzer\" />
     <Folder Include="Simulator\" />
-    <Folder Include="Platform\System\" />
   </ItemGroup>
 
   <ItemGroup>

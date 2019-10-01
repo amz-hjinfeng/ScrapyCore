@@ -7,7 +7,7 @@ namespace ScrapyCore.Core.Caches
 {
     public abstract class CommonCache : ICache
     {
-        protected static ILog logger = LogManager.GetLogger(typeof(CommonCache));
+        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(CommonCache));
 
         private readonly ICachingConfigure cachingConfigure;
 

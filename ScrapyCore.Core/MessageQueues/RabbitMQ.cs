@@ -26,12 +26,14 @@ namespace ScrapyCore.Core.MessageQueues
             RouteKey = messageQueueConfigure.ConfigureDetail.DefaultValue("route-key");
 
 
+
             ConnectionFactory factory = new ConnectionFactory()
             {
                 HostName = messageQueueConfigure.ConfigureDetail.DefaultValue("host-name"),
                 UserName = messageQueueConfigure.ConfigureDetail.DefaultValue("user-name"),
                 Password = messageQueueConfigure.ConfigureDetail.DefaultValue("password"),
-                VirtualHost = messageQueueConfigure.ConfigureDetail.DefaultValue("virtual-host")
+                VirtualHost = messageQueueConfigure.ConfigureDetail.DefaultValue("virtual-host"),
+
             };
 
             channel = factory.CreateConnection().CreateModel();
@@ -48,8 +50,8 @@ namespace ScrapyCore.Core.MessageQueues
                 messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-auto-delete", StringToBoolConvertor.Instance)
                 );
 
-        
-            }
+
+        }
 
         public Task<IMessageQueueHandler<T>> GetMessage<T>()
         {

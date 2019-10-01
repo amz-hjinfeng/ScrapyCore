@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using log4net;
 using log4net.Repository;
@@ -19,7 +20,7 @@ namespace ScrapyCore.Core
 {
     public class Bootstrap
     {
-        private static ILog logger = LogManager.GetLogger(typeof(Bootstrap));
+        private static ILog logger;
 
         private IStorage initialStorage;
 
@@ -30,6 +31,7 @@ namespace ScrapyCore.Core
         {
             ILoggerRepository repository = LogManager.CreateRepository("Scrapy-Repo");
             log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            logger = LogManager.GetLogger(repository.Name, typeof(Bootstrap));
             string location = Assembly.GetCallingAssembly().Location;
             var applicationPath = Path.GetDirectoryName(location);
 
@@ -44,9 +46,11 @@ namespace ScrapyCore.Core
 
         public class ProvisioningModel
         {
+            private Dictionary<string, string> Variables;
             public IThreadManager ThreadManager { get; }
             public ProvisioningModel(Model model, IStorage storage)
             {
+                Variables = model.Varables.ToDictionary(x => x[0], x => x[1]);
                 this.ThreadManager = Threading.ThreadManager.BuildThreadManager(model.Bootstrap.ThreadMode, 100);
                 Storage = storage;
                 Dictionary<string, IStorage> storages = new Dictionary<string, IStorage>();
@@ -97,12 +101,14 @@ namespace ScrapyCore.Core
                         IConfigurationFactory<TConfigure> configurationFactory,
                         IServiceFactory<Target, TConfigure> serviceFactory) where TConfigure : IConfigure
             {
-                logger.Info("Provisioning..");
+                logger.Info("Provisioning...");
                 foreach (var item in nameConfigures)
                 {
                     try
                     {
+                        Variables.ToList().ForEach(x => item.ConfigureFile = item.ConfigureFile.Replace("{$" + x.Key + "}", x.Value));
                         logger.Debug($"Provisioning:{item.Name}");
+                        logger.Info("Configure FIle:" + item.ConfigureFile);
                         var configure = configurationFactory.CreateConfigure(this.Storage, item.ConfigureFile);
                         var instance = serviceFactory.GetService(configure);
                         container[item.Name] = instance;
@@ -110,7 +116,7 @@ namespace ScrapyCore.Core
                     }
                     catch (Exception ex)
                     {
-                        logger.Error($"{item.Name}Provision fai, Caused by{ex.Message}");
+                        logger.Error($"{item.Name} provision fail, Caused by{ex.Message}");
                     }
                 }
                 logger.Info("Provisioned");
@@ -119,6 +125,8 @@ namespace ScrapyCore.Core
 
         public class Model
         {
+            public string[][] Varables { get; set; }
+
             public BootstrapModel Bootstrap { get; set; }
 
             public ConfigureDetail Provisioning { get; set; }
