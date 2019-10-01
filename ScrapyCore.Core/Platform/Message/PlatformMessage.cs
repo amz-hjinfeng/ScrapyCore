@@ -12,5 +12,7 @@ namespace ScrapyCore.Core.Platform.Message
         public List<MessageRoute> Routes { get; set; }
 
         public byte[] MessageData { get; set; }
+
+        public Pricipal NextJump { get; set; }
     }
 }
