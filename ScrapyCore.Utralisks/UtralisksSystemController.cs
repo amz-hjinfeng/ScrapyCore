@@ -1,9 +1,9 @@
 ﻿using ScrapyCore.Core;
 using ScrapyCore.Core.Platform.System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
+using Microsoft.AspNetCore.Hosting;
+using ScrapyCore.Utralisks.WebHosting;
+using Microsoft.AspNetCore;
 
 namespace ScrapyCore.Utralisks
 {
@@ -17,7 +17,12 @@ namespace ScrapyCore.Utralisks
 
         protected override void Processor()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(10000);
+        }
+
+        protected override void ProvisionWebHost()
+        {
+            WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build().Run();
         }
     }
 }

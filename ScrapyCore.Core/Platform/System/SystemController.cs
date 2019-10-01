@@ -1,7 +1,4 @@
 ﻿using log4net;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace ScrapyCore.Core.Platform.System
@@ -26,9 +23,13 @@ namespace ScrapyCore.Core.Platform.System
         /// </summary>
         protected abstract void Processor();
 
+        protected abstract void ProvisionWebHost();
+
         public virtual void Start()
         {
             SystemStatus = SYSTEM_ON;
+            //ProvisionWebHost();
+            bootstrap.Provisioning.ThreadManager.DoWork(ProvisionWebHost);
             while (SystemStatus != SYSTEM_STOP)
             {
                 if (SystemStatus == SYSTEM_PAUSE)

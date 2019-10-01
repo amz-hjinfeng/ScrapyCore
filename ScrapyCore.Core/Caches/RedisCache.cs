@@ -41,17 +41,19 @@ namespace ScrapyCore.Core.Caches
         public override bool IsKeyExist(string key)
         {
             var isExist = database.KeyExists(new RedisKey[] { key }, CommandFlags.PreferMaster);
-            logger.Debug($"Is Key Exist:{isExist}");
+            Logger.Debug($"Is Key Exist:{isExist}");
             return isExist > 0;
         }
 
         public override Task<bool> IsKeyExistAsync(string key)
         {
+            Logger.Debug($"Is Key Exist async:" + key);
             return database.KeyExistsAsync(key);
         }
 
         public override bool Remove(string key)
         {
+            Logger.Debug($"Remove key:{key}");
             if (IsKeyExist(key))
             {
                 return database.KeyDelete(key);
@@ -71,7 +73,7 @@ namespace ScrapyCore.Core.Caches
         public override T Restore<T>(string key)
         {
             T obj = JsonConvert.DeserializeObject<T>(database.StringGet(key));
-            logger.Debug($"Restore key:{key}");
+            Logger.Debug($"Restore key:{key}");
             return obj;
         }
 
@@ -80,11 +82,13 @@ namespace ScrapyCore.Core.Caches
             T obj = JsonConvert.DeserializeObject<T>(
                 await database.StringGetAsync(key)
                 );
+            Logger.Debug($"Restore key:{key}");
             return obj;
         }
 
         public override void Store<T>(string key, T model)
         {
+            Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
             var result = database.StringSet(key, json);
 
@@ -92,6 +96,7 @@ namespace ScrapyCore.Core.Caches
 
         public override async Task StoreAsync<T>(string key, T model)
         {
+            Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
             await database.StringSetAsync(key, json);
         }

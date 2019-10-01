@@ -7,7 +7,7 @@ using Xunit;
 
 namespace ScrapyCore.Tests.Core.Configure
 {
-    public class AmazonSQSConfigureTests
+    public class AmazonSQSConfigureTests 
     {
         IMessageQueueConfigure messageQueueConfigure;
         public AmazonSQSConfigureTests()

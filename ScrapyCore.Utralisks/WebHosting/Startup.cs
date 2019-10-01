@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ScrapyCore.HeartOfSwarm
+namespace ScrapyCore.Utralisks.WebHosting
 {
     public class Startup
     {
@@ -28,6 +28,7 @@ namespace ScrapyCore.HeartOfSwarm
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseMvc();
         }
     }

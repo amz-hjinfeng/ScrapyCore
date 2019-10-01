@@ -1,9 +1,12 @@
-﻿using ScrapyCore.Core;
+﻿using log4net;
+using log4net.Repository;
+using ScrapyCore.Core;
 using ScrapyCore.Core.Caches;
 using ScrapyCore.Core.Configure.Caches;
 using ScrapyCore.Core.Storages;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -19,7 +22,7 @@ namespace ScrapyCore.Tests.Core.Configure
         public RedisCacheTests()
         {
             IStorage storage = StorageFactory.Factory.GetLocalStorage(ConstVariable.ApplicationPath);
-            var redisConfigure = CacheConfigureFactory.Factory.CreateConfigure(storage, "MockData/Core/Configure/RedisConfigure.json");
+            var redisConfigure = CacheConfigureFactory.Factory.CreateConfigure(storage, ConstVariable.RedisConfigureJson);
             redisCache = CacheFactory.Factory.GetService(redisConfigure);
             testModel = new TestModel()
             {

@@ -10,7 +10,7 @@ namespace ScrapyCore.Core.Storages
 {
     public class StorageFactory : IServiceFactory<IStorage, IStorageConfigure>
     {
-        protected static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(StorageFactory));
+        protected static ILog Logger => LogManager.GetLogger("Scrapy-Repo", typeof(StorageFactory));
         private static StorageFactory instance;
 
         public static StorageFactory Factory
@@ -33,7 +33,6 @@ namespace ScrapyCore.Core.Storages
                 .Where(x => x.GetInterface(nameof(IStorage)) != null)
                 .ToDictionary(x => x.Name, x => x);
 
-            logger.Info("Number of storage types:" + storageTypes.Count);
         }
 
         public IStorage GetLocalStorage(string prefix)
@@ -46,7 +45,7 @@ namespace ScrapyCore.Core.Storages
             var storageType = storageTypes.DefaultValue(configure.StorageType);
             if (storageType != null)
             {
-                logger.Info("Create storage:" + storageType.Name);
+                Logger.Info("Create storage:" + storageType.Name);
                 return Activator.CreateInstance(storageType, configure) as IStorage;
             }
             return null;
