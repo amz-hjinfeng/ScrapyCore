@@ -4,7 +4,7 @@
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
     [ "route-key", "Kerrigan" ],
-    [ "host-name", "localhost:5672" ],
+    [ "host-name", "localhost" ],
     [ "user-name", "usr-kerrigan" ],
     [ "password", "usr-kerrigan" ],
     [ "virtual-host", "/" ],

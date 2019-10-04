@@ -1,4 +1,7 @@
 ﻿{
+  "Varables": [
+    [ "environment", "local" ]
+  ],
   "Bootstrap": {
     "Storage": "configure/bootstrap-storage.json",
     "ThreadMode": "Task"
