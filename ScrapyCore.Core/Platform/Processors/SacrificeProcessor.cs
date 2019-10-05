@@ -1,4 +1,5 @@
 ﻿using ScrapyCore.Core.Platform.Message;
+using ScrapyCore.Core.Platform.System;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,17 @@ namespace ScrapyCore.Core.Platform.Processors
 {
     public class SacrificeProcessor : IMessageProcessor
     {
+        private readonly ISystemController systemController;
+
+        public SacrificeProcessor(ISystemController systemController)
+        {
+            this.systemController = systemController;
+        }
+
         public Task ProcessAsync(PlatformMessage platformMessage)
         {
-            throw new NotImplementedException();
+            systemController.Stop();
+            return Task.CompletedTask;
         }
     }
 }
