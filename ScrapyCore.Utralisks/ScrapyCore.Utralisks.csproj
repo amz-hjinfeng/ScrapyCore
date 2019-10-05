@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="log\.DS_Store" />
+    <None Remove="log\r\log.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Bootstrap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
