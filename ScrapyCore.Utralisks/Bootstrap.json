@@ -1,6 +1,9 @@
 ﻿{
   "Varables": [
-    [ "environment", "local" ]
+    [ "environment", "local" ],
+    [ "Entrance", "hydralisk-utralisks" ],
+    [ "Termination", "utralisks-kerrigan" ],
+    [ "HeartbeatCache", "default-cache" ]
   ],
   "Bootstrap": {
     "Storage": "configure/{$environment}/bootstrap-storage.json",

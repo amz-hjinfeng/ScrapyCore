@@ -28,7 +28,6 @@ namespace ScrapyCore.Core.Platform.System
         public virtual void Start()
         {
             SystemStatus = SYSTEM_ON;
-
             bootstrap.Provisioning.ThreadManager.DoWork(ProvisionWebHost);
             while (SystemStatus != SYSTEM_STOP)
             {

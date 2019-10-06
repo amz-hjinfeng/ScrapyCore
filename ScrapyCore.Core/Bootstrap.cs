@@ -42,11 +42,32 @@ namespace ScrapyCore.Core
             Provisioning = new ProvisioningModel(model, initialStorage);
         }
 
+
+        public IMessageQueue GetMessageQueueFromVariableSet(string variableKey)
+        {
+            if (this.Provisioning.Variables.ContainsKey(variableKey))
+            {
+                string key = this.Provisioning.Variables[variableKey];
+                return this.Provisioning.MessageQueues[key];
+            }
+            return null;
+        }
+
+        public ICache GetCachedFromVariableSet(string variableKey)
+        {
+            if (this.Provisioning.Variables.ContainsKey(variableKey))
+            {
+                string key = this.Provisioning.Variables[variableKey];
+                return this.Provisioning.Caches[key];
+            }
+            return null;
+        }
+
         public ProvisioningModel Provisioning { get; }
 
         public class ProvisioningModel
         {
-            private Dictionary<string, string> Variables;
+            public Dictionary<string, string> Variables { get; private set; }
             public IThreadManager ThreadManager { get; }
             public ProvisioningModel(Model model, IStorage storage)
             {

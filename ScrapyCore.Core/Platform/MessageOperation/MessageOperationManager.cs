@@ -1,12 +1,14 @@
 ﻿using ScrapyCore.Core.Platform.Commands;
+using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform.MessageOperation
 {
-    public class MessageOperationManager
+    public class MessageOperationManager : IMessageTermination
     {
         private Dictionary<CommandTransfer, IMessageRawOperation> messageOperations;
 
@@ -18,6 +20,12 @@ namespace ScrapyCore.Core.Platform.MessageOperation
             }
             return null;
         }
+
+        public Task Terminate(PlatformMessage platformMessage)
+        {
+            return this.GetRawOperation(platformMessage.Command.CommandType).Push(platformMessage);
+        }
+
         private MessageOperationManager(Builder builder)
         {
             messageOperations = new Dictionary<CommandTransfer, IMessageRawOperation>();

@@ -1,5 +1,6 @@
 ﻿using ScrapyCore.Core.Platform.Commands;
 using ScrapyCore.Core.Platform.Message;
+using ScrapyCore.Core.Platform.System;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,10 @@ namespace ScrapyCore.Core.Platform.Processors
 
         private MessageProcessorManager(Builder builder)
         {
+            Processors[CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController);
+            Processors[CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache);
+            Processors[CommandCode.Working] = new WorkingProcessor();
+            Processors[CommandCode.Configure] = new ConfigureProcessor();
             // Need All System things to couple inside.
         }
 
@@ -33,9 +38,25 @@ namespace ScrapyCore.Core.Platform.Processors
 
         public class Builder
         {
+            public ISystemController SystemController { get; private set; }
+
+            public ICache HeartbeatCache { get; private set; }
+
             public MessageProcessorManager Build()
             {
                 return new MessageProcessorManager(this);
+            }
+
+            public Builder WithSystemController(ISystemController controller)
+            {
+                SystemController = controller;
+                return this;
+            }
+
+            public Builder WithHeartbeatCache(ICache cache)
+            {
+                HeartbeatCache = cache;
+                return this;
             }
         }
     }

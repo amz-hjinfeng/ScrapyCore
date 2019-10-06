@@ -1,53 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using log4net;
 using System.Threading.Tasks;
-using ScrapyCore.Core.Platform.Message;
 
 namespace ScrapyCore.Core.Platform
 {
     public class MessagePipline : IMessagePipline
     {
-        private readonly IMessageQueue messageQueueIn;
-
-        private Queue<PlatformMessage> SiteToSiteMessages { get; }
-
-        public Task<IMessageQueueHandler<PlatformMessage>> FetchMessage()
+        private static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(MessagePipline));
+        public IMessageEntrance MessageEntrance { get; }
+        public IMessageTermination MessageTermination { get; }
+        public MessagePipline(IMessageEntrance messageEntrance, IMessageTermination messageTermination)
         {
-            lock (SiteToSiteMessages)
-            {
-                if (this.SiteToSiteMessages.Count > 0)
-                {
-                    PlatformMessage platformMessage = SiteToSiteMessages.Dequeue();
-                    return Task.FromResult((IMessageQueueHandler<PlatformMessage>)new PackagedMessageWithHandler() { MessageObject = platformMessage });
-                }
-            }
-            return messageQueueIn.GetMessage<PlatformMessage>();
-
+            MessageEntrance = messageEntrance;
+            MessageTermination = messageTermination;
         }
-
-
-        public void PushMessageBySiteToSiteCommand(PlatformMessage platformMessage)
+        public async Task Drive()
         {
-            lock (SiteToSiteMessages)
-            {
-                SiteToSiteMessages.Enqueue(platformMessage);
-            }
+            logger.Info("Message Pipline Started");
+            var messageHandler = await MessageEntrance.FetchMessage();
+            var message = messageHandler.MessageObject;
+            logger.Info("Message Get:" + message.Command.CommandType.ToString());
+            await MessageTermination.Terminate(message);
+            logger.Info("Message Terminated");
+            await messageHandler.Complete();
+            logger.Info("Message Pipline Completed");
         }
-
-        public MessagePipline(IMessageQueue messageQueueIn)
+        public Task Drive(string[] args)
         {
-            this.messageQueueIn = messageQueueIn;
-            SiteToSiteMessages = new Queue<PlatformMessage>();
-        }
-
-        public class PackagedMessageWithHandler : IMessageQueueHandler<PlatformMessage>
-        {
-            public PlatformMessage MessageObject { get; set; }
-
-            public Task Complete()
-            {
-                return Task.CompletedTask;
-            }
+            return Drive();
         }
     }
 }
