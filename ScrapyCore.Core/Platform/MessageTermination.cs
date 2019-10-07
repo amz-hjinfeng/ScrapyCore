@@ -13,17 +13,18 @@ namespace ScrapyCore.Core.Platform
     {
         private const string TERMINATION = "Termination";
         private const string HEARTBEAT_CACHE = "HeartbeatCache";
-        MessageOperationManager manager;
+        IMessageOperationManager manager;
         public MessageTermination(Bootstrap bootstrap, ISystemController systemController)
         {
             MessageOperationManager.Builder operationBuilder = new MessageOperationManager.Builder();
             operationBuilder.WithMessageQueueOut(bootstrap.GetMessageQueueFromVariableSet(TERMINATION));
-            MessageProcessorManager.Builder processorBuilder = new MessageProcessorManager.Builder();
-            processorBuilder.WithSystemController(systemController);
-            processorBuilder.WithHeartbeatCache(bootstrap.GetCachedFromVariableSet(HEARTBEAT_CACHE));
-            MessageProcessorManager messageProcessorManager = processorBuilder.Build();
-            // Message processor builder not finished yet.
+
+            MessageProcessorManager messageProcessorManager = MessageProcessorManager.Builder.NewBuilder()
+                 .WithSystemController(systemController)
+                 .WithHeartbeatCache(bootstrap.GetCachedFromVariableSet(HEARTBEAT_CACHE))
+                 .Build();
             operationBuilder.WithProcessManager(messageProcessorManager);
+
             manager = operationBuilder.Build();
         }
 

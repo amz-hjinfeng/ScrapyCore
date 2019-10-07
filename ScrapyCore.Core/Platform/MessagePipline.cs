@@ -1,4 +1,5 @@
 ﻿using log4net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform
@@ -17,12 +18,20 @@ namespace ScrapyCore.Core.Platform
         {
             logger.Info("Message Pipline Started");
             var messageHandler = await MessageEntrance.FetchMessage();
-            var message = messageHandler.MessageObject;
-            logger.Info("Message Get:" + message.Command.CommandType.ToString());
-            await MessageTermination.Terminate(message);
-            logger.Info("Message Terminated");
-            await messageHandler.Complete();
-            logger.Info("Message Pipline Completed");
+            if (messageHandler != null)
+            {
+                var message = messageHandler.MessageObject;
+                logger.Info("Message Get:" + message.Command.CommandType.ToString());
+                await MessageTermination.Terminate(message);
+                logger.Info("Message Terminated");
+                await messageHandler.Complete();
+                logger.Info("Message Pipline Completed");
+            }
+            else
+            {
+                logger.Info("Message get nothing from Queue");
+                Thread.Sleep(10);
+            }
         }
         public Task Drive(string[] args)
         {

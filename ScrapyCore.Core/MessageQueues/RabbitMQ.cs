@@ -56,8 +56,15 @@ namespace ScrapyCore.Core.MessageQueues
         public Task<IMessageQueueHandler<T>> GetMessage<T>()
         {
             var getResult = channel.BasicGet(MessageQueueConfigure.QueueName, false);
-            var messageModel = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(getResult.Body));
-            return Task.FromResult((IMessageQueueHandler<T>)new RabbitMQMessageHandler<T>(channel, getResult.DeliveryTag, messageModel));
+            if (getResult != null)
+            {
+                var messageModel = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(getResult.Body));
+                return Task.FromResult((IMessageQueueHandler<T>)new RabbitMQMessageHandler<T>(channel, getResult.DeliveryTag, messageModel));
+            }
+            else
+            {
+                return Task.FromResult((IMessageQueueHandler<T>)null);
+            }
         }
 
         public async Task<T> GetMessageComplete<T>()

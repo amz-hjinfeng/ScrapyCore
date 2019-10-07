@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform.MessageOperation
 {
-    public class MessageOperationManager : IMessageTermination
+    public class MessageOperationManager : IMessageOperationManager
     {
         private Dictionary<CommandTransfer, IMessageRawOperation> messageOperations;
 
@@ -19,11 +19,6 @@ namespace ScrapyCore.Core.Platform.MessageOperation
                 return messageOperations[transfer];
             }
             return null;
-        }
-
-        public Task Terminate(PlatformMessage platformMessage)
-        {
-            return this.GetRawOperation(platformMessage.Command.CommandType).Push(platformMessage);
         }
 
         private MessageOperationManager(Builder builder)

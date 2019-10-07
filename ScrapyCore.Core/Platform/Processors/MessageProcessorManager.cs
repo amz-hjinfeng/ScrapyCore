@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform.Processors
 {
-    public class MessageProcessorManager
+    public class MessageProcessorManager : IMessageProcessorManager
     {
         private Dictionary<CommandCode, IMessageProcessor> Processors { get; set; }
 
@@ -24,6 +24,7 @@ namespace ScrapyCore.Core.Platform.Processors
 
         private MessageProcessorManager(Builder builder)
         {
+            Processors = new Dictionary<CommandCode, IMessageProcessor>();
             Processors[CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController);
             Processors[CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache);
             Processors[CommandCode.Working] = new WorkingProcessor();
@@ -31,16 +32,18 @@ namespace ScrapyCore.Core.Platform.Processors
             // Need All System things to couple inside.
         }
 
-        public static Builder NewBuilder()
-        {
-            return new Builder();
-        }
-
         public class Builder
         {
             public ISystemController SystemController { get; private set; }
 
             public ICache HeartbeatCache { get; private set; }
+
+            public static Builder NewBuilder()
+            {
+                return new Builder();
+            }
+
+            private Builder() { }
 
             public MessageProcessorManager Build()
             {

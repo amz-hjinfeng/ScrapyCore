@@ -1,6 +1,7 @@
 ﻿using ScrapyCore.Core;
 using log4net;
 using System;
+using ScrapyCore.Core.HostMachine;
 
 namespace ScrapyCore.Utralisks
 {
@@ -9,7 +10,8 @@ namespace ScrapyCore.Utralisks
         static void Main(string[] args)
         {
             Bootstrap bootstrap = new Bootstrap();
-            UtralisksSystemController utralisksSystemController = new UtralisksSystemController(bootstrap);
+            IHostedMachine hostedMachine = new HostedLocalMachine();
+            UtralisksSystemController utralisksSystemController = new UtralisksSystemController(bootstrap, hostedMachine);
             utralisksSystemController.Start();
         }
     }

@@ -9,12 +9,12 @@ namespace ScrapyCore.Core.Platform.MessageOperation
 {
     public class RandomOperation : MessageRawOperation
     {
-        public RandomOperation(MessageProcessorManager messageProcessorManager)
+        public RandomOperation(IMessageProcessorManager messageProcessorManager)
         {
             MessageProcessorManager = messageProcessorManager;
         }
 
-        public MessageProcessorManager MessageProcessorManager { get; }
+        public IMessageProcessorManager MessageProcessorManager { get; }
 
         public override Task Push(PlatformMessage platformMessage)
         {

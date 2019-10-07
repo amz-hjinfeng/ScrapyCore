@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using ScrapyCore.Core.Platform.Message;
+using ScrapyCore.Core.Platform.Processors.Model;
 
 namespace ScrapyCore.Core.Platform.Processors
 {
@@ -15,10 +17,17 @@ namespace ScrapyCore.Core.Platform.Processors
             this.channelStatus = channelStatus;
         }
 
-        public Task ProcessAsync(PlatformMessage platformMessage)
+        public async Task ProcessAsync(PlatformMessage platformMessage)
         {
-            ///Deserialze the body as 
-            return null;
+            string hbdInfo = Encoding.UTF8.GetString(platformMessage.MessageData);
+            HeartBeatModel heartBeatModel = JsonConvert.DeserializeObject<HeartBeatModel>(hbdInfo);
+            await channelStatus.StoreAsync("instance-" + heartBeatModel.Id, heartBeatModel);
+            await channelStatus.StoreAsync("channel-" + heartBeatModel.ChannelId, new ChannelModel()
+            {
+                Congestion = (DateTime.Now - heartBeatModel.SentTime).TotalMilliseconds,
+                Id = heartBeatModel.ChannelId
+            });
+
         }
     }
 }

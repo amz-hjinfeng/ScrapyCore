@@ -42,6 +42,14 @@ namespace ScrapyCore.Core
             Provisioning = new ProvisioningModel(model, initialStorage);
         }
 
+        public string GetVariableSet(string variableKey)
+        {
+            if (this.Provisioning.Variables.ContainsKey(variableKey))
+            {
+                return this.Provisioning.Variables[variableKey];
+            }
+            return string.Empty;
+        }
 
         public IMessageQueue GetMessageQueueFromVariableSet(string variableKey)
         {
