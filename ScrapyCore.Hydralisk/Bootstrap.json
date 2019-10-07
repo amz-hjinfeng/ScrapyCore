@@ -1,0 +1,62 @@
+﻿{
+  "Varables": [
+    [ "environment", "local" ],
+    [ "Entrance", "kerrigan-hydralisk" ],
+    [ "Termination", "hydralisk-utralisks" ],
+    [ "HeartbeatCache", "default-cache" ]
+  ],
+  "Bootstrap": {
+    "Storage": "configure/{$environment}/bootstrap-storage.json",
+    "ThreadMode": "Manual"
+  },
+  "Provisioning": {
+    "Storages": [
+      {
+        "Name": "hydralisk",
+        "ConfigureFile": "configure/{$environment}/hydralisk.json"
+      },
+      {
+        "Name": "kerrigan",
+        "ConfigureFile": "configure/{$environment}/kerrigan.json"
+      }
+    ],
+    "MessageQueues": [
+      {
+        "Name": "kerrigan-hydralisk",
+        "ConfigureFile": "configure/{$environment}/kerrigan-hydralisk.json"
+      },
+      {
+        "Name": "hydralisk-utralisks",
+        "ConfigureFile": "configure/{$environment}/hydralisk-utralisk.json"
+      },
+      {
+        "Name": "utralisks-kerrigan",
+        "ConfigureFile": "configure/{$environment}/utralisk-kerrigan.json"
+      }
+    ],
+    "UserAgents": [
+      {
+        "Name": "default-agents",
+        "ConfigureFile": "configure/{$environment}/user-agents.json"
+      }
+    ],
+    "Caches": [
+      {
+        "Name": "default-cache",
+        "ConfigureFile": "configure/{$environment}/redis-cache.json"
+      }
+    ],
+    "Analyzer": [
+      {
+        "Name": "regex-url",
+        "ConfigureFile": "configure/{$environment}/regex-url.json"
+      }
+    ]
+  },
+  "LazyLoad": {
+    "Storage": [],
+    "MessageQueues": [],
+    "UserAgent": [],
+    "Caches": []
+  }
+}

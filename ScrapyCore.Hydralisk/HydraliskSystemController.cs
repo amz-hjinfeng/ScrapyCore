@@ -7,21 +7,18 @@ using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors.Model;
 using ScrapyCore.Core.Platform.System;
-using ScrapyCore.Kerrigan.WebHosting;
+using ScrapyCore.Hydralisk.WebHosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ScrapyCore.Kerrigan
+namespace ScrapyCore.Hydralisk
 {
-    public class KerriganSystemController : SystemController
+    public class HydraliskSystemController : SystemController
     {
         private readonly IHostedMachine hostedMachine;
         private IMessagePipline messagePipline;
         private IMessageQueue messageOut;
-        public KerriganSystemController(Bootstrap bootstrap, IHostedMachine hostedMachine)
+        public HydraliskSystemController(Bootstrap bootstrap, IHostedMachine hostedMachine)
             : base(bootstrap)
         {
             IMessageEntrance messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
@@ -33,7 +30,6 @@ namespace ScrapyCore.Kerrigan
 
         protected override void HeartBeatProcessor()
         {
-            //Do nothing first for integrating with Utralisks
             PlatformMessage platformMessage = new PlatformMessage()
             {
                 Command = new Core.Platform.Commands.Command()

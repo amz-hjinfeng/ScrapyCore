@@ -1,0 +1,18 @@
+{
+  "MessageQueueEngine": "RabbitMQ",
+  "QueueName": "Hydralisk",
+  "Configure": [
+    [ "exchange", "ex-heartofswarm" ],
+    [ "route-key", "Hydralisk" ],
+    [ "host-name", "localhost" ],
+    [ "user-name", "usr-hydralisk" ],
+    [ "password", "usr-hydralisk" ],
+    [ "virtual-host", "/" ],
+    [ "type", "direct" ],
+    [ "ex-durable", "false" ],
+    [ "ex-auto-delete", "false" ],
+    [ "q-durable", "true" ],
+    [ "q-exclusive", "false" ],
+    [ "q-auto-delete", "false" ]
+  ]
+}

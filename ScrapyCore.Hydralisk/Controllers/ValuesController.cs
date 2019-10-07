@@ -1,28 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ScrapyCore.Core;
 
-namespace ScrapyCore.HeartOfSwarm.Controllers
+namespace ScrapyCore.Utralisks.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : Controller
+    public class ValuesController : ControllerBase
     {
-        private readonly ICache cache;
-
-        public ValuesController(ICache cache)
-        {
-            this.cache = cache;
-        }
-
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> GetKeys()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return cache.SearchKeys("instance*").Result;
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

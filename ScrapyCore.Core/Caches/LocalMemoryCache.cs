@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,12 +79,17 @@ namespace ScrapyCore.Core.Caches
             return Task.FromResult(Restore<T>(key));
         }
 
-        public override void Store<T>(string key, T model)
+        public override Task<IEnumerable<string>> SearchKeys(string keyPatten)
         {
             throw new NotImplementedException();
         }
 
-        public override Task StoreAsync<T>(string key, T model)
+        public override void Store<T>(string key, T model, TimeSpan? timeSpan = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task StoreAsync<T>(string key, T model, TimeSpan? timeSpan = null)
         {
             throw new NotImplementedException();
         }

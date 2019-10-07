@@ -6,6 +6,7 @@ using ScrapyCore.Core.External;
 using ScrapyCore.Core.External.Conventor;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ScrapyCore.Core.Caches
 {
@@ -13,6 +14,7 @@ namespace ScrapyCore.Core.Caches
     {
         private ConnectionMultiplexer connection;
         private IDatabase database;
+        private IServer server;
 
         public RedisCache(ICachingConfigure cachingConfigure)
             : base(cachingConfigure)
@@ -35,6 +37,7 @@ namespace ScrapyCore.Core.Caches
             cachingConfigure.ConfigureDetail.DefaultValue("end-points").Split(';').ToList().ForEach(x => configureOptions.EndPoints.Add(x));
 
             connection = ConnectionMultiplexer.Connect(configureOptions);
+            server = connection.GetServer(connection.GetEndPoints()[0]);
             database = connection.GetDatabase();
         }
 
@@ -86,7 +89,7 @@ namespace ScrapyCore.Core.Caches
             return obj;
         }
 
-        public override void Store<T>(string key, T model)
+        public override void Store<T>(string key, T model, TimeSpan? timeSpan = null)
         {
             Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
@@ -94,11 +97,17 @@ namespace ScrapyCore.Core.Caches
 
         }
 
-        public override async Task StoreAsync<T>(string key, T model)
+        public override async Task StoreAsync<T>(string key, T model, TimeSpan? timeSpan = null)
         {
             Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
             await database.StringSetAsync(key, json);
+
+        }
+
+        public override Task<IEnumerable<string>> SearchKeys(string keyPatten)
+        {
+            return Task.FromResult(server.Keys(pattern: keyPatten).Cast<string>());
         }
     }
 }

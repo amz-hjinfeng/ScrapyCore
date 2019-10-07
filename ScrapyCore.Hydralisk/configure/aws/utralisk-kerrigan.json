@@ -1,0 +1,18 @@
+{
+  "MessageQueueEngine": "RabbitMQ",
+  "QueueName": "Utralisks",
+  "Configure": [
+    [ "exchange", "ex-heartofswarm" ],
+    [ "route-key", "Utralisks" ],
+    [ "host-name", "172.0.0.1:5672" ],
+    [ "user-name", "usr-utralisk" ],
+    [ "password", "usr-utralisk" ],
+    [ "virtual-host", "/" ],
+    [ "type", "direct" ],
+    [ "ex-durable", "false" ],
+    [ "ex-auto-delete", "false" ],
+    [ "q-durable", "true" ],
+    [ "q-exclusive", "false" ],
+    [ "q-auto-delete", "false" ]
+  ]
+}
