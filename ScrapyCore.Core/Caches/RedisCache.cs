@@ -107,7 +107,7 @@ namespace ScrapyCore.Core.Caches
 
         public override Task<IEnumerable<string>> SearchKeys(string keyPatten)
         {
-            return Task.FromResult(server.Keys(pattern: keyPatten).Cast<string>());
+            return Task.FromResult(server.Keys(pattern: keyPatten).Select(x => x.ToString()));
         }
     }
 }
