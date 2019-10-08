@@ -26,6 +26,15 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
             var groups = keys.Select(x => cache.Restore<HeartBeatModel>(x)).GroupBy(y => y.ChannelId);
             var dic = groups.ToDictionary(x => x.Key, x => x.Count());
 
+            if (dic == null || dic.Count < 1)
+            {
+                return Json(new
+                {
+                    kerrrigan = 0,
+                    hydralisk = 0,
+                    utralisks = 0
+                });
+            }
 
             return Json(new
             {

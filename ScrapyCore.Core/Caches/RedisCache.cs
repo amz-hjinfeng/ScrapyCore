@@ -93,7 +93,7 @@ namespace ScrapyCore.Core.Caches
         {
             Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
-            var result = database.StringSet(key, json);
+            var result = database.StringSet(key, json, expiry: timeSpan);
 
         }
 
@@ -101,7 +101,7 @@ namespace ScrapyCore.Core.Caches
         {
             Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
-            await database.StringSetAsync(key, json);
+            await database.StringSetAsync(key, json, expiry: timeSpan);
 
         }
 
