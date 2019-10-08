@@ -10,8 +10,8 @@ namespace ScrapyCore.Core.HostMachine
 {
     public class HostedLocalMachine : HostedMachine
     {
-        private string privateIpAddress;
-        private string id;
+        private readonly string privateIpAddress;
+        private readonly string id;
         public override string Id => id;
         public override string PrivateIpAddress => privateIpAddress;
         public override string PublicIpAddress => GetPublicIpAddressViaSohu();

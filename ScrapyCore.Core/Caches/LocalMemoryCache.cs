@@ -66,7 +66,7 @@ namespace ScrapyCore.Core.Caches
         {
             if (memory.ContainsKey(key) && memory.TryGetValue(key, out var model) && !IsExpire(model))
             {
-                return model.data as T;
+                return model.Data as T;
             }
             else
             {
@@ -103,7 +103,7 @@ namespace ScrapyCore.Core.Caches
         {
             public DateTime LastUpdate { get; set; }
 
-            public Object data { get; set; }
+            public Object Data { get; set; }
 
         }
 

@@ -45,7 +45,8 @@ namespace ScrapyCore.Utralisks
             {
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
-                Id = hostedMachine.Id
+                Id = hostedMachine.Id,
+                Model = "Utralisks"
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

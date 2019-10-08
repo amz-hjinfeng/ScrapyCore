@@ -12,8 +12,8 @@ namespace ScrapyCore.Tests.Core.Platform
     public class MessageEntranceTest
     {
         MessageEntrance messageEntrance;
-        private PlatformMessage PlatformMessageInQueue;
-        private PlatformMessage PlatformMessageInMemory;
+        private readonly PlatformMessage PlatformMessageInQueue;
+        private readonly PlatformMessage PlatformMessageInMemory;
         public MessageEntranceTest()
         {
             this.PlatformMessageInQueue = new PlatformMessage()

@@ -24,11 +24,13 @@ namespace ScrapyCore.Core.Platform.Processors
 
         private MessageProcessorManager(Builder builder)
         {
-            Processors = new Dictionary<CommandCode, IMessageProcessor>();
-            Processors[CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController);
-            Processors[CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache);
-            Processors[CommandCode.Working] = new WorkingProcessor();
-            Processors[CommandCode.Configure] = new ConfigureProcessor();
+            Processors = new Dictionary<CommandCode, IMessageProcessor>
+            {
+                [CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController),
+                [CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache),
+                [CommandCode.Working] = new WorkingProcessor(),
+                [CommandCode.Configure] = new ConfigureProcessor()
+            };
             // Need All System things to couple inside.
         }
 

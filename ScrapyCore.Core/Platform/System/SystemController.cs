@@ -30,14 +30,23 @@ namespace ScrapyCore.Core.Platform.System
         /// </summary>
         protected abstract void HeartBeatProcessor();
 
+        private void RollingHeartBeat()
+        {
+            while (SYSTEM_STOP != SystemStatus)
+            {
+                HeartBeatProcessor();
+                Thread.Sleep(100);
+            }
+        }
+
+
         public virtual void Start()
         {
             SystemStatus = SYSTEM_ON;
             bootstrap.Provisioning.ThreadManager.DoWork(ProvisionWebHost);
+            bootstrap.Provisioning.ThreadManager.DoWork(RollingHeartBeat);
             while (SystemStatus != SYSTEM_STOP)
             {
-                HeartBeatProcessor();
-                Thread.Sleep(10);
                 if (SystemStatus == SYSTEM_PAUSE) continue;
                 bootstrap.Provisioning.ThreadManager.DoWork(Processor);
             }

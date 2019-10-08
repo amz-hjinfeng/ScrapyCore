@@ -11,5 +11,7 @@ namespace ScrapyCore.Core.Platform.Processors.Model
         public DateTime SentTime { get; set; }
 
         public string ChannelId { get; set; }
+
+        public string Model { get; set; }
     }
 }

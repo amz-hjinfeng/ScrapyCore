@@ -46,6 +46,7 @@ namespace ScrapyCore.HeartOfSwarm
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseStaticFiles();
             app.UseDeveloperExceptionPage();
             app.UseMvc();
 

@@ -20,6 +20,7 @@ namespace ScrapyCore.Core
 {
     public class Bootstrap
     {
+        private const int MAX_THREAD = 10;
         private static ILog logger;
 
         private IStorage initialStorage;
@@ -80,7 +81,7 @@ namespace ScrapyCore.Core
             public ProvisioningModel(Model model, IStorage storage)
             {
                 Variables = model.Varables.ToDictionary(x => x[0], x => x[1]);
-                this.ThreadManager = Threading.ThreadManager.BuildThreadManager(model.Bootstrap.ThreadMode, 100);
+                this.ThreadManager = Threading.ThreadManager.BuildThreadManager(model.Bootstrap.ThreadMode, MAX_THREAD);
                 Storage = storage;
                 Dictionary<string, IStorage> storages = new Dictionary<string, IStorage>();
                 Dictionary<string, ICache> caches = new Dictionary<string, ICache>();

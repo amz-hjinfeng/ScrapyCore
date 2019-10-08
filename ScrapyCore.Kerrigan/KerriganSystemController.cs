@@ -47,7 +47,8 @@ namespace ScrapyCore.Kerrigan
             {
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
-                Id = hostedMachine.Id
+                Id = hostedMachine.Id,
+                Model = "Kerrigan"
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

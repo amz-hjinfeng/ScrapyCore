@@ -43,7 +43,8 @@ namespace ScrapyCore.Hydralisk
             {
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
-                Id = hostedMachine.Id
+                Id = hostedMachine.Id,
+                Model ="Hydralisk"
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()
