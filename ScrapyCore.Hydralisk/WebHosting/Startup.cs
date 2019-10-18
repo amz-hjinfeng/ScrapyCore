@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ScrapyCore.Apis;
+using ScrapyCore.Core;
+using ScrapyCore.Core.Platform.System;
+using System.Reflection;
 
 namespace ScrapyCore.Hydralisk.WebHosting
 {
     public class Startup
     {
+        public static ISystemController SystemController { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -18,8 +23,10 @@ namespace ScrapyCore.Hydralisk.WebHosting
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var assembly = typeof(ApiConst).GetTypeInfo().Assembly;
+            services.AddSingleton(x => SystemController.MessagePipline.Entrance);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddApplicationPart(assembly);
+            services.AddSingleton(Bootstrap.DefaultInstance.GetCachedFromVariableSet("HeartbeatCache"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

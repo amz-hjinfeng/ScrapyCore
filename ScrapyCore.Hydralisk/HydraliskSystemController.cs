@@ -69,6 +69,7 @@ namespace ScrapyCore.Hydralisk
         protected override void ProvisionWebHost()
         {
             logger.Info("Provision Web Host Started");
+            Startup.SystemController = this;
             WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build().Run();
         }
     }
