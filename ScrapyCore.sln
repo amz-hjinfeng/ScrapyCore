@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Utralisks", "Scr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCpre.Fundamental", "ScrapyCpre.Fundamental\ScrapyCpre.Fundamental.csproj", "{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCode.Apis", "ScrapyCode.Apis\ScrapyCode.Apis.csproj", "{09130C28-610C-4562-BCD7-47379CA64565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09130C28-610C-4562-BCD7-47379CA64565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09130C28-610C-4562-BCD7-47379CA64565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09130C28-610C-4562-BCD7-47379CA64565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09130C28-610C-4562-BCD7-47379CA64565}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

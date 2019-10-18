@@ -17,7 +17,7 @@ namespace ScrapyCore.Core.Platform.MessageOperation
                 if (platformMessage.NextJump != null)
                 {
                     logger.Info("Jump tp " + platformMessage.NextJump.Id);
-                    HttpWebRequest httpWebRequest = WebRequest.CreateHttp(new Uri($"http://{platformMessage.NextJump.IpAddress}/SiteToSiteJump", UriKind.Absolute));
+                    HttpWebRequest httpWebRequest = WebRequest.CreateHttp(new Uri($"http://{platformMessage.NextJump.IpAddress}/api/SiteToSiteJump", UriKind.Absolute));
                     httpWebRequest.Headers.Add("x-principal", platformMessage.NextJump.IpAddress);
                     httpWebRequest.Headers.Add("x-principal-id", platformMessage.NextJump.Id);
                     httpWebRequest.Method = "POST";

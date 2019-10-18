@@ -12,7 +12,9 @@ namespace ScrapyCore.Core.Platform.Message
         public List<MessageRoute> Routes { get; set; }
 
         public byte[] MessageData { get; set; }
-
+        /// <summary>
+        /// This field will avaiable for the Site to Site Command.
+        /// </summary>
         public Pricipal NextJump { get; set; }
 
         public PlatformMessage()

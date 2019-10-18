@@ -20,10 +20,11 @@ namespace ScrapyCore.Utralisks
         private readonly IHostedMachine hostedMachine;
         private IMessagePipline messagePipline;
         private IMessageQueue messageOut;
+        private IMessageEntrance messageEntrance;
         public UtralisksSystemController(Bootstrap bootstrap, IHostedMachine hostedMachine)
             : base(bootstrap)
         {
-            IMessageEntrance messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");

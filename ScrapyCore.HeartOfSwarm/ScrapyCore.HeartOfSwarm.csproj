@@ -5,75 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+    <Folder Include="configure\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App">
       <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
       <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
+    <Content Remove="configure\aws\hydralisk.json" />
+    <Content Remove="configure\aws\kerrigan-hydralisk.json" />
+    <Content Remove="configure\aws\bootstrap-storage.json" />
+    <Content Remove="configure\aws\Kerrigan.json" />
+    <Content Remove="configure\aws\hydralisk-utralisk.json" />
+    <Content Remove="configure\aws\redis-cache.json" />
+    <Content Remove="wwwroot\js\amazeui.ie8polyfill.min.js" />
+    <Content Remove="wwwroot\js\amazeui.js" />
+    <Content Remove="wwwroot\js\amazeui.min.js" />
+    <Content Remove="wwwroot\js\amazeui.widgets.helper.js" />
+    <Content Remove="wwwroot\js\amazeui.widgets.helper.min.js" />
+    <Content Remove="wwwroot\js\app.js" />
+    <Content Remove="wwwroot\js\handlebars.min.js" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Bootstrap.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\bootstrap-storage.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\hydralisk-utralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\hydralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\kerrigan-hydralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\Kerrigan.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\redis-cache.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\user-agents.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\aws\utralisk-kerrigan.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\bootstrap-storage.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\hydralisk-utralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\hydralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\kerrigan-hydralisk.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\Kerrigan.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\redis-cache.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\user-agents.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="configure\local\utralisk-kerrigan.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

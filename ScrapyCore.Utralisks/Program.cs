@@ -9,7 +9,7 @@ namespace ScrapyCore.Utralisks
     {
         static void Main(string[] args)
         {
-            Bootstrap bootstrap = new Bootstrap();
+            Bootstrap bootstrap = Bootstrap.DefaultInstance;
             IHostedMachine hostedMachine = new HostedLocalMachine();
             UtralisksSystemController utralisksSystemController = new UtralisksSystemController(bootstrap, hostedMachine);
             utralisksSystemController.Start();

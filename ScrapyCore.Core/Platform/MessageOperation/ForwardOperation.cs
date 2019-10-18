@@ -16,6 +16,8 @@ namespace ScrapyCore.Core.Platform.MessageOperation
         }
         public override Task Push(PlatformMessage platformMessage)
         {
+            ///The transfer message should be process in next jump.
+            platformMessage.Command.CommandType = Commands.CommandTransfer.Random;
             return messageQueue.SendQueueMessage(platformMessage);
         }
     }

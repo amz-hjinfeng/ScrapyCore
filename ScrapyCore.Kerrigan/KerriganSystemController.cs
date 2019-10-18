@@ -71,7 +71,8 @@ namespace ScrapyCore.Kerrigan
         protected override void ProvisionWebHost()
         {
             logger.Info("Provision Web Host Started");
-            WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build().Run();
+            var webHost= WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build();
+            webHost.Run();
         }
     }
 }

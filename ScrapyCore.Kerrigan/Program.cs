@@ -8,7 +8,7 @@ namespace ScrapyCore.Kerrigan
     {
         static void Main(string[] args)
         {
-            Bootstrap bootstrap = new Bootstrap();
+            Bootstrap bootstrap = Bootstrap.DefaultInstance;
             IHostedMachine hostedMachine = new HostedLocalMachine();
             KerriganSystemController kerriganController = new KerriganSystemController(bootstrap, hostedMachine);
             kerriganController.Start();

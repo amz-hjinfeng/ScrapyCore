@@ -20,6 +20,19 @@ namespace ScrapyCore.Core
 {
     public class Bootstrap
     {
+        private static Bootstrap defaultInstance;
+        public static Bootstrap DefaultInstance
+        {
+            get
+            {
+                if(defaultInstance == null)
+                {
+                    defaultInstance = new Bootstrap();
+                }
+                return defaultInstance;
+            }
+        }
+
         private const int MAX_THREAD = 10;
         private static ILog logger;
 
@@ -138,7 +151,7 @@ namespace ScrapyCore.Core
                     {
                         Variables.ToList().ForEach(x => item.ConfigureFile = item.ConfigureFile.Replace("{$" + x.Key + "}", x.Value));
                         logger.Debug($"Provisioning:{item.Name}");
-                        logger.Info("Configure FIle:" + item.ConfigureFile);
+                        logger.Info("Configure File:" + item.ConfigureFile);
                         var configure = configurationFactory.CreateConfigure(this.Storage, item.ConfigureFile);
                         var instance = serviceFactory.GetService(configure);
                         container[item.Name] = instance;
