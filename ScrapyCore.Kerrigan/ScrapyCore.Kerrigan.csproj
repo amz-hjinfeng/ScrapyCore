@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ScrapyCode.Apis\ScrapyCore.Apis.csproj" />
     <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +83,5 @@
     <None Update="Bootstrap-local.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Apis\" />
   </ItemGroup>
 </Project>

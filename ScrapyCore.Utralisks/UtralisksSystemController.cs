@@ -31,6 +31,8 @@ namespace ScrapyCore.Utralisks
             this.hostedMachine = hostedMachine;
         }
 
+        public override IMessagePipline MessagePipline => this.messagePipline;
+
         protected override void HeartBeatProcessor()
         {
             PlatformMessage platformMessage = new PlatformMessage()

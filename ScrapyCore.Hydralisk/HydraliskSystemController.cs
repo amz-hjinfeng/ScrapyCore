@@ -28,6 +28,8 @@ namespace ScrapyCore.Hydralisk
             this.hostedMachine = hostedMachine;
         }
 
+        public override IMessagePipline MessagePipline => this.messagePipline;
+
         protected override void HeartBeatProcessor()
         {
             PlatformMessage platformMessage = new PlatformMessage()
@@ -44,7 +46,7 @@ namespace ScrapyCore.Hydralisk
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
                 Id = hostedMachine.Id,
-                Model ="Hydralisk"
+                Model = "Hydralisk"
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

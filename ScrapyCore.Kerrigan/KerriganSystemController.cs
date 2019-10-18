@@ -24,12 +24,14 @@ namespace ScrapyCore.Kerrigan
         public KerriganSystemController(Bootstrap bootstrap, IHostedMachine hostedMachine)
             : base(bootstrap)
         {
-            IMessageEntrance messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            var entrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
-            messagePipline = new MessagePipline(messageEntrance, messageTermination);
+            messagePipline = new MessagePipline(entrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
         }
+
+        public override IMessagePipline MessagePipline => this.messagePipline;
 
         protected override void HeartBeatProcessor()
         {
@@ -71,7 +73,8 @@ namespace ScrapyCore.Kerrigan
         protected override void ProvisionWebHost()
         {
             logger.Info("Provision Web Host Started");
-            var webHost= WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build();
+            Startup.SystemController = this;
+            var webHost = WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build();
             webHost.Run();
         }
     }

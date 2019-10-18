@@ -24,8 +24,7 @@ namespace ScrapyCore.Utralisks.WebHosting
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<ICache>(x => bootstrap.GetCachedFromVariableSet("HeartbeatCache"));
-            services.AddSingleton<IMessageEntrance>(x => bootstrap.GetMessageQueueFromVariableSet(""));
+            services.AddSingleton(x => bootstrap.GetCachedFromVariableSet("HeartbeatCache"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

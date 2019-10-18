@@ -12,6 +12,7 @@ namespace ScrapyCore.Core.Platform.System
         protected readonly Bootstrap bootstrap;
 
         protected int SystemStatus { get; set; }
+        public abstract IMessagePipline MessagePipline { get; }
 
         public SystemController(Bootstrap bootstrap)
         {

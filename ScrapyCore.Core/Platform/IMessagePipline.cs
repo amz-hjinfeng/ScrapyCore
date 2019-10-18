@@ -10,6 +10,9 @@ namespace ScrapyCore.Core.Platform
     /// </summary>
     public interface IMessagePipline
     {
+        IMessageEntrance Entrance { get; }
+        IMessageTermination Termination { get; }
+
         Task Drive();
         Task Drive(string[] args);
     }

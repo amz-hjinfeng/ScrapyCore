@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ScrapyCode.Apis\ScrapyCore.Apis.csproj" />
     <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
   </ItemGroup>
 
