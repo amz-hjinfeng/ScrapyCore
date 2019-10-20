@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapyCore.Core;
 using ScrapyCore.Core.Platform.Processors.Model;
+using ScrapyCore.Core.External;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,11 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
                     utralisks = 0
                 });
             }
-
             return Json(new
             {
-                kerrrigan = dic["kerrigan-hydralisk"],
-                hydralisk = dic["hydralisk-utralisks"],
-                utralisks = dic["utralisks-kerrigan"]
+                kerrrigan = dic.DefaultValue("kerrigan-hydralisk"),
+                hydralisk = dic.DefaultValue("hydralisk-utralisks"),
+                utralisks = dic.DefaultValue("utralisks-kerrigan")
             });
 
         }

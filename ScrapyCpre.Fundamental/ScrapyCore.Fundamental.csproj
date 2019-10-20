@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Sink\**" />
+    <EmbeddedResource Remove="Sink\**" />
+    <None Remove="Sink\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Swarm.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Kernel\Load\" />
+    <Folder Include="Kernel\Transform\" />
+    <Folder Include="Kernel\Input\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />
+  </ItemGroup>
+</Project>

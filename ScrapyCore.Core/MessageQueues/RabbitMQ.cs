@@ -47,7 +47,11 @@ namespace ScrapyCore.Core.MessageQueues
             channel.QueueDeclare(messageQueueConfigure.QueueName,
                 messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-durable", StringToBoolConvertor.Instance),
                 messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-exclusive", StringToBoolConvertor.Instance),
-                messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-auto-delete", StringToBoolConvertor.Instance)
+                messageQueueConfigure.ConfigureDetail.GetKeyAndConvertTo("q-auto-delete", StringToBoolConvertor.Instance),
+                new Dictionary<string, object>()
+                {
+                    { "x-queue-type","classic"}
+                }
                 );
 
 

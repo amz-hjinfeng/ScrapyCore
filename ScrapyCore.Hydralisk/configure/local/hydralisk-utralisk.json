@@ -9,7 +9,7 @@
     [ "password", "usr-hydralisk" ],
     [ "virtual-host", "/" ],
     [ "type", "direct" ],
-    [ "ex-durable", "false" ],
+    [ "ex-durable", "true" ],
     [ "ex-auto-delete", "false" ],
     [ "q-durable", "true" ],
     [ "q-exclusive", "false" ],

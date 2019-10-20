@@ -17,6 +17,7 @@
     <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
     <ProjectReference Include="..\ScrapyCore.Hydralisk\ScrapyCore.Hydralisk.csproj" />
     <ProjectReference Include="..\ScrapyCore.Kerrigan\ScrapyCore.Kerrigan.csproj" />
+    <ProjectReference Include="..\ScrapyCpre.Fundamental\ScrapyCore.Fundamental.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="MockData\Core\Configure\s3configure.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="MockData\Fundamental\Conventors\MockFileManualConvertor.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

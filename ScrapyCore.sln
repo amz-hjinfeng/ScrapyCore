@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.IntegrationTests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Utralisks", "ScrapyCore.Utralisks\ScrapyCore.Utralisks.csproj", "{A149B427-2DE2-47E7-A30B-3671D1B0CB4D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCpre.Fundamental", "ScrapyCpre.Fundamental\ScrapyCpre.Fundamental.csproj", "{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Fundamental", "ScrapyCpre.Fundamental\ScrapyCore.Fundamental.csproj", "{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Apis", "ScrapyCode.Apis\ScrapyCore.Apis.csproj", "{09130C28-610C-4562-BCD7-47379CA64565}"
 EndProject
