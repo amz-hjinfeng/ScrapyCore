@@ -45,6 +45,9 @@
     <None Update="MockData\Core\Configure\s3configure.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="MockData\Fundamental\Conventors\MockedHtml.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="MockData\Fundamental\Conventors\MockFileManualConvertor.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
