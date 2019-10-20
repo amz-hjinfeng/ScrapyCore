@@ -5,11 +5,12 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
 {
-    public class XPathInnerHtmlConvertor : Convertor
+    [Attributes.Convertor(nameof(XPathOuterHtmlConvertor), typeof(string))]
+    public class XPathOuterHtmlConvertor : Convertor
     {
         private readonly string xPathValue;
 
-        public XPathInnerHtmlConvertor(string xPathValue)
+        public XPathOuterHtmlConvertor(string xPathValue)
         {
             this.xPathValue = xPathValue;
         }
@@ -18,7 +19,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(contentData.ContentText);
-            contentData.ContentText = doc.DocumentNode.SelectSingleNode(xPathValue).InnerHtml;
+            contentData.ContentText = doc.DocumentNode.SelectSingleNode(xPathValue).OuterHtml;
             return contentData;
         }
     }

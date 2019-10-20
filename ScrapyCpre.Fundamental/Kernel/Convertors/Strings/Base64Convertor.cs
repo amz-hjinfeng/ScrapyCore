@@ -2,6 +2,7 @@
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
 {
+    [Attributes.Convertor(nameof(Base64Convertor), null)]
     public class Base64Convertor : Convertor
     {
         public override ContentData Convert(ContentData contentData)

@@ -6,11 +6,12 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 {
+    [Attributes.Convertor(nameof(EnumeratorConvertor), typeof(ConvertorInput))]
     public class FileManualConvertor : ManualConvertor
     {
-        private readonly ConvetorInput convetorInput;
+        private readonly ConvertorInput convetorInput;
 
-        public FileManualConvertor(ConvetorInput convetorInput)
+        public FileManualConvertor(ConvertorInput convetorInput)
         {
             this.convetorInput = convetorInput;
             if (string.IsNullOrEmpty(convetorInput.Encoding))
@@ -18,7 +19,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
             this.ManualData = File.ReadAllLines(convetorInput.Location, Encoding.GetEncoding(convetorInput.Encoding)).ToList();
         }
 
-        public class ConvetorInput
+        public class ConvertorInput
         {
             public string Encoding { get; set; }
 

@@ -24,7 +24,6 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
             });
             Assert.NotEmpty(contentResult.ContentText);
             Assert.Equal("86fb269d190d2c85f6e0468ceca42a20", contentResult.ContentText);
-
         }
     }
 }

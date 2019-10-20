@@ -4,6 +4,7 @@ using ScrapyCore.Core.External;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
 {
+    [Attributes.Convertor(nameof(Md5Convertor), null)]
     public class Md5Convertor : Convertor
     {
         public override ContentData Convert(ContentData contentData)

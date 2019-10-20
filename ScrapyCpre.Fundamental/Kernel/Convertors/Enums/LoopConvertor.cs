@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 {
+    [Attributes.Convertor(nameof(LoopConvertor), typeof(ConvertorInput))]
     public class LoopConvertor : EnumeratorConvertor
     {
         private readonly ConvertorInput convertorInput;

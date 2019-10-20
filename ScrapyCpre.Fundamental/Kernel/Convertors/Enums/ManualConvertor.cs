@@ -4,6 +4,7 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 {
+    [Attributes.Convertor(nameof(ManualConvertor), typeof(List<string>))]
     public class ManualConvertor : EnumeratorConvertor
     {
         public List<string> ManualData { get; set; }

@@ -8,10 +8,10 @@ using Xunit;
 
 namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
 {
-    public class XPathInnerHtmlConvertorTests
+    public class XPathOuterHtmlConvertorTests
     {
         public string htmlPath;
-        public XPathInnerHtmlConvertorTests()
+        public XPathOuterHtmlConvertorTests()
         {
             htmlPath = ConstVariable.ApplicationPath + "/MockData/Fundamental/Conventors/MockedHtml.html";
         }
@@ -24,11 +24,11 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
             {
                 ContentText = data
             };
-            XPathInnerHtmlConvertor pathConvertor =
-                new XPathInnerHtmlConvertor("/html/body/div[@class='mask-dark']");
+            XPathOuterHtmlConvertor pathConvertor =
+                new XPathOuterHtmlConvertor("/html/body/div[@class='mask-dark']");
             var contentResult = pathConvertor.Convert(contentData);
             Assert.NotEmpty(contentResult.ContentText);
-            Assert.Equal("test", contentResult.ContentText);
+            Assert.Equal("<div class=\"mask-dark\">test</div>", contentResult.ContentText);
 
 
         }

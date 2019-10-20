@@ -13,12 +13,12 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Enums
     {
         string dataPath;
 
-        FileManualConvertor.ConvetorInput conventorInput;
+        FileManualConvertor.ConvertorInput conventorInput;
 
         public FileManualConvertorTests()
         {
             dataPath = ConstVariable.ApplicationPath + "/MockData/Fundamental/Conventors/MockFileManualConvertor.txt";
-            conventorInput = new FileManualConvertor.ConvetorInput()
+            conventorInput = new FileManualConvertor.ConvertorInput()
             {
                 Encoding = "utf-8",
                 Location = dataPath
