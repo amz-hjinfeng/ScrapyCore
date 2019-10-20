@@ -20,7 +20,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
         public void ConvertTest()
         {
             string data = File.ReadAllText(htmlPath);
-            ContentData contentData = new ContentData()
+            ContextData contentData = new ContextData()
             {
                 ContentText = data
             };

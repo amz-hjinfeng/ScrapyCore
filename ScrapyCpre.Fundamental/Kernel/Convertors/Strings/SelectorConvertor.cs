@@ -14,9 +14,9 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
 
         public int SelectIndex { get; set; }
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
-            return new ContentData()
+            return new ContextData()
             {
                 ContentText = contentData.Listing[SelectIndex].ToString()
             };

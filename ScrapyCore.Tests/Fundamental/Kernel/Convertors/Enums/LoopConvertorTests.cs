@@ -31,7 +31,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Enums
         public void ConvertTest()
         {
             LoopConvertor loopConvertor = new LoopConvertor(convertorInput);
-            ContentData contentData = new ContentData()
+            ContextData contentData = new ContextData()
             {
                 ContentText = "Hello!{PAGE}"
             };

@@ -20,7 +20,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
             string srcData = "<div class=\"mask-dark\">test</div>";
             InnerTextConvertor innerTextConvertor = new InnerTextConvertor();
             Assert.Equal("test",
-                innerTextConvertor.Convert(new ContentData()
+                innerTextConvertor.Convert(new ContextData()
                 {
                     ContentText = srcData,
                 }).ContentText

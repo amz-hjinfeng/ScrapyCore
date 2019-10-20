@@ -14,9 +14,9 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
             this.convertorInput = convertorInput;
         }
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
-            ContentData ctData = new ContentData();
+            ContextData ctData = new ContextData();
             string[] splitedStrings = contentData.ContentText.Split(convertorInput.Spliter);
             if (convertorInput.Indexers != null && convertorInput.Indexers.Length > 0)
             {

@@ -24,7 +24,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
                 ReplaceTarget = replaceTarget
             });
 
-            var result = replaceConvertor.Convert(new ScrapyCore.Fundamental.Kernel.ContentData()
+            var result = replaceConvertor.Convert(new ScrapyCore.Fundamental.Kernel.ContextData()
             {
                 ContentText = source
             });

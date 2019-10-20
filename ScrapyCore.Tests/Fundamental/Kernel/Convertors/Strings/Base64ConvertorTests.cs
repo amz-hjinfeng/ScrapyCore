@@ -18,7 +18,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
         public void ConvertTest()
         {
             string testData = "abcdefghigkokasd;ladaenx";
-            var data = convertor.Convert(new ScrapyCore.Fundamental.Kernel.ContentData() { ContentText = testData });
+            var data = convertor.Convert(new ScrapyCore.Fundamental.Kernel.ContextData() { ContentText = testData });
 
             Assert.NotNull(data.ContentText);
             Assert.Equal("YWJjZGVmZ2hpZ2tva2FzZDtsYWRhZW54", data.ContentText);

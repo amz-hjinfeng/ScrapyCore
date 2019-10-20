@@ -9,7 +9,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
     [Attributes.Convertor(nameof(InnerTextConvertor), null)]
     public class InnerTextConvertor : Convertor
     {
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(contentData.ContentText);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 {
@@ -22,9 +20,9 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 
         public int Index { get; private set; } = -1;
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
-            return new ContentData { ContentText = Current };
+            return new ContextData { ContentText = Current };
         }
 
         public override bool MoveNext()

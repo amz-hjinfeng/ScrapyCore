@@ -14,7 +14,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
             this.convertorInput = convertorInput;
         }
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
             contentData.ContentText =
                 contentData.ContentText.Replace(

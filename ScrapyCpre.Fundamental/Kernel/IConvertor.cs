@@ -6,6 +6,6 @@ namespace ScrapyCore.Fundamental.Kernel
 {
     public interface IConvertor
     {
-        ContentData Convert(ContentData contentData);
+        ContextData Convert(ContextData contentData);
     }
 }

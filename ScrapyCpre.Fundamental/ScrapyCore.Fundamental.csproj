@@ -19,7 +19,7 @@
   <ItemGroup>
     <Folder Include="Kernel\Load\" />
     <Folder Include="Kernel\Transform\" />
-    <Folder Include="Kernel\Input\" />
+    <Folder Include="Kernel\Extract\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />

@@ -20,9 +20,9 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Enums
 
         public override string Current => Copy.Start.ToString();
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
-            return new ContentData()
+            return new ContextData()
             {
                 ContentText =
                 contentData.ContentText.Replace(

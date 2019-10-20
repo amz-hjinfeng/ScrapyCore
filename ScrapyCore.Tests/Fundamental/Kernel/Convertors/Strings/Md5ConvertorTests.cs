@@ -18,7 +18,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
         [Fact]
         public void ConvertTest()
         {
-            var contentResult = convertor.Convert(new ContentData()
+            var contentResult = convertor.Convert(new ContextData()
             {
                 ContentText = "Hello world!"
             });

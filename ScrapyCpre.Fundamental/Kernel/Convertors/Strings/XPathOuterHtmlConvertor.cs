@@ -15,7 +15,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
             this.xPathValue = xPathValue;
         }
 
-        public override ContentData Convert(ContentData contentData)
+        public override ContextData Convert(ContextData contentData)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(contentData.ContentText);

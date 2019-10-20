@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel
 {
-    public class ContentData
+    public class ContextData
     {
         public string ContentText { get; set; }
 
@@ -12,7 +12,7 @@ namespace ScrapyCore.Fundamental.Kernel
 
         public List<object> Listing { get; set; }
 
-        public ContentData()
+        public ContextData()
         {
             Session = new List<KeyValuePair<string, string>>();
             Listing = new List<object>();
