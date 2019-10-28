@@ -8,6 +8,6 @@ namespace ScrapyCore.Fundamental.Meta
     {
         public string Name { get; set; }
 
-        public Dictionary<string, string> Parameters { get; set; }
+        public object Parameter { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+{
+  "FieldDefinitions": [
+    {
+      "Title": "CompanyName",
+      "Name": "CompanyName",
+      "CanNullable": true,
+      "Sort": 0,
+      "ConvertorNavigators": [
+        {
+          "Name": "XPathOutHtml",
+          "Parameter": "/html/body/div[@class=company]"
+        },
+        {
+          "Name": "InnerText",
+          "Parameter": null
+        },
+        {
+          "Name": "Trim",
+          "Parameter": null
+        }
+      ]
+    }
+  ]
+}
