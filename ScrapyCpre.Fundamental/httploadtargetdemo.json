@@ -1,3 +1,19 @@
 {
+  "LandingTargets": [
+    {
+      "Types": "S3",
+      "Parameters": {
+        "Region": "ap-southeast-1",
+        "Bucket": "heart-of-swarm",
+        "Prefix": "news"
+      }
+    },
+    {
+      "Types": "Elasticache",
+      "Parameters": {
 
+      }
+    }
+
+  ]
 }
