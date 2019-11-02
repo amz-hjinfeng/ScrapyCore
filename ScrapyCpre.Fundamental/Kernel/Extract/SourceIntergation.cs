@@ -12,9 +12,9 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
     public class SourceIntergation : IWorkingMessageProcessor
     {
         private readonly ICache coreCache;
-        private readonly ExtractorManager extractorManager;
+        private readonly IExtractorManager extractorManager;
 
-        public SourceIntergation(ICache coreCache, ExtractorManager extractorManager)
+        public SourceIntergation(ICache coreCache, IExtractorManager extractorManager)
         {
             this.coreCache = coreCache;
             this.extractorManager = extractorManager;

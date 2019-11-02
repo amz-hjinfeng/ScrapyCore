@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScrapyCore.Fundamental.Kernel.Extract
+namespace ScrapyCore.Fundamental.Kernel.Extract.Http
 {
     public class HttpSource
     {

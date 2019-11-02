@@ -2,9 +2,7 @@
 using ScrapyCore.Core;
 using ScrapyCore.Core.Storages;
 using ScrapyCore.Fundamental.Kernel.Extract;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using ScrapyCore.Fundamental.Kernel.Extract.Http;
 using Xunit;
 
 namespace ScrapyCore.Tests.Fundamental.Kernel.Extract

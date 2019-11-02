@@ -37,6 +37,7 @@ namespace ScrapyCore.Hydralisk
 
         protected override void HeartBeatProcessor()
         {
+            // TODO: Refactor to a method or may a base method.
             PlatformMessage platformMessage = new PlatformMessage()
             {
                 Command = new Core.Platform.Commands.Command()

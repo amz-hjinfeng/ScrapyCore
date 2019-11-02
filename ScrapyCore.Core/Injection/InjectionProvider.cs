@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ScrapyCore.Core.Injection
 {
-    public class InjectionProvider
+    public class InjectionProvider : IInjectionProvider
     {
         private Dictionary<Type, Func<string, object>> TypeMapper { get; }
         public InjectionProvider(Bootstrap bootstrap)

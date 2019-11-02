@@ -44,6 +44,8 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
             Assert.True(fileInfo.Exists);
             Assert.NotEqual(0, fileInfo.Length);
             File.Delete(fileInfo.FullName);
+            Assert.Equal(userAgentPool, httpExtractor.UserAgentPool);
+            Assert.Equal(storage, httpExtractor.Storage);
 
 
         }
