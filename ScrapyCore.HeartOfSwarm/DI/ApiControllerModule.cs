@@ -14,7 +14,6 @@ namespace ScrapyCore.HeartOfSwarm.DI
 
         protected override void Load(ContainerBuilder builder)
         {
-
             base.Load(builder);
         }
     }

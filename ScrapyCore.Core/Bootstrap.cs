@@ -12,6 +12,7 @@ using ScrapyCore.Core.Configure.Caches;
 using ScrapyCore.Core.Configure.MessageQueue;
 using ScrapyCore.Core.Configure.Storage;
 using ScrapyCore.Core.Configure.UserAgents;
+using ScrapyCore.Core.Injection;
 using ScrapyCore.Core.MessageQueues;
 using ScrapyCore.Core.Storages;
 using ScrapyCore.Core.UserAgents;
@@ -25,7 +26,7 @@ namespace ScrapyCore.Core
         {
             get
             {
-                if(defaultInstance == null)
+                if (defaultInstance == null)
                 {
                     defaultInstance = new Bootstrap();
                 }
@@ -54,6 +55,7 @@ namespace ScrapyCore.Core
             initialStorage = StorageFactory.Factory.GetLocalStorage(applicationPath);
             var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString(boostrapFile));
             Provisioning = new ProvisioningModel(model, initialStorage);
+            injectionProvider = new InjectionProvider(this);
         }
 
         public string GetVariableSet(string variableKey)
@@ -85,6 +87,9 @@ namespace ScrapyCore.Core
             return null;
         }
 
+        public InjectionProvider injectionProvider { get; }
+
+
         public ProvisioningModel Provisioning { get; }
 
         public class ProvisioningModel
@@ -104,7 +109,7 @@ namespace ScrapyCore.Core
                 logger.Info("Provisioning Storage.");
                 Provision(model.Provisioning.Storages,
                     storages,
-                    StorageConfigureFactory.Instance,
+                    StorageConfigureFactory.Factory,
                     StorageFactory.Factory);
 
                 logger.Info("Provisioning Cache.");

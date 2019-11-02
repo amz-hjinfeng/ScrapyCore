@@ -8,7 +8,7 @@ namespace ScrapyCore.Core.Configure.Storage
     public class StorageConfigureFactory : IConfigurationFactory<IStorageConfigure>
     {
         private static StorageConfigureFactory _instance;
-        public static StorageConfigureFactory Instance
+        public static StorageConfigureFactory Factory
         {
             get
             {

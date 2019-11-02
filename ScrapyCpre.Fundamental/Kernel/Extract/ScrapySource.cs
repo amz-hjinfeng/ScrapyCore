@@ -4,8 +4,10 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Extract
 {
-    public abstract class ScrapySource
+    public class ScrapySource
     {
-
+        public string MessageId { get; set; }
+        public string JobId { get; set; }
+        public SourceObject Source { get; set; }
     }
 }

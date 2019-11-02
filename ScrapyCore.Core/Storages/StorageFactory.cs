@@ -35,6 +35,12 @@ namespace ScrapyCore.Core.Storages
 
         }
 
+        public IStorage GetMemoryAsStorage()
+        {
+            return new MemoryAsStorage();
+        }
+
+
         public IStorage GetLocalStorage(string prefix)
         {
             return new LocalFileSystemStorage(prefix);

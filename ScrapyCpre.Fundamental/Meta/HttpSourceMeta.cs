@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ScrapyCore.Fundamental.Kernel.Extract
 {
-    public class HttpSource : ScrapySource
+    public class HttpSourceMeta
     {
         private CookieContainer _cookieContainer = new CookieContainer();
         private int _cookieClean = 0;
@@ -34,7 +34,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
 
         public ConvertorNavigator UrlConventorNavigator { get; set; }
 
-        public HttpSource()
+        public HttpSourceMeta()
         {
             Encoding = "utf-8";
             ContentType = "text/html; charset=utf-8";

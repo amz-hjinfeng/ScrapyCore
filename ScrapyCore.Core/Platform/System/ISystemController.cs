@@ -5,6 +5,8 @@ namespace ScrapyCore.Core.Platform.System
     {
         IMessagePipline MessagePipline { get; }
 
+        IWorkingMessageProcessor WorkingProcessor { get; }
+
         void Start();
 
         void Pause();

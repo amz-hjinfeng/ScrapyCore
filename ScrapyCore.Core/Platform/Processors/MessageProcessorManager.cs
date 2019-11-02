@@ -28,7 +28,7 @@ namespace ScrapyCore.Core.Platform.Processors
             {
                 [CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController),
                 [CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache),
-                [CommandCode.Working] = new WorkingProcessor(),
+                [CommandCode.Working] = new WorkingProcessor(builder.SystemController.WorkingProcessor),
                 [CommandCode.Configure] = new ConfigureProcessor()
             };
             // Need All System things to couple inside.

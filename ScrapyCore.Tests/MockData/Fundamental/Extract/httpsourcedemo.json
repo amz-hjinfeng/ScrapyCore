@@ -1,0 +1,26 @@
+{
+  "MessageId": "186f5599-1eb0-498f-8104-fb8111611d51",
+  "JobId": "afdbc418-c2fe-42c8-9ad3-e4b88a26a968",
+  "Source": {
+    "Type": "Http",
+    "Parameters": {
+      "Encoding": "utf-8",
+      "ContentType": "text/html; charset=utf-8",
+      "Method": "GET",
+      "Referer": "http://www.sina.com.cn",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+      "UserAgent": "Chrome_1", // This should comes from the User Agent Pool. and will randomly by the kerrigan.
+      "Header": {
+        "Accept-Language": "zh-CN,zh;q=0.8,en;q=0.6",
+        "Cache-Control": "max-age=0"
+      },
+      "Url": "https://news.sina.com.cn/c/2019-10-27/doc-iicezzrr5215576.shtml?cre=tianyi&mod=pchp&loc=10&r=0&rfunc=91&tj=none&tr=12"
+    }
+  }
+}
+
+///This is just a http source method.
+///This message will be store in redis and will be delete after the load completed.
+///This is a split message by the kerrigan.
+
+

@@ -9,11 +9,6 @@
     <ProjectReference Include="..\ScrapyCode.Apis\ScrapyCore.Apis.csproj" />
     <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="log\.DS_Store" />
-    <None Remove="log\r\log.txt" />
-  </ItemGroup>
   <ItemGroup>
     <None Update="Bootstrap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

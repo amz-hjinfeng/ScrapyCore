@@ -14,7 +14,7 @@ namespace ScrapyCore.Tests.Core.Configure
         public AmazonS3ConfigureTests()
         {
             IStorage storage =StorageFactory.Factory.GetLocalStorage(ConstVariable.ApplicationPath);
-            s3Configure= StorageConfigureFactory.Instance.CreateConfigure(storage, "MockData/Core/Configure/s3configure.json");
+            s3Configure= StorageConfigureFactory.Factory.CreateConfigure(storage, "MockData/Core/Configure/s3configure.json");
         }
 
         [Fact]

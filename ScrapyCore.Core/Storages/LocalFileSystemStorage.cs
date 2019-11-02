@@ -28,5 +28,25 @@ namespace ScrapyCore.Core.Storages
         {
             return File.ReadAllTextAsync(path);
         }
+
+        public override async Task WriteBytes(byte[] byteArray, string path)
+        {
+            using (var fs = File.OpenWrite(Path.Combine(prefix, path)))
+            {
+                await fs.WriteAsync(byteArray, 0, byteArray.Length);
+                await fs.FlushAsync();
+                fs.Close();
+            }
+        }
+
+        public override async Task WriteStream(Stream stream, string path)
+        {
+            using (var fs = File.OpenWrite(Path.Combine(prefix, path)))
+            {
+                await stream.CopyToAsync(fs);
+                await fs.FlushAsync();
+                fs.Close();
+            }
+        }
     }
 }

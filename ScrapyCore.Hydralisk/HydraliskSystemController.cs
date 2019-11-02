@@ -7,6 +7,7 @@ using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors.Model;
 using ScrapyCore.Core.Platform.System;
+using ScrapyCore.Fundamental.Kernel.Extract;
 using ScrapyCore.Hydralisk.WebHosting;
 using System;
 using System.Text;
@@ -26,7 +27,11 @@ namespace ScrapyCore.Hydralisk
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
+            //TODO : Cache should comes from the variable.
+            WorkingProcessor = new SourceIntergation(bootstrap.Provisioning.Caches["default-cache"],
+                new ExtractorManager(bootstrap.injectionProvider));
         }
+        public override IWorkingMessageProcessor WorkingProcessor { get; }
 
         public override IMessagePipline MessagePipline => this.messagePipline;
 
