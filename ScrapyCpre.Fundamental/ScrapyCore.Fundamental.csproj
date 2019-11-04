@@ -17,9 +17,6 @@
     <Compile Remove="Swarm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Kernel\Transform\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />
   </ItemGroup>
 </Project>

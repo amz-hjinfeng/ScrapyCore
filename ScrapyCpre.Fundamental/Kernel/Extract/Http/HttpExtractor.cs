@@ -45,6 +45,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 var response = await webRequest.GetResponseAsync();
                 Stream stream = response.GetResponseStream();
                 await Storage.WriteStream(stream, path);
+                stream.Dispose();
             }
             catch (Exception ex)
             {

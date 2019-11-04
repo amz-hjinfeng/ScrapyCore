@@ -6,20 +6,18 @@
       "Type": "Stroage",
       "Name": "Aritical",
       "Context": {
-        "Dependency": {
-          "StorageType": "AmazonS3",
-          "Prefix": "/prefix",
-          "Configure": [
-            [ "region", "ap-southeast-1" ],
-            [ "bucket", "hjinfeng-bucket" ]
-          ]
-        }
+        "StorageType": "AmazonS3",
+        "Prefix": "/prefix",
+        "Configure": [
+          [ "region", "ap-southeast-1" ],
+          [ "bucket", "hjinfeng-bucket" ]
+        ]
       }
     }
   ],
   "Data": [
     {
-      "DataPacket": "/sina/level7/0201.json",
+      "DataPacket": "Transform/sina/level7/0201.json",
       "Provider": {
         "Name": "Storage-WebDownloadBucket",
         "Parameter": "Hello.json"

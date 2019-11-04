@@ -1,4 +1,5 @@
 ﻿using log4net;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -20,5 +21,6 @@ namespace ScrapyCore.Core.Storages
         public abstract string GetString(string path);
         public abstract Task WriteStream(Stream stream, string path);
         public abstract Task WriteBytes(byte[] byteArray, string path);
+        public abstract Task ReadAsStream(string path, Func<Stream, Task> streamUsage);
     }
 }

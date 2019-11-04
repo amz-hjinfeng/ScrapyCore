@@ -18,5 +18,7 @@ namespace ScrapyCore.Core
 
         Task WriteBytes(byte[] byteArray, string path);
 
+        Task ReadAsStream(string path, Func<Stream, Task> streamUsage);
+
     }
 }

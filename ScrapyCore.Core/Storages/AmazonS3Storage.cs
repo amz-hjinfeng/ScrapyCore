@@ -55,6 +55,27 @@ namespace ScrapyCore.Core.Storages
             }
         }
 
+        public override async Task ReadAsStream(string path, Func<Stream, Task> streamUsage)
+        {
+            try
+            {
+                var response = await this.amazonS3Client.GetObjectAsync(new GetObjectRequest()
+                {
+                    BucketName = bucketName,
+                    Key = Prefix + path,
+                });
+
+                using (var stream = response.ResponseStream)
+                {
+                    await streamUsage(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Get Object exception:" + path, ex);
+            }
+        }
+
         public override Task WriteBytes(byte[] byteArray, string path)
         {
             throw new NotImplementedException();
@@ -66,6 +87,7 @@ namespace ScrapyCore.Core.Storages
             {
                 var response = await this.amazonS3Client.PutObjectAsync(new PutObjectRequest()
                 {
+                    BucketName = bucketName,
                     InputStream = stream,
                     Key = Prefix + path
                 });

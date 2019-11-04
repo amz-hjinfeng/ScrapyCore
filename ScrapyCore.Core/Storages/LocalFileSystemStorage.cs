@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using ScrapyCore.Core.Configure;
 
@@ -26,7 +27,15 @@ namespace ScrapyCore.Core.Storages
 
         public override Task<string> GetStringAsync(string path)
         {
-            return File.ReadAllTextAsync(path);
+            return File.ReadAllTextAsync(Path.Combine(prefix, path));
+        }
+
+        public override async Task ReadAsStream(string path, Func<Stream, Task> streamUsage)
+        {
+            using (var stream = new FileStream(Path.Combine(prefix, path), FileMode.Open, FileAccess.Read))
+            {
+                await streamUsage(stream);
+            }
         }
 
         public override async Task WriteBytes(byte[] byteArray, string path)

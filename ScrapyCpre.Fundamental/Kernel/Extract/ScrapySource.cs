@@ -8,6 +8,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
     {
         public string MessageId { get; set; }
         public string JobId { get; set; }
+        public string SaveTo { get; set; }
         public SourceObject Source { get; set; }
     }
 }

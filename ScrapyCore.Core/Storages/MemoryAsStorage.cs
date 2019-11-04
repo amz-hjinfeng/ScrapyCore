@@ -30,6 +30,11 @@ namespace ScrapyCore.Core.Storages
             return Task.FromResult(GetString(path));
         }
 
+        public override Task ReadAsStream(string path, Func<Stream, Task> streamUsage)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Task WriteBytes(byte[] byteArray, string path)
         {
             MemoryData[path] = byteArray;

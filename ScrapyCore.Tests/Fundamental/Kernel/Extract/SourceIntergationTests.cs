@@ -37,8 +37,8 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
             Mock.Get(extractor).Setup(x => x.ExtractTarget(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns((string a, string b) =>
                 {
-                    Assert.Equal(scrapySource.ToString(), a);
-                    Assert.Equal("afdbc418-c2fe-42c8-9ad3-e4b88a26a968", b);
+                    Assert.Equal(scrapySource.Source.Parameters.ToString(), a);
+                    Assert.Equal(scrapySource.SaveTo, b);
                     return Task.CompletedTask;
                 });
 
