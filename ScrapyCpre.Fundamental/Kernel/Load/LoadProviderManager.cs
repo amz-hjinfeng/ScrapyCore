@@ -18,6 +18,7 @@ namespace ScrapyCore.Fundamental.Kernel.Load
 
         public LoadProviderManager()
         {
+            LoadProvider = new Dictionary<string, ILoadProvider>();
             LoadMetas = new Dictionary<string, LoadSuites>()
             {
                 {
@@ -36,7 +37,14 @@ namespace ScrapyCore.Fundamental.Kernel.Load
                          ProviderType = typeof(MessageQueueLoadProvider),
                          ServiceFactory = MessageQueueFactory.Factory
                     }
-                 }
+                },
+                {
+                    "Schedule",
+                    new LoadSuites()
+                    {
+
+                    }
+                }
             };
         }
 

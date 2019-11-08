@@ -16,6 +16,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.StringTables
                 var htmlDoc = new HtmlDocument();
                 htmlDoc.LoadHtml(outStr);
                 newContextData.Listing.Add(htmlDoc.DocumentNode.InnerText);
+                
             }
             return newContextData;
         }

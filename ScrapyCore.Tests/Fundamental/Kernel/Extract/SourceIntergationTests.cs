@@ -48,7 +48,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
         public async Task ProcessTest()
         {
             SourceIntergation sourceIntergation = new SourceIntergation(cache, extractorManager);
-            await sourceIntergation.Process(Encoding.UTF8.GetBytes(httpSourceDemoString));
+            await sourceIntergation.Process(Encoding.UTF8.GetBytes(httpSourceDemoString), null);
 
         }
     }

@@ -9,10 +9,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
     {
         public override ContextData Convert(ContextData contentData)
         {
-            MD5 md5 = MD5.Create();
-            contentData.ContentText =
-                md5.ComputeHash(Encoding.UTF8.GetBytes(contentData.ContentText))
-                 .ToHex();
+            contentData.ContentText = contentData.ContentText.ToMD5Hex();
             return contentData;
         }
     }

@@ -19,7 +19,7 @@
     {
       "DataPacket": "Transform/sina/level7/0201.json",
       "Provider": {
-        "Name": "Storage-WebDownloadBucket",
+        "Name": "Artical",
         "Parameter": "Hello.json"
       }
     }

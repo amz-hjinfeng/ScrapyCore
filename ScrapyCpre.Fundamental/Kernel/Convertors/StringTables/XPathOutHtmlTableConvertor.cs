@@ -17,8 +17,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.StringTables
 
         public override ContextData Convert(ContextData contentData)
         {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(contentData.ContentText);
+            var doc = contentData.AgilityDocument;
             var nodes = doc.DocumentNode.SelectNodes(xpath);
             for (int i = 0; i < nodes.Count; i++)
             {

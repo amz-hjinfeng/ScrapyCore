@@ -51,6 +51,9 @@
     <None Update="MockData\Fundamental\Conventors\MockFileManualConvertor.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="MockData\Fundamental\Conventors\MockQuerySelectorTestSource.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="MockData\Fundamental\Extract\httpsourcedemo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

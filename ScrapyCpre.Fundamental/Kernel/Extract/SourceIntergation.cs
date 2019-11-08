@@ -19,9 +19,11 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
             this.coreCache = coreCache;
             this.extractorManager = extractorManager;
         }
-        public async Task Process(byte[] message)
+
+
+        public async Task Process(byte[] processMessage, IPlatformExit platformExit)
         {
-            KernelMessage kernelMessage = JsonConvert.DeserializeObject<KernelMessage>(Encoding.UTF8.GetString(message));
+            KernelMessage kernelMessage = JsonConvert.DeserializeObject<KernelMessage>(Encoding.UTF8.GetString(processMessage));
             ScrapySource scrapySource = await coreCache.RestoreAsync<ScrapySource>("Source" + kernelMessage.JobId);
             var sourceType = scrapySource.Source.Type;
             IExtractor extractor = extractorManager.GetExtrator(sourceType);

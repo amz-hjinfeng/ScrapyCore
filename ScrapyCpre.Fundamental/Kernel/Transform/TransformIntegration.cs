@@ -22,7 +22,19 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
         }
         public ICache CoreCache { get; }
 
-        public async Task Process(byte[] processMessage)
+        private static void PackageTransformFieldWithValue(TransformFieldWithValue transformFieldWithValue, ContextData contextData)
+        {
+            if (contextData.Listing.Count > 0)
+            {
+                transformFieldWithValue.Value = contextData.Listing.Select(x => x.ToString()).ToList();
+            }
+            else
+            {
+                transformFieldWithValue.Value = new System.Collections.Generic.List<string>() { contextData.ContentText };
+            }
+        }
+
+        public async Task Process(byte[] processMessage, IPlatformExit platformExit)
         {
             KernelMessage kernelMessage = JsonConvert.DeserializeObject<KernelMessage>(Encoding.UTF8.GetString(processMessage));
             TransformEvent transformEvent = await CoreCache.RestoreAsync<TransformEvent>("Transform-" + kernelMessage.JobId);
@@ -51,20 +63,6 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
                 await coreStorage.WriteStream(
                     serialzedStream,
                     transformEvent.SaveTo);
-            }
-        }
-
-
-
-        private static void PackageTransformFieldWithValue(TransformFieldWithValue transformFieldWithValue, ContextData contextData)
-        {
-            if (contextData.Listing.Count > 0)
-            {
-                transformFieldWithValue.Value = contextData.Listing.Select(x => x.ToString()).ToList();
-            }
-            else
-            {
-                transformFieldWithValue.Value = new System.Collections.Generic.List<string>() { contextData.ContentText };
             }
         }
     }

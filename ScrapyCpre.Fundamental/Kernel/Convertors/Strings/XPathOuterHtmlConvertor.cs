@@ -17,8 +17,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
 
         public override ContextData Convert(ContextData contentData)
         {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(contentData.ContentText);
+            var doc = contentData.AgilityDocument;
             contentData.ContentText = doc.DocumentNode.SelectSingleNode(xPathValue).OuterHtml;
             return contentData;
         }

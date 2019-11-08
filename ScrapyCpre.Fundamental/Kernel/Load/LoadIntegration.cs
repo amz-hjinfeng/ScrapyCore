@@ -22,7 +22,7 @@ namespace ScrapyCore.Fundamental.Kernel.Load
 
         public ICache CoreCache { get; }
 
-        public async Task Process(byte[] processMessage)
+        public async Task Process(byte[] processMessage, IPlatformExit platformExit)
         {
             KernelMessage kernelMessage = JsonConvert.DeserializeObject<KernelMessage>(Encoding.UTF8.GetString(processMessage));
             LoadEvent loadEvent = await CoreCache.RestoreAsync<LoadEvent>("Load-" + kernelMessage.JobId);

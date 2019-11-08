@@ -17,6 +17,10 @@
     <Compile Remove="Swarm.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.16" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scheduler\Gen\Extract\" />
   </ItemGroup>
 </Project>

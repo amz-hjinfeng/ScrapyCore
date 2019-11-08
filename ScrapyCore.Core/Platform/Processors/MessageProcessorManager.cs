@@ -28,7 +28,10 @@ namespace ScrapyCore.Core.Platform.Processors
             {
                 [CommandCode.Sacrifice] = new SacrificeProcessor(builder.SystemController),
                 [CommandCode.HeartBeat] = new HeartBeatProcessor(builder.HeartbeatCache),
-                [CommandCode.Working] = new WorkingProcessor(builder.SystemController.WorkingProcessor),
+                [CommandCode.Working] = new WorkingProcessor(
+                    builder.SystemController.WorkingProcessor,
+                    new MessageQueuePlatformExit(builder.OutMessageQueue)
+                    ),
                 [CommandCode.Configure] = new ConfigureProcessor()
             };
             // Need All System things to couple inside.
@@ -39,6 +42,8 @@ namespace ScrapyCore.Core.Platform.Processors
             public ISystemController SystemController { get; private set; }
 
             public ICache HeartbeatCache { get; private set; }
+
+            public IMessageQueue OutMessageQueue { get; private set; }
 
             public static Builder NewBuilder()
             {
@@ -61,6 +66,12 @@ namespace ScrapyCore.Core.Platform.Processors
             public Builder WithHeartbeatCache(ICache cache)
             {
                 HeartbeatCache = cache;
+                return this;
+            }
+
+            public Builder WithOutMessageQueue(IMessageQueue messageQueue)
+            {
+                this.OutMessageQueue = messageQueue;
                 return this;
             }
         }

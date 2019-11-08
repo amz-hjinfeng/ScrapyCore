@@ -1,16 +1,17 @@
 {
   "MessageId": "186f5599-1eb0-498f-8104-fb8111611d51",
   "MessageName": "Hello world",
+  "Scheduler": "default",
   "Sources": [
     {
       "Name": "SinaWebSite",
       "Type": "DigHttpSource",
       "Parameters": {
-        "Depth": 7,
         "Encoding": "utf-8",
         "ContentType": "text/html; charset=utf-8",
         "Method": "GET",
         "Referer": "",
+        "Depth": 7,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
         "UserAgent": "Random", // This should comes from the User Agent Pool. and will randomly by the kerrigan.
         "Header": {
@@ -24,21 +25,55 @@
   "Transforms": [
     {
       "Name": "News",
-      "MapToSource": [ "SinaWebSite" ],
+      "MapToSource": [ "SinaWebSite" ], /// Will Generate Difference JobId and delay transform
+      "ExportAs": "json",
       "FieldDefinitions": [
         {
-          "Title": "CompanyName",
-          "Name": "CompanyName",
+          "Title": "Title",
+          "Name": "ArticleTitle",
           "CanNullable": true,
-          "Sort": 0,
           "ConvertorNavigators": [
             {
-              "Name": "XPathOutHtml",
-              "Parameter": "/html/body/div[@class=company]"
+              "Name": "QuerySelector",
+              "Parameter": ".main-title"
             },
             {
-              "Name": "InnerText",
+              "Name": "Trim",
               "Parameter": null
+            }
+          ]
+        },
+        {
+          "Title": "Release Date",
+          "Name": "ReleaseDate",
+          "CanNullable": true,
+          "ConvertorNavigators": [
+            {
+              "Name": "QuerySelector",
+              "Parameter": ".date-source a:link"
+            },
+            {
+              "Name": "Trim",
+              "Parameter": null
+            },
+            {
+              "Name": "DateTime",
+              "Parameter": {
+                "InFormat": "yyyyƒÍMM‘¬dd»’ HH:mm",
+                "OutFormat": "yyyy-MM-ddTHH:mm",
+                "CultureInfo": "zh-cn"
+              }
+            }
+          ]
+        },
+        {
+          "Title": "Data Source",
+          "Name": "ReleaseDate",
+          "CanNullable": true,
+          "ConvertorNavigators": [
+            {
+              "Name": "QuerySelector",
+              "Parameter": "date-source span"
             },
             {
               "Name": "Trim",
@@ -50,33 +85,27 @@
     }
   ],
   "LandingTargets": {
-    "Targets": [
+    "LoadProviders": [
       {
-        "Name": "SaveToS3",
-        "Types": "S3",
-        "Parameters": {
-          "Region": "ap-southeast-1",
-          "Bucket": "heart-of-swarm",
-          "Prefix": "news"
-        }
-      },
-      {
-        "Name": "SaveToElasticache",
-        "Types": "Elasticache",
-        "Parameters": {
-
+        "Type": "Stroage",
+        "Name": "Aritical",
+        "Context": {
+          "StorageType": "AmazonS3",
+          "Prefix": "/prefix",
+          "Configure": [
+            [ "region", "ap-southeast-1" ],
+            [ "bucket", "landing-sina-news" ]
+          ]
         }
       }
     ],
-    "Act": [
+    "LoadMaps": [
       {
-        "Name": "News",
-        "Target": "SaveToS3"
-      },
-      {
-        "Name": "News",
-        "Target": "SaveToS3"
+        "FromTransform": "News",
+        "LoadProvider": "Aritical",
+        "Parameter": "${hash}-${datetime}.json"
       }
     ]
+
   }
 }

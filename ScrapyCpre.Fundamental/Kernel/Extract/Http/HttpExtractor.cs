@@ -36,7 +36,9 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 webRequest.Accept = httpSource.Accept;
                 webRequest.Method = httpSource.Method;
                 webRequest.Referer = httpSource.Referer;
-                webRequest.UserAgent = UserAgentPool.GetUserAgent(httpSource.UserAgent).AgentString;
+                webRequest.UserAgent = httpSource.UserAgent == "Random" ?
+                    UserAgentPool.GetRandomUserAgent().AgentString
+                    : UserAgentPool.GetUserAgent(httpSource.UserAgent).AgentString;
                 foreach (var kv in httpSource.Header)
                 {
                     webRequest.Headers.Add(kv.Key, kv.Value);

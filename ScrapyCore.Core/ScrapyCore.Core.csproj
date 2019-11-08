@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Cookies\" />
     <Folder Include="Analyzer\" />
+    <Folder Include="External\Utils\" />
     <Folder Include="Proxy\" />
     <Folder Include="Caches\" />
     <Folder Include="Configure\UserAgents\" />

@@ -50,7 +50,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Transform
         {
             byte[] byteKernelMessage = Encoding.UTF8.GetBytes(kernelMessage);
             TransformIntegration transformIntegration = new TransformIntegration(coreCache, coreStorage);
-            await transformIntegration.Process(byteKernelMessage);
+            await transformIntegration.Process(byteKernelMessage, null);
         }
 
         private async Task AssertTransformResult(Stream stream, string path)

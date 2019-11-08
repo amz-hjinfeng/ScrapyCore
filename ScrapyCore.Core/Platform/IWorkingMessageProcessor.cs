@@ -8,6 +8,6 @@ namespace ScrapyCore.Core.Platform
 {
     public interface IWorkingMessageProcessor
     {
-        Task Process(byte[] processMessage);
+        Task Process(byte[] processMessage, IPlatformExit platformExit);
     }
 }
