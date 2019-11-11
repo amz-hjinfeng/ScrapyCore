@@ -24,10 +24,13 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
             }
         }
 
-        public Dictionary<string, List<TransformEvent>> GenerateTransform(IDictionary<string, ScrapySource> sources, ScheduleTransform[] scheduleTransform)
+        public TransformEventData GenerateTransform(IDictionary<string, ScrapySource> sources, ScheduleTransform[] scheduleTransform)
         {
-            Dictionary<string, List<string>> sourceMapToTransform = new Dictionary<string, List<string>>(); /// not return yet, and this should be store to cache
-            Dictionary<string, List<TransformEvent>> generated = new Dictionary<string, List<TransformEvent>>(); /// ALL these should be store to cache.
+            TransformEventData generated = new TransformEventData()
+            {
+                SourceMapToTransform = new Dictionary<string, List<string>>(),
+                TransformEvents = new Dictionary<string, List<TransformEvent>>() /// ALL these should be store to cache.
+            };
             foreach (var item in scheduleTransform)
             {
                 List<TransformEvent> transformEvents = new List<TransformEvent>();
@@ -41,13 +44,13 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                         GetFrom = scrapySource.SaveTo,
                         ExportAs = item.ExportAs,
                         JobId = newGuid,
-                        SaveTo = "/Load/" + newGuid.ToMD5Hex(), /// Not Ready Yet
+                        SaveTo = "/Load/" + newGuid.ToMD5Hex(),
                         MessageId = scrapySource.MessageId
                     };
-                    AddSourceMapToTransform(sourceMapToTransform, scrapySource, transformEvent);
+                    AddSourceMapToTransform(generated.SourceMapToTransform, scrapySource, transformEvent);
                     transformEvents.Add(transformEvent);
                 }
-                generated[item.Name] = transformEvents;
+                generated.TransformEvents[item.Name] = transformEvents;
             }
             return generated;
         }

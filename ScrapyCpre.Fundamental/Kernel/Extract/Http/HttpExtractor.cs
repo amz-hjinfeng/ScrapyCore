@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ScrapyCore.Fundamental.Kernel.Extract.Http
 {
-    [Extractor("Http")]
+    [Extractor("Http", ParameterType = typeof(HttpSource))]
     public class HttpExtractor : ExtractorBase
     {
         public HttpExtractor(

@@ -7,10 +7,14 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Attributes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class ExtractorAttribute : Attribute
     {
-        public ExtractorAttribute(string extractorType)
+        public Type ParameterType { get; set; }
+
+        public ExtractorAttribute(string extractorName)
         {
-            ExtractorType = extractorType;
+            Name = extractorName;
         }
-        public string ExtractorType { get; }
+        public string Name { get; }
+
+        public Type ExtractorType { get; set; }
     }
 }

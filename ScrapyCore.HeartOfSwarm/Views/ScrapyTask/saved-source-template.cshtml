@@ -1,0 +1,38 @@
+﻿
+
+<script id="saved-source-template" type="text/x-handlebars-template">
+    <div class="am-alert am-alert-secondary" id="saved-{{id}}">
+        <i class="am-icon-cloud-download lg li">
+            {{Name}}  <span class="am-icon-gear"> {{Type}}</span>
+        </i>
+        <a class="am-btn am-btn-primary am-fr am-btn-xs" onclick="editsource(this,'{{id}}')">编辑</a>
+    </div>
+
+</script>
+
+
+<script type="text/javascript">
+    class SavedSourceTemplate {
+        constructor() {
+            this.savedSourceTemplate = Handlebars.compile($("#saved-source-template").text());
+        }
+
+        addSavedSource(container, dat) {
+            var html = this.savedSourceTemplate(dat);
+            container.append(html);
+        }
+
+        replaceSource(container, dat) {
+            this.removeSource(container, dat);
+            container.append(this.savedSourceTemplate(dat));
+        }
+
+        removeSource(container, dat) {
+            var savedSource = container.find("#saved-" + dat.id);
+            if (savedSource != null) {
+                savedSource.remove();
+            }
+        }
+    }
+
+</script>

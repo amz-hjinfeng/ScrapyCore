@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ScrapyCore.Fundamental.Scheduler
+namespace ScrapyCore.Fundamental
 {
     public class PrefixConst
     {
@@ -10,7 +10,6 @@ namespace ScrapyCore.Fundamental.Scheduler
         /// Meta prefix that contain the All ScheduleMessage
         /// </summary>
         public const string MESSAGE_META = "meta-";
-
         /// <summary>
         /// Message jobs Index
         /// </summary>
@@ -24,18 +23,37 @@ namespace ScrapyCore.Fundamental.Scheduler
         /// Transofrom to Load list
         /// </summary>
         public const string TRANSFORM_DOWNFLOW = "tll-";
+
+        public const string SOURCE_TRANSFOR_MAP = "s-t-m-";
+
+        public const string TRANSFORM_LOAD_MAP = "t-l-m-";
+
+
         /// <summary>
         /// Source status
         /// </summary>
-        public const string SOURCE_ID = "s-status-";
+        public const string SOURCE_STATUS = "s-status-";
         /// <summary>
         /// Target status 
         /// </summary>
-        public const string TRANSFORM_ID = "t-status-";
+        public const string TRANSFORM_STATUS = "t-status-";
         /// <summary>
         /// Load status
         /// </summary>
         public const string LOAD_STATUS = "l-status-";
 
+        /// <summary>
+        /// Source meta store key prefix
+        /// </summary>
+        public const string SOURCE_META = "src-";
+        /// <summary>
+        /// Transform meta store key prefix
+        /// </summary>
+        public const string TRANSFORM_META = "trans-";
+
+        /// <summary>
+        /// Load meta store key prefix
+        /// </summary>
+        public const string LOAD_META = "lod-";
     }
 }

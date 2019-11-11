@@ -21,18 +21,18 @@
       }
     ],
     "MessageQueues": [
-      {
-        "Name": "kerrigan-hydralisk",
-        "ConfigureFile": "configure/{$environment}/kerrigan-hydralisk.json"
-      },
-      {
-        "Name": "hydralisk-utralisks",
-        "ConfigureFile": "configure/{$environment}/hydralisk-utralisk.json"
-      },
-      {
-        "Name": "utralisks-kerrigan",
-        "ConfigureFile": "configure/{$environment}/utralisk-kerrigan.json"
-      }
+      //{
+      //  "Name": "kerrigan-hydralisk",
+      //  "ConfigureFile": "configure/{$environment}/kerrigan-hydralisk.json"
+      //},
+      //{
+      //  "Name": "hydralisk-utralisks",
+      //  "ConfigureFile": "configure/{$environment}/hydralisk-utralisk.json"
+      //},
+      //{
+      //  "Name": "utralisks-kerrigan",
+      //  "ConfigureFile": "configure/{$environment}/utralisk-kerrigan.json"
+      //}
     ],
     "UserAgents": [
       {

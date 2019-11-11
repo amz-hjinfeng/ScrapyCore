@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script type="text/javascript" src="~/js/handlebars-helpers.js"></script>
+<script id="parameter-template" type="text/x-handlebars-template">
+    {{#each props}}
+    <label for="sourceName">{{fieldName}}:</label>
+    {{#if acceptType}}
+    {{#StringNotEqual 'map' acceptType}}
+    <input type="text" name="{{fieldName}}" value="{{defaultValue}}" />
+    {{else}}
+    <input type="text" name="{{fieldName}}-Map" value="Map" />
+    {{/StringNotEqual}}
+    {{/if}}
+    {{/each}}
+</script>
+
+
+<script type="text/javascript">
+    class ParameterTemplate {
+
+
+        constructor() {
+            this.helper = new HandlebarsHelper();
+            this.helper.registStringEqual();
+            this.template = Handlebars.compile($("#parameter-template").text());
+
+
+        }
+        generateParameter(container, type, defaultValue) {
+            var paramTemplate = this;
+            var c = container;
+            $.ajax(
+                {
+                    contentType: "application/json;charset=UTF-8",
+                    type: "GET",
+                    url: "/api/scrapymeta/source-gens/" + type,
+                    success: (dat, res) => {
+                        paramTemplate.renderTemplate(c, dat, defaultValue);
+                    }
+                }
+            )
+        }
+
+        renderTemplate(container, data, defaultValue) {
+            if (defaultValue != null) {
+                data.props.forEach((value, index) => {
+                    value.defaultValue = defaultValue[value.fieldName];
+                })
+            }
+
+
+            var html = this.template(data);
+            container.append(html);
+
+        }
+
+    }
+</script>

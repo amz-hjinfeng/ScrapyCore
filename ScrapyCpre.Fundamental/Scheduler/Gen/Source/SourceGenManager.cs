@@ -25,7 +25,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
 
         }
 
-        private static Dictionary<string, Type> SourceGenMeta { get; set; }
+        public static Dictionary<string, SourceGenAttribute> SourceGenMeta { get; set; }
         static SourceGenManager()
         {
             SourceGenMeta = Assembly.GetAssembly(typeof(SourceGenManager))
@@ -37,7 +37,11 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                     SourceGenAttr = x.GetCustomAttribute<SourceGenAttribute>(),
                     Type = x
                 }).Where(x => x.SourceGenAttr != null)
-                .ToDictionary(x => x.SourceGenAttr.Name, x => x.Type);
+                .ToDictionary(x => x.SourceGenAttr.Name, x =>
+                {
+                    x.SourceGenAttr.SourceGanType = x.Type;
+                    return x.SourceGenAttr;
+                });
 
         }
 
@@ -52,7 +56,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                 if (SourceGenMeta.ContainsKey(genType))
                 {
                     SourceGenerators[genType] =
-                        Activator.CreateInstance(SourceGenMeta[genType]) as ISourceGen;
+                        Activator.CreateInstance(SourceGenMeta[genType].SourceGanType) as ISourceGen;
                     return SourceGenerators[genType];
                 }
                 return null;

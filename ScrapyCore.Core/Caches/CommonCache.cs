@@ -26,7 +26,7 @@ namespace ScrapyCore.Core.Caches
         public abstract void Store<T>(string key, T model, TimeSpan? timeSpan = null) where T : class, new();
         public abstract Task StoreAsync<T>(string key, T model, TimeSpan? timeSpan = null) where T : class, new();
         public abstract Task<IEnumerable<string>> SearchKeys(string keyPatten);
-
-
+        public abstract Task StoreStringAsync(string key, string strValue, TimeSpan? timeSpan = null);
+        public abstract Task<string> RestoreStringAsync(string key);
     }
 }

@@ -6,7 +6,7 @@ using ScrapyCore.Core.External;
 
 namespace ScrapyCore.Fundamental.Scheduler.Gen
 {
-    [SourceGen("DigHttpSource")]
+    [SourceGen("DigHttpSource", ParameterType = typeof(WebSeed))]
     public class DigHttpSourceGen : ISourceGen
     {
         public string GenType => "DigHttpSource";

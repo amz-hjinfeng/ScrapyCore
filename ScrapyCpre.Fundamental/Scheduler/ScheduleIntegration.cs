@@ -29,9 +29,7 @@ namespace ScrapyCore.Fundamental.Scheduler
             await StoreMeta(scheduleMessage);
             IScheduler scheduler = ScheduleManager.Manager
                  .GetScheduler(scheduleMessage.Scheduler);
-
             await scheduler.ScheduleNew(scheduleMessage);
-
         }
 
         public Task StoreMeta(ScheduleMessage scheduleMessage)

@@ -42,6 +42,11 @@ namespace ScrapyCore.Core.Caches
             throw new NotImplementedException();
         }
 
+        public override Task<string> RestoreStringAsync(string key)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Task<IEnumerable<string>> SearchKeys(string keyPatten)
         {
             throw new NotImplementedException();
@@ -53,6 +58,11 @@ namespace ScrapyCore.Core.Caches
         }
 
         public override Task StoreAsync<T>(string key, T model, TimeSpan? timeSpan = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task StoreStringAsync(string key, string strValue, TimeSpan? timeSpan = null)
         {
             throw new NotImplementedException();
         }

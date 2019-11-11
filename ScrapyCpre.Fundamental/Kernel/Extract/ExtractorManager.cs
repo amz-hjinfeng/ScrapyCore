@@ -12,13 +12,13 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
     public class ExtractorManager : IExtractorManager
     {
         private readonly IInjectionProvider injectionProvider;
-        public static Dictionary<string, Type> SourceTypeMapping { get; private set; }
+        public static Dictionary<string, ExtractorAttribute> SourceTypeMapping { get; private set; }
 
         public Dictionary<string, IExtractor> Extractors { get; set; }
 
         static ExtractorManager()
         {
-            SourceTypeMapping = new Dictionary<string, Type>();
+            SourceTypeMapping = new Dictionary<string, ExtractorAttribute>();
             SourceTypeMapping = Assembly.GetAssembly(typeof(ExtractorManager))
                   .GetTypes()
                   .Where(t => !t.IsAbstract)
@@ -29,7 +29,11 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
                       ExtractorAttribute = t.GetCustomAttribute<ExtractorAttribute>()
                   })
                   .Where(t => t.ExtractorAttribute != null)
-                  .ToDictionary(t => t.ExtractorAttribute.ExtractorType, t => t.Type);
+                  .ToDictionary(t => t.ExtractorAttribute.Name, t =>
+                  {
+                      t.ExtractorAttribute.ExtractorType = t.Type;
+                      return t.ExtractorAttribute;
+                  });
         }
 
 
@@ -43,7 +47,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
         {
             if (!Extractors.ContainsKey(type))
             {
-                var instance = this.injectionProvider.CreateInstance(SourceTypeMapping[type]) as IExtractor;
+                var instance = this.injectionProvider.CreateInstance(SourceTypeMapping[type].ExtractorType) as IExtractor;
                 Extractors[type] = instance;
             }
             return Extractors[type];

@@ -1,0 +1,152 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<script id="tranform-field-display-template" type="text/x-handlebars-template">
+    <div class="am-alert am-alert-warning">
+        <i class="am-icon-asterisk lg li"></i>
+        [{{fieldTitle}}]
+        <input type="hidden" name="{{fieldName}}" value="{{fieldData}}" />
+        {{#each conventors}}
+        <i class="am-icon-arrow-right lg li">
+            {{conventorName}}
+        </i>
+        {{/each}}
+        <i class="am-icon-circle lg li"></i>
+    </div>
+</script>
+
+
+<script id="transform-group-template" type="text/x-handlebars-template">
+    <div id="transform-{{Id}}" class="am-margin-top">
+        <div class="am-panel am-panel-primary">
+            <div class="am-panel-hd" id="title">{{Name}}</div>
+            <div class="am-panel-bd">
+                <label for="name">Name:</label>
+                <input type="text" name="transformName" id="transformName" value="{{Name}}">
+                <label for="exportas">ExportAs:</label>
+                <input type="text" name="exportas" id="exportas" value="{{ExportAs}}">
+                <label for="maptoSource">Use Source:</label>
+                <select id="sources">
+                    {{#each Sources}}
+                    <option value="{{Id}}">{{Name}}</option>
+                    {{/each}}
+                </select>
+                <div class="am-margin-top" id="mapToSource">
+                </div>
+                <label for="fieldDefinition">Fields:</label>
+                <div class="am-panel am-panel-primary">
+                    <div class="am-panel-bd">
+                        <div id="field-saved-display">
+                        </div>
+                        <div id="field-editor-area">
+                        </div>
+                    </div>
+                </div>
+                <div class="am-margin-top">
+                    <a href="#" class="am-btn am-btn-success am-btn-sm" id="addfieldBtn">
+                        <i class="am-icon-plus am-icon-sm"></i> 添加字段
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="am-margin-top">
+            <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm" id="btn-save-transform"></i> 保存</a>
+            <a href="#" class="am-btn am-btn-danger am-btn-sm" onclick="rmSelf($('#transform-{{Id}}'))"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    class TransformGroupTemplate {
+        index = 0;
+        constructor() {
+            this.TransformGroupTemplate = Handlebars.compile($("#transform-group-template").text());
+            this.TransformFieldDisplayTemplate = Handlebars.compile($("#tranform-field-display-template").text());
+            this.SelecteSourceTemplate = Handlebars.compile('<a class="am-btn am-btn-warning am-margin-right-xs" href="#" onclick="rmSelf(this)" id="{{Id}}">{{Name}}</a>');
+
+            this.fieldEditorTemplate = new FieldEditorTemplate();
+        }
+
+        getDataModel(container) {
+            return {
+                'Name': 'New Transform ' + ++this.index,
+                'Id': container.newguid(),
+                'Sources': [
+                ],
+                'ExportAs': 'json',
+                "SelectedSource": [
+                ]
+            };
+        }
+
+        newTransformEditor(container, dat,savedCallback) {
+            var html = $(this.TransformGroupTemplate(dat));
+            container.append(html);
+            this.newFieldEditorOperator(html);
+            this.transformSave(html, savedCallback)
+            this.renderSelectedSource(html);
+            return html;
+        }
+
+        transformSave(html, savedCallback) {
+            var ans = $(html);
+            ans.find("#btn-save-transform").click(
+                x => {
+                    var dat = {
+                        transformName: ans.find("#transformName").val(),
+                        exportas: ans.find("#exportas").val(),
+                        sources :[],
+                        fields :[],
+                    }
+                    $(ans).find("#field-saved-display")
+                        .find("input:hidden")
+                        .each((v, i) => dat.fields.push(v));
+                    $(ans).find("#mapToSource a").each(
+                        (v, i) => { console.log(v.id); }
+                    );
+                    savedCallback(html, dat)
+                });
+        }
+
+        newFieldEditorOperator(html) {
+            var self = this;
+            html.find("#addfieldBtn").click(x => {
+                var container = html.find("#field-editor-area");
+                this.fieldEditorTemplate.newFieldEditor(container, self, html.find("#field-saved-display"));
+            });
+        }
+
+        renderSelectedSource(html) {
+            var ans = html;
+            ans.find("#sources").change(
+                x => {
+                    var selectedItem = ans.find("#sources").find("option:selected");
+                    var name = selectedItem.text();
+                    var id = selectedItem.val();
+                    var mapsourceContainer = ans.find("#mapToSource");
+                    if (mapsourceContainer.find("#" + id).length == 0) {
+                        mapsourceContainer.append(
+                            this.SelecteSourceTemplate({
+                                Id: id,
+                                Name: name
+                            })
+                        );
+                    }
+                }
+            )
+        }
+
+        newFieldAdded(completedAt, dat) {
+            var newField = this.TransformFieldDisplayTemplate(dat);
+            completedAt.append(newField);
+        }
+
+
+
+    }
+
+
+</script>

@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<script id="source-item-template" type="text/x-handlebars-template">
+    <div class="am-panel am-panel-primary" id="top-{{id}}">
+        <div class="am-panel-hd">{{name}}</div>
+        <div class="am-panel-bd">
+            <label for="sourceName">Name:</label>
+            <input type="text" name="sourceName" id="sourceName" value="{{name}}">
+            <label for="sourceType">Type:</label>
+            <select name="sourceType" onchange="sourceTypeChanged(this,'{{id}}')">
+                <option selected>-</option>
+                {{#each metas}}
+                <option value="{{metaName}}">{{metaName}}</option>
+                {{/each}}
+            </select>
+            <div id="parameters-{{id}}">
+
+            </div>
+            <div class="am-margin-top">
+                <a href="#" class="am-btn am-btn-secondary am-btn-sm" onclick="savesrc(this,'{{id}}')"><i class="am-icon-save am-icon-sm" id="save_{{id}}"></i> 保存</a>
+                <a href="#" class="am-btn am-btn-danger am-btn-sm" onclick="removesrc(this,'{{id}}')"><i class="am-icon-remove am-icon-sm" id="rm_{{id}}"></i> 删除</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    class SourceItemTemplate {
+        newIndex = 0;
+        constructor() {
+            this.SourceGroupTemplate = Handlebars.compile($("#source-item-template").text());
+        }
+
+        newSourceGroup(container) {
+            var srcItemTemplate = this;
+            $.ajax(
+                {
+                    contentType: "application/json;charset=UTF-8",
+                    type: "GET",
+                    url: "/api/scrapymeta/source-gens",
+                    success: (data, res) => {
+                        var dat = {
+                            "name": "newSource" + ++srcItemTemplate.newIndex,
+                            "metas": data.metas,
+                            "id": container.newguid()
+                        }
+                        var html = srcItemTemplate.SourceGroupTemplate(dat);
+                        container.append(html);
+                    }
+                }
+            );
+        }
+        removeSource(container, dat) {
+            $('#top-' + dat.id).remove();
+        }
+
+        restore(container, editData) {
+            var srcItemTemplate = this;
+            container.find("#top-" + editData.id).remove();
+            return $.ajax(
+                {
+                    contentType: "application/json;charset=UTF-8",
+                    type: "GET",
+                    url: "/api/scrapymeta/source-gens",
+                    success: (data, res) => {
+                        var dat = {
+                            "name": editData.Name,
+                            "metas": data.metas,
+                            "id": editData.id
+                        }
+                        var html = srcItemTemplate.SourceGroupTemplate(dat);
+                        var selectedHtml = $(html);
+                        selectedHtml.find("select").val(editData.Type);
+                        container.append(selectedHtml);
+                    }
+                }
+            );
+        }
+    }
+
+</script>

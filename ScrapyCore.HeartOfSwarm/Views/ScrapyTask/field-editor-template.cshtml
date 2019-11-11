@@ -1,0 +1,144 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script id="field-editor-template" type="text/x-handlebars-template">
+    <div id="field-editor-{{Id}}" class="am-margin-top">
+        <label for="fieldTitle">Title:</label>
+        <input type="text" name="fieldTitle" id="fieldTitle" value="{{Title}}">
+        <label for="fieldName">Name:</label>
+        <input type="text" name="fieldName" id="fieldName" value="{{Name}}">
+        <label for="nullable">Nullable</label>
+        <select id="canNullable">
+            <option selected>true</option>
+            <option>false</option>
+        </select>
+
+        <label for="Conventors">Conventors:</label>
+        <div id="conventor-added">
+        </div>
+        <div class="am-margin-top" id="conventor-editor">
+            <label for="fieldName">Convertor:</label>
+            <select id="ConventorSelector">
+                {{#each ConverntorMeta}}
+                <option data-content="{{constructorType}}">{{conventorName}}</option>
+                {{/each}}
+                <option>Trim</option>
+            </select>
+            <label for="fieldName">Parameter:</label>
+            <input type="text" placeholder="Parameter" id="Parameter" />
+
+            <div class="am-margin-top">
+                <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="btnAddConventor">
+                    <i class="am-icon-gear am-icon-sm"></i> 添加
+                </a>
+            </div>
+        </div>
+
+        <div class="am-margin-top">
+            <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="btnFinished">
+                <i class="am-icon-check-circle am-icon-sm"></i> 完成
+            </a>
+            <a href="#" class="am-btn am-btn-danger am-btn-sm" onclick="rmSelf($('#field-editor-{{Id}}'))">
+                <i class="am-icon-remove am-icon-sm"></i> 取消
+            </a>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+
+    class FieldEditorTemplate {
+
+        fieldMetas = {
+
+        }
+        constructor() {
+            this.FieldEditorTemplate = Handlebars.compile($("#field-editor-template").text());
+            this.AddConvertorTemplate = Handlebars.compile(
+                "<a class='am-btn am-btn-secondary am-margin-right-xs am-margin-top-xs' href='#' onclick='rmSelf(this)' id='{{conventor}}'>{{conventor}}[\"{{parameter}}\"]</a>");
+            this.loadConventorMetas();
+        }
+
+        get newDefatultData() {
+            return {
+                Title: "DefaultTitle",
+                Name: "DefaultName",
+                ConverntorMeta: this.fieldMetas.metas
+            };
+        }
+
+        newFieldEditor(container,operator, completedAt) {
+            var defaultData = this.newDefatultData;
+            defaultData.Id = container.newguid();
+            var html = this.FieldEditorTemplate(defaultData);
+            html = $(html);
+            var selector = html.find("#ConventorSelector")
+            var parameterField = html.find("#Parameter");
+            var conventorEditor = html.find("#conventor-added");
+            html.find("#btnFinished").click(x => {
+                var fieldName = html.find("#fieldName").val();
+                var fieldTitle = html.find("#fieldTitle").val();
+                var conventors = new Array();
+                $(conventorEditor).find("a").each((e, i) => {
+                    conventors.push({
+                        conventorName: $(i).attr("id"),
+                       conventorValue: $(i).text()
+                    });
+                });
+
+                var dat = {
+                    fieldName: fieldName,
+                    fieldTitle: fieldTitle,
+                    fieldData: JSON.stringify({
+                        fieldName: fieldName,
+                        fieldTitle: fieldTitle,
+                        nullable: html.find("#canNullable").val(),
+                        conventors: conventors
+                    }),
+                    conventors: conventors
+                };
+                operator.newFieldAdded( completedAt, dat);
+                html.remove();
+            });
+
+
+
+            var conventorTemplate = this.AddConvertorTemplate;
+            selector.change(x => {
+                parameterField.val("")
+            });
+
+            html.find("#btnAddConventor").click(
+                x => {
+                    conventorEditor.append(conventorTemplate({
+                        conventor: selector.find("option:selected").text(),
+                        parameter: parameterField.val()
+                    }));
+                    parameterField.val("")
+                });
+            container.append(html);
+        }
+
+        loadConventorMetas() {
+            // api/scrapymeta/convertors
+            var fieldMeta = this.fieldMetas;
+            //$(x.target).find("option:selected");
+
+            $.ajax(
+                {
+                    contentType: "application/json;charset=UTF-8",
+                    type: "GET",
+                    url: "/api/scrapymeta/convertors",
+                    success: (data, res) => {
+                        fieldMeta.metas = data;
+                    }
+                }
+            );
+        }
+
+
+    }
+
+</script>

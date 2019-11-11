@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScrapyCore.Core;
+using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Fundamental.Kernel;
 using ScrapyCore.Fundamental.Kernel.Extract;
@@ -35,40 +36,60 @@ namespace ScrapyCore.Fundamental.Scheduler
             Dictionary<string, ScrapySource> sourceDict =
                 SourceGenManager.Instance.GenerateSource(scheduleMessage.Sources, scheduleMessage.MessageId);
 
+            TransformEventData transformEventData =
+                TransformGenManager.Instance.GenerateTransform(sourceDict, scheduleMessage.Transforms);
+
+            LoadEventData loadEventData = LoadGenManager.Instance
+                .GenerateLoadEvent(transformEventData, scheduleMessage.LandingTarget);
+
+
             MessageIndexer messageIndexer = new MessageIndexer()
             {
                 MessageId = scheduleMessage.MessageId,
-                SourceJobIds = sourceDict.Values.Select(x => x.JobId).ToList()
+                SourceJobIds = sourceDict.Values
+                        .Select(x => x.JobId).ToList(),
+                TransformJobIds = transformEventData.TransformEvents
+                        .SelectMany(x => x.Value)
+                        .Select(x => x.JobId).ToList(),
+                LoadJobIds = loadEventData.LoadEvents
+                        .Select(x => x.JobId)
+                        .ToList()
             };
+            TaskingManager manager = new TaskingManager();
 
-            Dictionary<string, TransformEvent> transforms =
-                new Dictionary<string, TransformEvent>();
-            foreach (var item in scheduleMessage.Transforms)
+            manager.AddTask(coreCache.StoreAsync(PrefixConst.MESSAGE_JOBs + messageIndexer.MessageId, messageIndexer));
+
+            foreach (var srcKey in transformEventData.SourceMapToTransform.Keys)
             {
-                foreach (var srcKey in item.MapToSource)
-                {
-                    var source = sourceDict[srcKey];
-                    TransformEvent transformEvent = new TransformEvent()
-                    {
-                        FieldDefinitions = item.FieldDefinitions,
-                        ExportAs = item.ExportAs,
-                        GetFrom = source.SaveTo,
-                        SaveTo = "Hello Data",
-                        JobId = Guid.NewGuid().ToString(),
-                        MessageId = scheduleMessage.MessageId
-                    };
-
-                }
+                manager.AddTask(coreCache.StoreAsync(
+                    PrefixConst.SOURCE_TRANSFOR_MAP + srcKey,
+                    transformEventData.SourceMapToTransform[srcKey]));
+            }
+            foreach (var transkv in loadEventData.TransformToLoadMap)
+            {
+                manager.AddTask(coreCache.StoreStringAsync(
+                    PrefixConst.TRANSFORM_LOAD_MAP + transkv.Key, transkv.Value));
             }
 
-            foreach (var item in scheduleMessage.LandingTarget.LoadMaps)
+            foreach (var source in sourceDict.Values)
             {
-
+                manager.AddTask(coreCache.StoreAsync(
+                    PrefixConst.SOURCE_META + source.JobId,
+                    source));
+            }
+            foreach (var transform in transformEventData.TransformEvents.SelectMany(x => x.Value))
+            {
+                manager.AddTask(coreCache.StoreAsync(
+                    PrefixConst.TRANSFORM_META, transform));
             }
 
+            foreach (var load in loadEventData.LoadEvents)
+            {
+                manager.AddTask(coreCache.StoreAsync(
+                    PrefixConst.LOAD_META + load.JobId, load));
+            }
 
-            await coreCache.StoreAsync(PrefixConst.MESSAGE_JOBs + messageIndexer.MessageId, messageIndexer);
-
+            await manager.Wait();
             await PublishSourceJobs(scheduleMessage.MessageName, scheduleMessage.MessageId, messageIndexer.SourceJobIds.ToArray());
 
         }

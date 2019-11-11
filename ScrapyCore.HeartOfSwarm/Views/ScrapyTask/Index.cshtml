@@ -1,0 +1,434 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+<div class="am-cf am-padding am-padding-bottom-0">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">虫群任务</strong> / <small>Scrapy Task</small></div>
+</div>
+<div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}">
+    <ul class="am-tabs-nav am-nav am-nav-tabs">
+        <li class="am-active"><a href="#tab1">任务列表</a></li>
+        <li><a href="#tab2">新建任务</a></li>
+        <li><a href="#tab3">任务详情</a></li>
+    </ul>
+
+    <div class="am-tabs-bd" style="touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" id="scrapyTaskTabTable">
+        <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form" name="tasklist">
+                        <table class="am-table am-table-striped am-table-hover table-main" id="scrapyTaskTable">
+                            <thead>
+                                <tr>
+                                    <th class="table-check"><input type="checkbox"></th>
+                                    <th width="20%">ID</th>
+                                    <th>名称</th>
+                                    <th>状态</th>
+                                    <th>启动时间</th>
+                                    <th>完成数/总数</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>15</td>
+                                    <td><a href="#">Business management</a></td>
+                                    <td>default</td>
+                                    <td class="am-hide-sm-only">测试1号</td>
+                                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                                    <td>
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 查看</button>
+                                                <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 取消</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="am-tab-panel am-fade" id="tab2">
+            <form class="am-form" id="formNewTask"></form>
+        </div>
+
+        <div class="am-tab-panel am-fade" id="tab3">
+            <form class="am-form"></form>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="~/js/scrapytasklist.js"></script>
+
+<script id="new-task-form-template" type="text/x-handlebars-template">
+    <div class="am-panel-group" id="accordion">
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-hd">
+                <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
+                    ScrapySource - 源
+                </h4>
+            </div>
+            <div id="do-not-say-1" class="am-panel-collapse am-collapse ">
+                <div class="am-panel-bd">
+                    <label for="messageName">Name:</label>
+                    <input type="text" name="messageName" id="messageName" value="{{MessageName}}">
+                    <label for="scheduler">Scheduler:</label>
+                    <select name="scheduler">
+                        <option>default</option>
+                    </select>
+                    <label for="sourcedefine">Source Group:</label>
+                    <div id="saved-sources-container">
+
+                    </div>
+                    <div id="source-group-container">
+                    </div>
+
+
+                    <div class="am-margin-top">
+                        <a href="#" class="am-btn am-btn-success am-btn-sm" id="src-add"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-hd">
+                <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
+                    Transform - 转换
+                </h4>
+            </div>
+            <div id="do-not-say-2" class="am-panel-collapse am-collapse">
+                <div class="am-panel-bd">
+                    <label for="sourcedefine">Transform Group:</label>
+                    <div id="transform-group-container">
+                        <div class="am-alert am-alert-secondary">
+                            <i class="am-icon-asterisk lg li"></i>
+                            [Source1]
+                            <i class="am-icon-caret-right lg li"></i>
+                            [New Transform 1]
+                            <i class="am-icon-caret-right lg li"></i>
+                            [JSON]
+                            <i class="am-icon-circle lg li"></i>
+                        </div>
+                    </div>
+                    <div class="am-margin-top">
+                        <a href="#" class="am-btn am-btn-success am-btn-sm" id="btn-newTransform"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-panel am-panel-default">
+            <div class="am-panel-hd">
+                <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-3'}">
+                    Landing - 转储
+                </h4>
+            </div>
+            <div id="do-not-say-3" class="am-panel-collapse am-collapse">
+                <div class="am-panel-bd">
+                    <div class="am-panel am-panel-primary">
+                        <div class="am-panel-hd">Landing Providers</div>
+                        <div class="am-panel-bd">
+                            <div>
+                                <div class="am-alert am-alert-secondary">
+                                    <i class="am-icon-gears lg li">
+                                        [Stroage] - Aritical-AmazonS3
+                                    </i>
+                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                                </div>
+                                <div class="am-alert am-alert-secondary">
+                                    <i class="am-icon-gears lg li">
+                                        [ElasticSearch] - Aritical-ElasticSearch
+                                    </i>
+                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                                </div>
+                            </div>
+                            <div id="editors" class="am-panel am-panel-primary">
+                                <div id="editor" class="am-panel-bd">
+                                    <label for="exportas">Type:</label>
+                                    <select name="sourceType">
+                                        <option value="storage" selected>Stroage</option>
+                                        <option value="elasticsearch">Elastic Search</option>
+                                    </select>
+                                    <label for="exportas">Name:</label>
+                                    <input type="text" placeholder="ProviderName" />
+                                    <div>
+                                        <label for="ProviderName">StorageType:</label>
+                                        <input type="text" placeholder="ProviderName" value="AmazonS3" />
+                                        <label for="Prefix">Prefix:</label>
+                                        <input type="text" placeholder="Prefix" value="/prefix" />
+                                        <label for="Configure">Configure:</label>
+                                        <input type="text" placeholder="Configure" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
+                                    </div>
+                                    <div class="am-margin-top">
+                                        <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
+                                        <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-margin-top">
+                                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="am-panel-bd">
+                    <div class="am-panel am-panel-primary">
+                        <div class="am-panel-hd">Landing</div>
+                        <div class="am-panel-bd">
+                            <div>
+                                <div class="am-alert am-alert-secondary">
+                                    <i class="am-icon-circle lg li">
+                                        News <span class="am-icon-arrow-right"></span> Aritical-ElasticSearch
+                                    </i>
+                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                                </div>
+                                <div class="am-alert am-alert-secondary">
+                                    <i class="am-icon-circle lg li">
+                                        News <span class="am-icon-arrow-right"></span> Aritical-AmazonS3
+                                    </i>
+                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                                </div>
+                                <div id="editors" class="am-panel am-panel-primary">
+                                    <div id="editor" class="am-panel-bd">
+                                        <label for="exportas">FromTransform:</label>
+                                        <select name="FromTransform">
+                                            <option value="news" selected>News</option>
+                                            <option value="news2">News2</option>
+                                        </select>
+                                        <label for="exportas">LoadProvider:</label>
+                                        <select name="LoadProvider">
+                                            <option value="news" selected>Aritical-ElasticSearch</option>
+                                            <option value="news2">Aritical-AmazonS3</option>
+                                        </select>
+                                        <label for="exportas">Parameter:</label>
+                                        <input type="text" placeholder="Prefix" value="$<hash>-$<datetime>.json" />
+
+                                        <div class="am-margin-top">
+                                            <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
+                                            <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="am-margin-top">
+                                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="am-btn-group">
+        <a href="#" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-rocket am-icon-sm"></i> 启动</a>
+        <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+    </div>
+</script>
+<partial name="parameter-template" />
+<partial name="source-item-template" />
+<partial name="saved-source-template" />
+<partial name="transform-group-template" />
+<partial name="field-editor-template" />
+
+<script type="text/javascript">
+    var newTaskForm = null;
+
+    class NewTaskForm {
+        data = {
+            MessageId: "",
+            MessageName: "",
+            Scheduler: "default",
+            Sources: [],
+            Transforms: [],
+            LandingTargets: []
+        };
+
+        get saveSourceContainer() {
+            return $('#saved-sources-container');
+        }
+
+        get SourceGroupContainer() {
+            return $('#source-group-container');
+        }
+
+        get TransformGroupContainer() {
+            return $('#transform-group-container');
+        }
+
+        constructor(form) {
+            this.Form = form;
+            this.SourceItemTemplate = new SourceItemTemplate();
+            this.ParameterTemplate = new ParameterTemplate();
+            this.SavedSourceTemplate = new SavedSourceTemplate();
+            this.TransformGroupTemplate = new TransformGroupTemplate();
+            this.data.MessageId = form.newguid();
+            this.data.MessageName = "ScrapyMessage";
+        }
+
+        provision() {
+            var self = this;
+            var $template = $("#new-task-form-template");
+            var source = $template.text();
+            var template = Handlebars.compile(source);
+            var html = template(this.data);
+            this.current = html;
+            this.Form.append(this.current);
+            $('#btn-newTransform').click((x, y) => {
+                self.newTransform(x, y);
+            });
+
+            var container = this.SourceGroupContainer;
+            var sit = this.SourceItemTemplate;
+            $('#src-add').click(function (e, v) {
+                sit.newSourceGroup(container);
+            });
+        }
+        setData(dat) {
+
+        }
+        renderParameter(container, type) {
+            this.ParameterTemplate.generateParameter(container, type);
+        }
+        removeSource(v, n) {
+            var source = this.data.Sources.filter(x => x.id == n);
+            if (source.length > 0) {
+                var index = this.data.Sources.lastIndexOf(source[0]);
+                var newArray = [];
+                for (var i = 0; i < this.data.Sources.length; i++) {
+                    if (i == index)
+                        continue;
+                    newArray.push(this.data.Sources[i]);
+                }
+                this.data.Sources = newArray;
+                this.SavedSourceTemplate.removeSource(this.saveSourceContainer, source[0]);
+                this.SourceItemTemplate.removeSource(null, source[0]);
+            }
+
+        }
+        saveSource(v, n) {
+            var param = {};
+            var sourceName = $('#top-' + n + " #sourceName").val();
+            var sourceType = $('#top-' + n).find("select").val();
+            $('#parameters-' + n).find('input').each((index, element) => {
+                param[element.name] = element.value;
+            });
+            var source = this.data.Sources.filter(x => x.id == n);
+            if (source.length == 0) {
+                source = {
+                    "Name": sourceName,
+                    "Type": sourceType,
+                    "Parameters": param,
+                    "id": n,
+                };
+                this.data.Sources.push(source);
+                this.SavedSourceTemplate.addSavedSource(this.saveSourceContainer, source);
+            } else {
+                source = source[0];
+                source.Name = sourceName;
+                source.Type = sourceType;
+                source.Parameters = param;
+                this.SavedSourceTemplate.replaceSource(this.saveSourceContainer, source);
+            }
+            this.SourceItemTemplate.removeSource(null, source);
+        }
+        editsource(e, id) {
+            var container = this.SourceGroupContainer;
+            var sourceDat = this.data.Sources.find(x => x.id == id);
+            var ajax = this.SourceItemTemplate.restore(container, sourceDat);
+            var parameterTemplate = this.ParameterTemplate;
+            $.when(ajax).done(function () {
+                parameterTemplate.generateParameter($("#parameters-" + sourceDat.id), sourceDat.Type, sourceDat.Parameters);
+            });
+        }
+        newTransform(v, n) {
+            var transformContainer = this.TransformGroupContainer;
+            var tgtemplate = this.TransformGroupTemplate;
+            var dataModel = tgtemplate.getDataModel(transformContainer);
+            this.data.Sources.forEach(x => {
+                dataModel.Sources.push({
+                    'Id': x.id,
+                    'Name': x.Name
+                });
+            });
+
+            var editor = tgtemplate.newTransformEditor(
+                transformContainer,
+                dataModel,
+                (savedPrincipal) => {
+
+                    savedPrincipal.remove();
+                }
+            );
+
+        }
+    }
+
+    function sourceTypeChanged(v, n) {
+        var parameterContainer = $('#parameters-' + n);
+        newTaskForm.renderParameter(parameterContainer, v.value);
+    }
+
+    function editsource(v, n) {
+        newTaskForm.editsource(v, n);
+    }
+
+    function savesrc(v, n) {
+        newTaskForm.saveSource(v, n);
+    }
+    function removesrc(v, n) {
+        newTaskForm.removeSource(v, n);
+    }
+
+    function rmSelf(v) {
+        $(v).remove();
+    }
+
+    function fillTable() {
+        var tableTbody = $('#scrapyTaskTable tbody');
+        tableTbody.html(' ');
+        $.ajax(
+            {
+                contentType: "application/json;charset=UTF-8",
+                type: "GET",
+                url: "/api/scarpy/task-list",
+                success: (data, res) => {
+                    var scrapytskListTable = new scrapyTaskListTable(data, tableTbody);
+                    scrapytskListTable.Render();
+
+                }
+            }
+        );
+    }
+
+    $('#scrapyTaskTabTable').ready(x => {
+        fillTable();
+    });
+    $('#formNewTask').ready(x => {
+        newTaskForm = new NewTaskForm($('#formNewTask'));
+        newTaskForm.provision();
+        var helper = new HandlebarsHelper();
+        helper.registStringEqual();
+        helper.registStringNotEqual();
+    });
+
+
+
+</script>
+

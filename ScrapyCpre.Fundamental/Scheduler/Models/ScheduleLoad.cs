@@ -15,7 +15,9 @@ namespace ScrapyCore.Fundamental.Scheduler.Models
         {
             public string FromTransform { get; set; }
 
-            public string LaadProvider { get; set; }
+            public string LoadProvider { get; set; }
+
+            public string Parameter { get; set; }
         }
     }
 }

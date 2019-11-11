@@ -12,5 +12,9 @@ namespace ScrapyCore.Fundamental.Scheduler.Attributes
         }
 
         public string Name { get; }
+        public Type ParameterType { get; set; }
+
+        public Type SourceGanType { get; set; }
+
     }
 }

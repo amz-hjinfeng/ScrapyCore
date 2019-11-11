@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="configure\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,17 +25,11 @@
     <Content Remove="configure\aws\Kerrigan.json" />
     <Content Remove="configure\aws\hydralisk-utralisk.json" />
     <Content Remove="configure\aws\redis-cache.json" />
-    <Content Remove="wwwroot\js\amazeui.ie8polyfill.min.js" />
-    <Content Remove="wwwroot\js\amazeui.js" />
-    <Content Remove="wwwroot\js\amazeui.min.js" />
-    <Content Remove="wwwroot\js\amazeui.widgets.helper.js" />
-    <Content Remove="wwwroot\js\amazeui.widgets.helper.min.js" />
-    <Content Remove="wwwroot\js\app.js" />
-    <Content Remove="wwwroot\js\handlebars.min.js" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ScrapyCore.Core\ScrapyCore.Core.csproj" />
+    <ProjectReference Include="..\ScrapyCpre.Fundamental\ScrapyCore.Fundamental.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,6 +59,9 @@
     </Content>
     <Content Update="configure\local\utralisk-kerrigan.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Views\ScrapyTask\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
 </Project>

@@ -109,5 +109,15 @@ namespace ScrapyCore.Core.Caches
         {
             return Task.FromResult(server.Keys(pattern: keyPatten).Select(x => x.ToString()));
         }
+
+        public override Task StoreStringAsync(string key, string strValue, TimeSpan? timeSpan = null)
+        {
+            return database.StringSetAsync(key, strValue, expiry: timeSpan);
+        }
+
+        public override async Task<string> RestoreStringAsync(string key)
+        {
+            return await database.StringGetAsync(key);
+        }
     }
 }
