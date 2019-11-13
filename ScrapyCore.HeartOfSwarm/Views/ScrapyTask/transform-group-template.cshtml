@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="am-margin-top">
-            <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm" id="btn-save-transform"></i> 保存</a>
+            <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="btn-save-transform"><i class="am-icon-save am-icon-sm"></i> 保存</a>
             <a href="#" class="am-btn am-btn-danger am-btn-sm" onclick="rmSelf($('#transform-{{Id}}'))"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
         </div>
     </div>
@@ -84,15 +84,15 @@
 
         newTransformEditor(container, dat,savedCallback) {
             var html = $(this.TransformGroupTemplate(dat));
-            container.append(html);
             this.newFieldEditorOperator(html);
             this.transformSave(html, savedCallback)
             this.renderSelectedSource(html);
+            container.append(html);
             return html;
         }
 
         transformSave(html, savedCallback) {
-            var ans = $(html);
+            var ans = html;
             ans.find("#btn-save-transform").click(
                 x => {
                     var dat = {
@@ -103,9 +103,10 @@
                     }
                     $(ans).find("#field-saved-display")
                         .find("input:hidden")
-                        .each((v, i) => dat.fields.push(v));
-                    $(ans).find("#mapToSource a").each(
-                        (v, i) => { console.log(v.id); }
+                        .each((v, i) => dat.fields.push(JSON.parse(i.value)));
+                    $(ans).find("#mapToSource a").each((v, i) => {
+                        dat.sources.push({ srcName:i.text });
+                        }
                     );
                     savedCallback(html, dat)
                 });

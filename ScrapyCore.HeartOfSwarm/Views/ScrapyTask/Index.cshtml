@@ -70,6 +70,23 @@
     </div>
 </div>
 
+<script id="saved-transform-template" type="text/x-handlebars-template">
+    <div class="am-alert am-alert-secondary">
+        <i class="am-icon-asterisk lg li"></i>
+        {{#each sources}}
+        [{{srcName}}]
+        {{/each}}
+        <i class="am-icon-caret-right lg li"></i>
+        [{{transformName}}]
+        <i class="am-icon-caret-right lg li"></i>
+        [{{exportas}}]
+        <i class="am-icon-circle lg li"></i>
+        <input type="hidden" name="{{transformName}}" value="" />
+        <a class="am-btn am-btn-danger am-fr am-btn-xs" id="remove-saved-transform">删除</a>
+    </div>
+
+</script>
+
 
 
 <script type="text/javascript" src="~/js/scrapytasklist.js"></script>
@@ -96,8 +113,6 @@
                     </div>
                     <div id="source-group-container">
                     </div>
-
-
                     <div class="am-margin-top">
                         <a href="#" class="am-btn am-btn-success am-btn-sm" id="src-add"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
                     </div>
@@ -115,15 +130,7 @@
                 <div class="am-panel-bd">
                     <label for="sourcedefine">Transform Group:</label>
                     <div id="transform-group-container">
-                        <div class="am-alert am-alert-secondary">
-                            <i class="am-icon-asterisk lg li"></i>
-                            [Source1]
-                            <i class="am-icon-caret-right lg li"></i>
-                            [New Transform 1]
-                            <i class="am-icon-caret-right lg li"></i>
-                            [JSON]
-                            <i class="am-icon-circle lg li"></i>
-                        </div>
+
                     </div>
                     <div class="am-margin-top">
                         <a href="#" class="am-btn am-btn-success am-btn-sm" id="btn-newTransform"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
@@ -278,6 +285,7 @@
             this.ParameterTemplate = new ParameterTemplate();
             this.SavedSourceTemplate = new SavedSourceTemplate();
             this.TransformGroupTemplate = new TransformGroupTemplate();
+            this.SavedTransformTemplate = Handlebars.compile($("#saved-transform-template").text());
             this.data.MessageId = form.newguid();
             this.data.MessageName = "ScrapyMessage";
         }
@@ -361,6 +369,7 @@
             var transformContainer = this.TransformGroupContainer;
             var tgtemplate = this.TransformGroupTemplate;
             var dataModel = tgtemplate.getDataModel(transformContainer);
+            var savedTransformTemplate = this.SavedTransformTemplate;
             this.data.Sources.forEach(x => {
                 dataModel.Sources.push({
                     'Id': x.id,
@@ -368,11 +377,16 @@
                 });
             });
 
-            var editor = tgtemplate.newTransformEditor(
+            tgtemplate.newTransformEditor(
                 transformContainer,
                 dataModel,
-                (savedPrincipal) => {
-
+                (savedPrincipal, dat) => {
+                    var html = $(savedTransformTemplate(dat));
+                    html.find(dat.transformName).val(JSON.stringify(dat));
+                    transformContainer.append(html);
+                    html.find("#remove-saved-transform").click(function () {
+                        html.remove();
+                    });
                     savedPrincipal.remove();
                 }
             );
