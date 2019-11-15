@@ -1,0 +1,79 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<script id="load-provider-editor-template" type="text/x-handlebars-template">
+    <div class="am-panel am-panel-primary">
+        <div class="am-panel-hd">Landing Providers</div>
+        <div class="am-panel-bd">
+            <div>
+                {{#each SavedDatas}}
+                <div class="am-alert am-alert-secondary">
+                    <i class="am-icon-gears lg li">
+                        [{{Type}}] - {{Name}}
+                    </i>
+                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                </div>
+                {{/each}}
+            </div>
+            <div id="editors" class="am-panel am-panel-primary">
+                <div id="editor" class="am-panel-bd">
+                    <label for="sourceType">Type:</label>
+                    <select name="sourceType">
+                        <option value="storage" selected>Stroage</option>
+                        <option value="elasticsearch">Elastic Search</option>
+                    </select>
+                    <label for="exportas">Name:</label>
+                    <input type="text" placeholder="ProviderName" />
+                    <div>
+                        <label for="ProviderName">StorageType:</label>
+                        <input type="text" placeholder="ProviderName" value="AmazonS3" />
+                        <label for="Prefix">Prefix:</label>
+                        <input type="text" placeholder="Prefix" value="/prefix" />
+                        <label for="Configure">Configure:</label>
+                        <input type="text" placeholder="Configure" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
+                    </div>
+                    <div class="am-margin-top">
+                        <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
+                        <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+                    </div>
+                </div>
+            </div>
+            <div class="am-margin-top">
+                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    class LoadProviderEditorTemplate {
+        get initEditorData() {
+            return {
+                SavedDatas: [{
+                    Type: "Storage",
+                    Name: "Artical-S3"
+                }],
+
+            };
+        }
+
+
+        constructor() {
+            this.LoadProviderEditorTemplate = Handlebars.compile($("#load-provider-editor-template").text());
+        }
+        provisionEditor(container, dat) {
+            if (!dat) {
+                dat = this.initEditorData;
+            }
+            var template = this.LoadProviderEditorTemplate;
+            var html = $(template(dat));
+
+            container.append(html);
+        }
+
+    }
+
+
+</script>

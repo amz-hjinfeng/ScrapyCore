@@ -44,6 +44,13 @@ namespace ScrapyCore.Fundamental.Kernel.Load
                     {
 
                     }
+                },
+                {
+                    "ElasticSearch",
+                    new LoadSuites()
+                    {
+
+                    }
                 }
             };
         }

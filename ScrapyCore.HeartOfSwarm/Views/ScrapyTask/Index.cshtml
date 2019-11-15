@@ -145,53 +145,8 @@
                 </h4>
             </div>
             <div id="do-not-say-3" class="am-panel-collapse am-collapse">
-                <div class="am-panel-bd">
-                    <div class="am-panel am-panel-primary">
-                        <div class="am-panel-hd">Landing Providers</div>
-                        <div class="am-panel-bd">
-                            <div>
-                                <div class="am-alert am-alert-secondary">
-                                    <i class="am-icon-gears lg li">
-                                        [Stroage] - Aritical-AmazonS3
-                                    </i>
-                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                </div>
-                                <div class="am-alert am-alert-secondary">
-                                    <i class="am-icon-gears lg li">
-                                        [ElasticSearch] - Aritical-ElasticSearch
-                                    </i>
-                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                </div>
-                            </div>
-                            <div id="editors" class="am-panel am-panel-primary">
-                                <div id="editor" class="am-panel-bd">
-                                    <label for="exportas">Type:</label>
-                                    <select name="sourceType">
-                                        <option value="storage" selected>Stroage</option>
-                                        <option value="elasticsearch">Elastic Search</option>
-                                    </select>
-                                    <label for="exportas">Name:</label>
-                                    <input type="text" placeholder="ProviderName" />
-                                    <div>
-                                        <label for="ProviderName">StorageType:</label>
-                                        <input type="text" placeholder="ProviderName" value="AmazonS3" />
-                                        <label for="Prefix">Prefix:</label>
-                                        <input type="text" placeholder="Prefix" value="/prefix" />
-                                        <label for="Configure">Configure:</label>
-                                        <input type="text" placeholder="Configure" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
-                                    </div>
-                                    <div class="am-margin-top">
-                                        <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
-                                        <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="am-margin-top">
-                                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
-                            </div>
-                        </div>
+                <div class="am-panel-bd" id="providor-editor">
 
-                    </div>
                 </div>
                 <div class="am-panel-bd">
                     <div class="am-panel am-panel-primary">
@@ -253,6 +208,7 @@
 <partial name="saved-source-template" />
 <partial name="transform-group-template" />
 <partial name="field-editor-template" />
+<partial name="load-provider-editor-template" />
 
 <script type="text/javascript">
     var newTaskForm = null;
@@ -279,12 +235,17 @@
             return $('#transform-group-container');
         }
 
+        get ProviderEditorContainer() {
+            return $("#providor-editor");
+        }
+
         constructor(form) {
             this.Form = form;
             this.SourceItemTemplate = new SourceItemTemplate();
             this.ParameterTemplate = new ParameterTemplate();
             this.SavedSourceTemplate = new SavedSourceTemplate();
             this.TransformGroupTemplate = new TransformGroupTemplate();
+            this.LoadProviderEditorTemplate = new LoadProviderEditorTemplate();
             this.SavedTransformTemplate = Handlebars.compile($("#saved-transform-template").text());
             this.data.MessageId = form.newguid();
             this.data.MessageName = "ScrapyMessage";
@@ -298,6 +259,8 @@
             var html = template(this.data);
             this.current = html;
             this.Form.append(this.current);
+            this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer);
+
             $('#btn-newTransform').click((x, y) => {
                 self.newTransform(x, y);
             });
@@ -392,6 +355,13 @@
             );
 
         }
+
+        provisionProviderEditor() {
+            var transformGroupContainer = this.TransformGroupContainer;
+
+
+        }
+
     }
 
     function sourceTypeChanged(v, n) {
