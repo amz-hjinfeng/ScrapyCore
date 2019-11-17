@@ -10,7 +10,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
     public class HttpSourceMeta
     {
         private CookieContainer _cookieContainer = new CookieContainer();
-        private int _cookieClean = 0;
+        //private int _cookieClean = 0;
 
         public string Encoding { get; set; }
 

@@ -39,5 +39,10 @@ namespace ScrapyCore.Core.MessageQueues
             }
             return null;
         }
+
+        public IList<string> GetServiceKeys()
+        {
+            return messageQueueTypes.Keys.ToList();
+        }
     }
 }

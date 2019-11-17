@@ -18,6 +18,6 @@ namespace ScrapyCore.Core.Configure.Caches
 
         public int ExpireInMiniSeconds => cacheConfigureModel.ExpireMiniSeconds;
 
-        public Dictionary<string, string> ConfigureDetail { get; }
+        public IDictionary<string, string> ConfigureDetail { get; }
     }
 }

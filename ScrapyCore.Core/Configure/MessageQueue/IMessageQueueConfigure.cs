@@ -9,6 +9,5 @@ namespace ScrapyCore.Core.Configure
 
         string QueueName { get; }
 
-        IDictionary<string,string> ConfigureDetail { get;  }
     }
 }

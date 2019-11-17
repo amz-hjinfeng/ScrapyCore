@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ScrapyCore.Core.Configure;
 
 namespace ScrapyCore.Core.UserAgents
@@ -24,6 +25,11 @@ namespace ScrapyCore.Core.UserAgents
         public IUserAgentPool GetService(IUserAgentsConfigure configure)
         {
             return new NormalAgentPools(configure);
+        }
+
+        public IList<string> GetServiceKeys()
+        {
+            return new List<string>() { "" };
         }
     }
 }

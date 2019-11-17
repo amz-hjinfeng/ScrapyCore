@@ -36,5 +36,10 @@ namespace ScrapyCore.Core.Caches
             }
             return null;
         }
+
+        public IList<string> GetServiceKeys()
+        {
+            return cacheTypes.Keys.ToList();
+        }
     }
 }

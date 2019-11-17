@@ -18,7 +18,5 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Views
         {
             return View();
         }
-
-
     }
 }

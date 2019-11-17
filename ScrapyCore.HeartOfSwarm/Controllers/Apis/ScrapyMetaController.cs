@@ -10,6 +10,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ScrapyCore.Fundamental.Kernel.Convertors;
+using ScrapyCore.Fundamental.Kernel.Load;
+using ScrapyCore.Core;
 
 namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
 {
@@ -19,7 +21,15 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
     public class ScrapyMetaController : Controller
     {
         private static IReadOnlyDictionary<string, SourceGenAttribute> SourceGenMeta => SourceGenManager.SourceGenMeta;
-        public static IReadOnlyDictionary<string, ConvertorManager.ConvertorMeta> ConvertorMetas => ConvertorManager.ConvertorMetas;
+        private static IReadOnlyDictionary<string, ConvertorManager.ConvertorMeta> ConvertorMetas => ConvertorManager.ConvertorMetas;
+        private static IReadOnlyDictionary<string,LoadSuites> LoadProviderMetas = LoadProviderManager.LoadMetas;
+
+        private static IReadOnlyDictionary<string, string> LoadProviderTypesFieldMapping => new Dictionary<string, string>()
+        {
+            {"Storage","StorageType" },
+            {"MessageQueue","MessageQueueEngine"}
+        };
+
         /// <summary>
         /// api/scrapymeta/source-gens
         /// </summary>
@@ -78,6 +88,32 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
                 ConventorName = x.Attribute.Name,
                 ConstructorType = x.Attribute.ConstructorType?.Name
             }));
+        }
+
+
+
+        [HttpGet]
+        [Route("load-provider")]
+        public ActionResult GetLoadMetas()
+        {
+            var result = LoadProviderManager.LoadMetas.Select(x =>
+                new
+                {
+                    CategoryName = x.Key,
+                    Metas = x.Value.ConfigureFactory.GetType()
+                        .GetInterfaces()[0]
+                        .GenericTypeArguments[0]
+                        .GetProperties().Select(p=>new {
+                            Name = p.Name,
+                            Type = p.PropertyType.Name
+                        }),
+                    Services = (x.Value.ServiceFactory as IServiceKeys).GetServiceKeys(),
+                    MappingTo = LoadProviderTypesFieldMapping[x.Key]
+
+                }
+            ).ToList();
+
+            return Json(result);
         }
     }
 }

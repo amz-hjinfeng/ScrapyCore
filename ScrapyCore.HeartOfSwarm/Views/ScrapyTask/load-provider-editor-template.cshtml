@@ -3,45 +3,89 @@
 *@
 @{
 }
+
+<script id="provider-configure-detail" type="text/x-handlebars-template">
+    <div>
+         @*<label for="ProviderName">{{providerType}}Type:</label>
+            <select id="ProviderTypeSelector">
+            {{#each selectors}}
+            <option value="{{value}}">{{selection}}</option>
+            {{/each}}
+        </select>*@
+        
+        {{#each metas}}
+        <label for="{{name}}">{{name}}:</label>
+        {{#if name}}
+        {{#StringNotEqual ../mappingTo name}}
+        <input type="text" name="{{name}}"  placeholder="{{name}}" value="" />
+        {{else}}
+        <select name="{{name}}">
+            {{#each ../services}}
+            <option> {{this}}</option>
+            {{/each}}
+         </select>
+        {{/StringNotEqual}}
+        {{/if}}
+        {{/each}}
+        <label for="Configure">Configure:</label>
+        <input type="text" placeholder="Configure"  name="configures"/>
+    @* <div id="dictionray-parameter">
+           
+        </div>
+        <a class="am-btn am-btn-danger am-fr am-btn-xs" id="add-configure">添加</a>
+*@    </div>
+</script>
+
+<script id="provider-editor" type="text/x-handlebars-template">
+    <div id="editor" class="am-panel-bd">
+            <label for="providerCategory">Provider Category:</label>
+            <select id="provider-category" name="providerCategory">
+                {{#each providerCategory}}
+                <option value="{{metaString}}">{{categoryName}}</option>
+                {{/each}}
+            </select>
+            <label for="providerName">Name:</label>
+            <input type="text" placeholder="ProviderName" name="providerName" value="" id="provider-name-input"/>
+            <div id="dynamic-editor">
+                <label for="ProviderName">StorageType:</label>
+                <input type="text" placeholder="ProviderName" value="AmazonS3" />
+                <label for="Prefix">Prefix:</label>
+                <input type="text" placeholder="Prefix" value="/prefix" />
+                <label for="Configure">Configure:</label>
+                <input type="text" placeholder="Configure" name="configures" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
+            </div>
+            <div class="am-margin-top">
+            <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="save-data"><i class="am-icon-save am-icon-sm"></i> 保存</a>
+            <a href="#" class="am-btn am-btn-danger am-btn-sm" id="cancle"><i class="am-icon-remove am-icon-sm" id="btnRemove"></i> 取消</a>
+        </div>
+    </div>
+
+
+</script>
+
+
+<script id="saved-load-provider" type="text/x-handlebars-template">
+     <div class="am-alert am-alert-secondary">
+        <i class="am-icon-gears lg li">
+            [{{Type}}] - {{Name}}
+            <input type="hidden" value="{{Values}}" />
+        </i>
+        <a class="am-btn am-btn-danger am-fr am-btn-xs" id="remove-saved-provider">删除</a>
+    </div>
+</script>
+
 <script id="load-provider-editor-template" type="text/x-handlebars-template">
     <div class="am-panel am-panel-primary">
         <div class="am-panel-hd">Landing Providers</div>
         <div class="am-panel-bd">
-            <div>
-                {{#each SavedDatas}}
-                <div class="am-alert am-alert-secondary">
-                    <i class="am-icon-gears lg li">
-                        [{{Type}}] - {{Name}}
-                    </i>
-                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                </div>
-                {{/each}}
+            <div id="saved-load-providers">
+
             </div>
             <div id="editors" class="am-panel am-panel-primary">
-                <div id="editor" class="am-panel-bd">
-                    <label for="sourceType">Type:</label>
-                    <select name="sourceType">
-                        <option value="storage" selected>Stroage</option>
-                        <option value="elasticsearch">Elastic Search</option>
-                    </select>
-                    <label for="exportas">Name:</label>
-                    <input type="text" placeholder="ProviderName" />
-                    <div>
-                        <label for="ProviderName">StorageType:</label>
-                        <input type="text" placeholder="ProviderName" value="AmazonS3" />
-                        <label for="Prefix">Prefix:</label>
-                        <input type="text" placeholder="Prefix" value="/prefix" />
-                        <label for="Configure">Configure:</label>
-                        <input type="text" placeholder="Configure" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
-                    </div>
-                    <div class="am-margin-top">
-                        <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
-                        <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
-                    </div>
-                </div>
+                
             </div>
             <div class="am-margin-top">
-                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                <a href="#" class="am-btn am-btn-success am-btn-sm" id="add-provider"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
             </div>
         </div>
     </div>
@@ -53,27 +97,134 @@
             return {
                 SavedDatas: [{
                     Type: "Storage",
-                    Name: "Artical-S3"
+                    Name: "Artical-S3",
+                    Values: ""
                 }],
 
             };
         }
 
-
         constructor() {
             this.LoadProviderEditorTemplate = Handlebars.compile($("#load-provider-editor-template").text());
+            this.SavedProviderTemplate = Handlebars.compile($('#saved-load-provider').text());
+            this.ProviderEditor = Handlebars.compile($("#provider-editor").text());
+            this.ProviderConfigureDetailTemplate = Handlebars.compile($("#provider-configure-detail").text());
+            this.initialProviderType();
+
         }
+
+        initialProviderType() {
+            this.editorType = {};
+            var self = this;
+            $.ajax({
+                contentType: "application/json;charset=UTF-8",
+                type: "GET",
+                url: "/api/scrapymeta/load-provider",
+                success: (data, res) => {
+                    self.editorType.providerCategory = data;
+                    self.editorType.providerCategory.forEach(x => {
+                        x.metaString = JSON.stringify(x);
+                    });
+                }
+            });
+        }
+
+
         provisionEditor(container, dat) {
-            if (!dat) {
-                dat = this.initEditorData;
-            }
+
             var template = this.LoadProviderEditorTemplate;
             var html = $(template(dat));
-
+            this.newEditor(html);
+            this.provisionSavedProviders(html.find("#saved-load-providers"), dat);
             container.append(html);
         }
 
+        provisionSavedProviders(parentContainer, dat) {
+            if (dat) {
+                dat.SavedDatas.forEach(x => {
+                    var saveProvider = this.SavedProviderTemplate(x);
+                    var savedProviderJQ=$(saveProvider);
+                        savedProviderJQ.find("#remove-saved-provider")
+                        .click(x => {
+                            savedProviderJQ.remove();
+                        });
+
+                    parentContainer.append(savedProviderJQ);
+                });
+            }
+        }
+
+        newEditor(html) {
+            var editorTemplate = this.ProviderEditor;
+            var editorMeta = this.editorType;
+            var configDetailTemplate = this.ProviderConfigureDetailTemplate;
+            var savedProviderTemplate = this.SavedProviderTemplate;
+            var savedProdiderContainer = html.find("#saved-load-providers");
+            var self = this;
+            html.find("#add-provider").click(f => {
+                var providerEditor = $(editorTemplate(editorMeta));
+                html.find("#editors")
+                    .append(providerEditor);
+
+                providerEditor.find("#cancle").click(x => {
+                    providerEditor.remove();
+                });
+
+                providerEditor.find("#save-data").click(x => {
+
+                    var savedData = {
+                        Type: providerEditor.find("#provider-category").find("option:selected").text(),
+                        Name: providerEditor.find("#provider-name-input").val(),
+
+                    };
+                    var raws = [];
+                    providerEditor.find("input,select").each((x, y) => {
+                        if (y.type == "text") {
+                            raws.push({
+                                key: y.name,
+                                value: y.value
+                            });
+                        } else {
+                            raws.push({
+                                key: y.name,
+                                value: y.selectedOptions[0].text
+                            });
+                        }
+                    });
+                    savedData.Values = JSON.stringify(raws);
+                    self.provisionSavedProviders(savedProdiderContainer, {
+                        SavedDatas:[{
+                            Type: savedData.Type,
+                            Name: savedData.Name,
+                            Values: savedData.Values
+                        }]});
+                    providerEditor.remove();
+                });
+
+
+                var dynamicEditorContainer = providerEditor.find("#dynamic-editor");
+                var providerCategory = providerEditor.find("#provider-category");
+                providerCategory.change(x => {
+                    var selectedValue = x.target.selectedOptions[0].value;
+                    var meta = JSON.parse(selectedValue);
+                    var dat = meta;
+                    var templateDetail = $(configDetailTemplate(dat));
+
+                    dynamicEditorContainer.html("");
+                    dynamicEditorContainer.append(templateDetail);
+
+                    var dictionaryParameter = templateDetail.find("#dictionray-parameter");
+
+                    templateDetail.find("#add-configure").click(x => {
+
+                    });
+
+                });
+                providerCategory.change();
+                
+
+            });
+        }
+
     }
-
-
 </script>

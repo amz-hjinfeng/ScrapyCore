@@ -9,6 +9,5 @@ namespace ScrapyCore.Core.Configure
 
         string StorageType { get; }
 
-        IDictionary<string,string> ConfigureDetail { get; }
     }
 }

@@ -33,6 +33,8 @@ namespace ScrapyCore.Core.Configure
 
         public bool EdgeAutomation { get; }
 
+        public IDictionary<string, string> ConfigureDetail => throw new NotImplementedException();
+
         public List<Tuple<string, string, string>> GetUserAgents() => tuples;
 
 

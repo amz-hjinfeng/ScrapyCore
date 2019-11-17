@@ -56,5 +56,10 @@ namespace ScrapyCore.Core.Storages
             }
             return null;
         }
+
+        public IList<string> GetServiceKeys()
+        {
+            return storageTypes.Keys.ToList();
+        }
     }
 }

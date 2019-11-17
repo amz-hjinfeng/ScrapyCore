@@ -28,7 +28,7 @@ namespace ScrapyCore.Utralisks.WebHosting
         {
             var assembly = typeof(ApiConst).GetTypeInfo().Assembly;
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddApplicationPart(assembly); ;
+                .AddApplicationPart(assembly);
             services.AddSingleton(x => SystemController.MessagePipline.Entrance);
             services.AddSingleton(x => bootstrap.GetCachedFromVariableSet("HeartbeatCache"));
         }
