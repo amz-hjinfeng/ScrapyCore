@@ -28,27 +28,26 @@ phases:
         - dotnet publish -c Release
     post_build:
       commands:
-        - zip -r hydralisk.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
-        - zip -r kerrigan.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
-        - zip -r heartofswarmweb.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
-        - zip -r utralisks.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
+        - zip -r hydralisk-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
+        - zip -r kerrigan-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
+        - zip -r heartofswarmweb-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
+        - zip -r utralisks-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
 artifacts:
+    files:
+        - heartofswarmweb-$CODEBUILD_SOURCE_VERSION.zip
+    name: heartofswarmweb
     secondary-artifacts:
       hydralisk:
         files:
-          - hydralisk.zip
+          - hydralisk-$CODEBUILD_SOURCE_VERSION.zip
         name: hydralisk
       kerrigan:
         files:
-          - kerrigan.zip
+          - kerrigan-$CODEBUILD_SOURCE_VERSION.zip
         name: kerrigan
-      heartofswarmweb:
-        files:
-          - heartofswarmweb.zip
-        name: heartofswarmweb
       utralisks:
         files:
-          - utralisks.zip
+          - utralisks-$CODEBUILD_SOURCE_VERSION.zip
         name: utralisks
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
