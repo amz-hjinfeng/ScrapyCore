@@ -40,7 +40,7 @@ artifacts:
     secondary-artifacts:
       heartofswarmweb:
         files:
-          - **/*
+          - '**/*'
         name: heartofswarmweb
         base-directory: './ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
       hydralisk:
