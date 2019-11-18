@@ -37,6 +37,10 @@ artifacts:
         - heartofswarmweb-$CODEBUILD_START_TIME.zip
     name: heartofswarmweb
     secondary-artifacts:
+      heartofswarmweb:
+        files:
+          - heartofswarmweb-$CODEBUILD_START_TIME.zip
+        name: heartofswarmweb
       hydralisk:
         files:
           - hydralisk-$CODEBUILD_START_TIME.zip
