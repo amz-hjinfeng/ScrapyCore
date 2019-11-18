@@ -28,27 +28,28 @@ phases:
         - dotnet publish -c Release
     post_build:
       commands:
-        - zip -r hydralisk-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
-        - zip -r kerrigan-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
-        - zip -r heartofswarmweb-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
-        - zip -r utralisks-$CODEBUILD_SOURCE_VERSION.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
+        - zip -r hydralisk-$CODEBUILD_START_TIME.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
+        - zip -r kerrigan-$CODEBUILD_START_TIME.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
+        - zip -r heartofswarmweb-$CODEBUILD_START_TIME.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
+        - zip -r utralisks-$CODEBUILD_START_TIME.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
 artifacts:
     files:
-        - heartofswarmweb-$CODEBUILD_SOURCE_VERSION.zip
+        - heartofswarmweb-$CODEBUILD_START_TIME.zip
     name: heartofswarmweb
     secondary-artifacts:
       hydralisk:
         files:
-          - hydralisk-$CODEBUILD_SOURCE_VERSION.zip
+          - hydralisk-$CODEBUILD_START_TIME.zip
         name: hydralisk
       kerrigan:
         files:
-          - kerrigan-$CODEBUILD_SOURCE_VERSION.zip
+          - kerrigan-$CODEBUILD_START_TIME.zip
         name: kerrigan
       utralisks:
         files:
-          - utralisks-$CODEBUILD_SOURCE_VERSION.zip
+          - utralisks-$CODEBUILD_START_TIME.zip
         name: utralisks
+
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
   #base-directory: location
