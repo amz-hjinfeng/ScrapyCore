@@ -40,23 +40,27 @@ artifacts:
     secondary-artifacts:
       heartofswarmweb:
         files:
-          - '**/*'
+          - **/*
         name: heartofswarmweb
+        discard-paths: yes
         base-directory: './ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
       hydralisk:
         files:
           - '**/*'
         name: hydralisk
+        discard-paths: yes
         base-directory: './ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/'
       kerrigan:
         files:
           - '**/*'
         name: kerrigan
+        discard-paths: yes
         base-directory: './ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/'
       utralisks:
         files:
           - '**/*'
         name: utralisks
+        discard-paths: yes
         base-directory: './ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/'
 
   #name: $(date +%Y-%m-%d)
