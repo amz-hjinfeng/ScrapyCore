@@ -2,7 +2,7 @@
   "CacheEngine": "RedisCache",
 
   "ConfigureDetail": [
-    [ "end-points", "192.168.3.4:6379" ],
+    [ "end-points", "172.0.0.1:6379" ],
     [ "abortConnect", "false" ],
     [ "allowAdmin", "false" ],
     [ "channelPrefix", "" ],
