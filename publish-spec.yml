@@ -32,10 +32,24 @@ phases:
         - zip -r kerrigan.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
         - zip -r heartofswarm-web.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
         - zip -r utralisks.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
-#artifacts:
-  #files:
-    # - location
-    # - location
+artifacts:
+    secondary-artifacts:
+      hydralisk:
+        files:
+          - hydralisk.zip
+        name: hydralisk
+      kerrigan:
+        files:
+          - kerrigan.zip
+        name: kerrigan
+      heartofswarm-web:
+        files:
+          - heartofswarm-web.zip
+        name: heartofswarm-web
+      utralisks:
+        files:
+          - utralisks.zip
+        name: utralisks
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
   #base-directory: location
