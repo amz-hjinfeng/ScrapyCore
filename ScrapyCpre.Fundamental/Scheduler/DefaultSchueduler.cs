@@ -25,7 +25,7 @@ namespace ScrapyCore.Fundamental.Scheduler
             this.coreCache = corecache;
         }
 
-        public async Task ScheduleBack(string messageId, string jobId)
+        public Task ScheduleBack(string messageId, string jobId)
         {
             throw new NotImplementedException();
         }
