@@ -1,0 +1,53 @@
+﻿version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #secrets-manager:
+     # key: secret-id:json-key:version-stage:version-id
+     # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+
+phases:
+  runtime-versions:
+    dotnet: 2.2
+    nodejs: 10
+    docker: 18
+      # name: version
+    #commands:
+      # - command
+      # - command
+  #pre_build:
+   #commands:
+        #- docker run -itd --name redis-test -p 6379:6379 redis
+  build:
+    commands:
+      - dotnet clean
+      - dotnet restore
+      - dotnet publish -c Release
+  post_build:
+    commands:
+      - zip -r hydralisk.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
+      - zip -r kerrigan.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
+      - zip -r heartofswarm-web.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
+      - zip -r utralisks.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
+
+
+    

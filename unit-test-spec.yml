@@ -1,0 +1,50 @@
+﻿version: 0.2
+
+#env:
+  #variables:
+     # key: "value"
+     # key: "value"
+  #parameter-store:
+     # key: "value"
+     # key: "value"
+  #secrets-manager:
+     # key: secret-id:json-key:version-stage:version-id
+     # key: secret-id:json-key:version-stage:version-id
+  #exported-variables:
+     # - variable
+     # - variable
+  #git-credential-helper: yes
+
+phases:
+  runtime-versions:
+    dotnet: 2.2
+    nodejs: 10
+    docker: 18
+      # name: version
+    #commands:
+      # - command
+      # - command
+  pre_build:
+   commands:
+        - docker run -itd --name redis-test -p 6379:6379 redis
+        #run a local redis for the testing program to test the redis.
+  build:
+    commands:
+        - dotnet clean
+        - dotnet restore
+        - dotnet build
+        - dotnet test ScrapyCore.Tests
+  #post_build:
+    #commands:
+      # - command
+      # - command
+#artifacts:
+  #files:
+    # - location
+    # - location
+  #name: $(date +%Y-%m-%d)
+  #discard-paths: yes
+  #base-directory: location
+#cache:
+  #paths:
+    # - paths
