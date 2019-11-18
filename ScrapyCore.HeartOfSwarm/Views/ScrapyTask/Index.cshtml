@@ -168,12 +168,12 @@
                                     </div>
                                 </div>
 
-                                <div id="editors" class="am-panel am-panel-primary">
+                                <div id="load-editors" class="am-panel am-panel-primary">
 
                                 </div>
                             </div>
                             <div class="am-margin-top">
-                                <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
+                                <a href="#" class="am-btn am-btn-success am-btn-sm" id="btn-new-load-editor"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
                             </div>
                         </div>
 
@@ -212,7 +212,7 @@
         };
 
         get saveSourceContainer() {
-            return $('#saved-sources-container');
+            return this.current.find('#saved-sources-container');
         }
 
         get SourceGroupContainer() {
@@ -256,7 +256,7 @@
             var source = $template.text();
             var template = Handlebars.compile(source);
             var html = template(this.data);
-            this.current = html;
+            html = this.current = $(html);
             this.Form.append(this.current);
 
             this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer, dat => {
@@ -264,7 +264,37 @@
             });
 
 
-            $('#btn-newTransform').click((x, y) => {
+            this.current
+                .find("#btn-new-load-editor")
+                .click(x => {
+
+                    var loadReferencesData = {
+
+                        transforms: [],
+                        loadproviders:[]
+                    };
+                    self.data.LandingTargets.LoadProviders.forEach(l => {
+                        loadReferencesData.loadproviders.push(l.Name);
+                    });
+
+                    self.data.Transforms.forEach(l => {
+                        loadReferencesData.transforms.push(l.Name);
+                    });
+
+
+                    self.LoadEditorTemplate.newEditor(
+                        html.find("#load-editors"),
+                        loadReferencesData,
+                        x => {
+                            self.data.LandingTargets.LoadMaps.push(x);
+
+
+                        });
+                });
+
+            this.current
+                .find('#btn-newTransform')
+                .click((x, y) => {
                 self.newTransform(x, y);
             });
 
@@ -274,9 +304,7 @@
                 sit.newSourceGroup(container);
             });
         }
-        setData(dat) {
 
-        }
         renderParameter(container, type) {
             this.ParameterTemplate.generateParameter(container, type);
         }

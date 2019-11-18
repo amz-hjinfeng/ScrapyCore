@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Tests", "ScrapyC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HeartOfSwarm", "HeartOfSwarm", "{88E15548-74DC-45DA-AC69-03E89C8440A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.HeartOfSwarm", "ScrapyCore.HeartOfSwarm\ScrapyCore.HeartOfSwarm.csproj", "{3FA027FE-0742-4F76-944E-C58F9AC392FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapyCore.HeartOfSwarm", "ScrapyCore.HeartOfSwarm\ScrapyCore.HeartOfSwarm.csproj", "{3FA027FE-0742-4F76-944E-C58F9AC392FD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.IntegrationTests", "ScrapyCore.IntegrationTests\ScrapyCore.IntegrationTests.csproj", "{7A25BF0F-3661-40B9-B5A8-E2824AC5DE18}"
 EndProject
@@ -28,6 +28,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Fundamental", "ScrapyCpre.Fundamental\ScrapyCore.Fundamental.csproj", "{B1F16104-24E4-4DE2-8DD2-4E987EF54B05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapyCore.Apis", "ScrapyCode.Apis\ScrapyCore.Apis.csproj", "{09130C28-610C-4562-BCD7-47379CA64565}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8E197B6D-B4C9-491A-8478-83BFF67774C4}"
+	ProjectSection(SolutionItems) = preProject
+		buildspec.yml = buildspec.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

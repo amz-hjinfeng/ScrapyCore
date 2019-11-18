@@ -1,0 +1,57 @@
+﻿@page
+@{
+}
+<script id="load-editor-template" type="text/x-handlebars-template">
+    <div  class="am-panel-bd">
+        <label for="exportas">FromTransform:</label>
+            <select id="FromTransform">
+                {{#each transforms}}
+                    <option>{{this}}</option>
+                {{/each}}
+            </select>
+            <label for="LoadProvider">LoadProvider:</label>
+            <select id="LoadProvider">
+                {{#each loadproviders}}
+                    <option>{{this}}</option>
+                {{/each}}
+            </select>
+            <label for="parameter">Parameter:</label>
+            <input type="text" placeholder="" id="Parameter" name="Parameter" value="$<hash>-$<datetime>.json" />
+            <div class="am-margin-top">
+                <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="btn-save-load"><i class="am-icon-save am-icon-sm" ></i> 保存</a>
+                <a href="#" class="am-btn am-btn-danger am-btn-sm" id="btn-cancle-load"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
+            </div>
+    </div>
+</script>
+
+
+
+<script type="text/javascript">
+    class LoadEditorTemplate{
+
+        constructor(){
+            this.template = Handlebars.compile($("#load-editor-template").text());
+        }
+
+        newEditor(container, data, saveCallback) {
+            var target = $(this.template(data));
+            container.append(target);
+
+            target.find("#btn-cancle-load").click(x => {
+                target.remove();
+            });
+
+            target.find("#btn-save-load").click(x => {
+                var savingData = {
+                    FromTransform: target.find("#FromTransform").find("option:selected").text(),
+                    LoadProvider: target.find("#LoadProvider").find("option:selected").text(),
+                    Parameter: target.find("#Parameter").val()
+
+                };
+                saveCallback(savingData);
+            });
+        }
+    }
+
+
+</script>
