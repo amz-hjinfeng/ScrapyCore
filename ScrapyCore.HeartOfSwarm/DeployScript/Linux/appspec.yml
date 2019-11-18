@@ -1,7 +1,7 @@
-﻿version: 0.0
-os: linux
-files:
-  - source: '/'
+﻿version: 0.0 
+os: linux 
+files: 
+  - source: './'
     destination: /opt/applications/heartofswarm
 hooks:
   BeforeInstall:
