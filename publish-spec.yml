@@ -42,22 +42,22 @@ artifacts:
         files:
           - '**/*'
         name: heartofswarmweb
-        base-directory:'./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
+        base-directory: './ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
       hydralisk:
         files:
           - '**/*'
         name: hydralisk
-        base-directory:'./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/'
+        base-directory: './ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/'
       kerrigan:
         files:
           - '**/*'
         name: kerrigan
-        base-directory:'./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/'
+        base-directory: './ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/'
       utralisks:
         files:
           - '**/*'
         name: utralisks
-        base-directory:'./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/'
+        base-directory: './ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/'
 
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
