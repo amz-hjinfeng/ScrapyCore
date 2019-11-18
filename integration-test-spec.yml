@@ -16,10 +16,11 @@
   #git-credential-helper: yes
 
 phases:
-  runtime-versions:
-    dotnet: 2.2
-    nodejs: 10
-    docker: 18
+    install:
+      runtime-versions:
+        dotnet: 2.2
+        nodejs: 10
+        docker: 18
       # name: version
     #commands:
       # - command
