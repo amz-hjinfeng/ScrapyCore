@@ -28,6 +28,8 @@ phases:
         - dotnet publish -c Release
     post_build:
       commands:
+        - cp -r ./ScrapyCore.HeartOfSwarm/DeployScript/Linux/ ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/
+
         #- zip -r hydralisk-$CODEBUILD_START_TIME.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
         #- zip -r kerrigan-$CODEBUILD_START_TIME.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
         #- zip -r heartofswarmweb-$CODEBUILD_START_TIME.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
