@@ -25,11 +25,11 @@ phases:
     #commands:
       # - command
       # - command
-  pre_build:
-   commands:
+     #pre_build:
+       #commands:
         #- docker run -itd --name redis-test -p 6379:6379 redis
-  build:
-    commands:
+    build:
+       commands:
         - dotnet clean
         - dotnet restore
         - dotnet build
