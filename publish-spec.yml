@@ -30,7 +30,7 @@ phases:
       commands:
         - zip -r hydralisk.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
         - zip -r kerrigan.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
-        - zip -r heartofswarm-web.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
+        - zip -r heartofswarmweb.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
         - zip -r utralisks.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
 artifacts:
     secondary-artifacts:
@@ -42,10 +42,10 @@ artifacts:
         files:
           - kerrigan.zip
         name: kerrigan
-      heartofswarm-web:
+      heartofswarmweb:
         files:
-          - heartofswarm-web.zip
-        name: heartofswarm-web
+          - heartofswarmweb.zip
+        name: heartofswarmweb
       utralisks:
         files:
           - utralisks.zip
