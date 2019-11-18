@@ -6,55 +6,56 @@
 
 <script id="provider-configure-detail" type="text/x-handlebars-template">
     <div>
-         @*<label for="ProviderName">{{providerType}}Type:</label>
-            <select id="ProviderTypeSelector">
-            {{#each selectors}}
-            <option value="{{value}}">{{selection}}</option>
-            {{/each}}
-        </select>*@
-        
+        @*<label for="ProviderName">{{providerType}}Type:</label>
+                <select id="ProviderTypeSelector">
+                {{#each selectors}}
+                <option value="{{value}}">{{selection}}</option>
+                {{/each}}
+            </select>*@
+
         {{#each metas}}
         <label for="{{name}}">{{name}}:</label>
         {{#if name}}
         {{#StringNotEqual ../mappingTo name}}
-        <input type="text" name="{{name}}"  placeholder="{{name}}" value="" />
+        <input type="text" name="{{name}}" placeholder="{{name}}" value="" />
         {{else}}
         <select name="{{name}}">
             {{#each ../services}}
             <option> {{this}}</option>
             {{/each}}
-         </select>
+        </select>
         {{/StringNotEqual}}
         {{/if}}
         {{/each}}
         <label for="Configure">Configure:</label>
-        <input type="text" placeholder="Configure"  name="configures"/>
-    @* <div id="dictionray-parameter">
-           
-        </div>
-        <a class="am-btn am-btn-danger am-fr am-btn-xs" id="add-configure">添加</a>
-*@    </div>
+        <input type="text" placeholder="Configure" name="Configure" />
+        @* <div id="dictionray-parameter">
+
+            </div>
+            <a class="am-btn am-btn-danger am-fr am-btn-xs" id="add-configure">添加</a>
+        *@
+    </div>
 </script>
 
 <script id="provider-editor" type="text/x-handlebars-template">
     <div id="editor" class="am-panel-bd">
-            <label for="providerCategory">Provider Category:</label>
-            <select id="provider-category" name="providerCategory">
-                {{#each providerCategory}}
-                <option value="{{metaString}}">{{categoryName}}</option>
-                {{/each}}
-            </select>
-            <label for="providerName">Name:</label>
-            <input type="text" placeholder="ProviderName" name="providerName" value="" id="provider-name-input"/>
-            <div id="dynamic-editor">
-                <label for="ProviderName">StorageType:</label>
-                <input type="text" placeholder="ProviderName" value="AmazonS3" />
-                <label for="Prefix">Prefix:</label>
-                <input type="text" placeholder="Prefix" value="/prefix" />
-                <label for="Configure">Configure:</label>
-                <input type="text" placeholder="Configure" name="configures" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
-            </div>
-            <div class="am-margin-top">
+        <label for="providerCategory">Provider Category:</label>
+        <select id="provider-category" name="providerCategory">
+            {{#each providerCategory}}
+            <option value="{{metaString}}">{{categoryName}}</option>
+            {{/each}}
+        </select>
+        <label for="providerName">Name:</label>
+        <input type="text" placeholder="ProviderName" name="providerName" value="" id="provider-name-input" />
+        <div id="dynamic-editor">
+            <label for="ProviderName">StorageType:</label>
+            <input type="text" placeholder="ProviderName" value="AmazonS3" />
+            <label for="Prefix">Prefix:</label>
+            <input type="text" placeholder="Prefix" value="/prefix" />
+            <label for="Configure">Configure:</label>
+            <input type="text" placeholder="Configure" name="configures" value="[['region','ap-southeast-1'],['bucket','landing-sina-news']]" />
+        </div>
+        <div class="am-margin-top">
             <a href="#" class="am-btn am-btn-secondary am-btn-sm" id="save-data"><i class="am-icon-save am-icon-sm"></i> 保存</a>
             <a href="#" class="am-btn am-btn-danger am-btn-sm" id="cancle"><i class="am-icon-remove am-icon-sm" id="btnRemove"></i> 取消</a>
         </div>
@@ -65,7 +66,7 @@
 
 
 <script id="saved-load-provider" type="text/x-handlebars-template">
-     <div class="am-alert am-alert-secondary">
+    <div class="am-alert am-alert-secondary">
         <i class="am-icon-gears lg li">
             [{{Type}}] - {{Name}}
             <input type="hidden" value="{{Values}}" />
@@ -82,7 +83,7 @@
 
             </div>
             <div id="editors" class="am-panel am-panel-primary">
-                
+
             </div>
             <div class="am-margin-top">
                 <a href="#" class="am-btn am-btn-success am-btn-sm" id="add-provider"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
@@ -130,12 +131,12 @@
         }
 
 
-        provisionEditor(container, dat) {
+        provisionEditor(container, savedCallback) {
 
             var template = this.LoadProviderEditorTemplate;
-            var html = $(template(dat));
-            this.newEditor(html);
-            this.provisionSavedProviders(html.find("#saved-load-providers"), dat);
+            var html = $(template());
+            this.newEditor(html, savedCallback);
+            //this.provisionSavedProviders(html.find("#saved-load-providers"), dat);
             container.append(html);
         }
 
@@ -143,8 +144,8 @@
             if (dat) {
                 dat.SavedDatas.forEach(x => {
                     var saveProvider = this.SavedProviderTemplate(x);
-                    var savedProviderJQ=$(saveProvider);
-                        savedProviderJQ.find("#remove-saved-provider")
+                    var savedProviderJQ = $(saveProvider);
+                    savedProviderJQ.find("#remove-saved-provider")
                         .click(x => {
                             savedProviderJQ.remove();
                         });
@@ -154,7 +155,7 @@
             }
         }
 
-        newEditor(html) {
+        newEditor(html, savedCallback) {
             var editorTemplate = this.ProviderEditor;
             var editorMeta = this.editorType;
             var configDetailTemplate = this.ProviderConfigureDetailTemplate;
@@ -192,13 +193,28 @@
                         }
                     });
                     savedData.Values = JSON.stringify(raws);
+                    var providerData = {
+                        Type: savedData.Type,
+                        Name: savedData.Name,
+                        Context: {}
+                    };
+                    raws.forEach(x => {
+                        if (x.key == "providerCategory" || x.key == "providerName")
+                            return;
+                        providerData.Context[x.key] = x.value;
+                    });
+
+
+                    savedCallback(providerData);
                     self.provisionSavedProviders(savedProdiderContainer, {
-                        SavedDatas:[{
+                        SavedDatas: [{
                             Type: savedData.Type,
                             Name: savedData.Name,
                             Values: savedData.Values
-                        }]});
+                        }]
+                    });
                     providerEditor.remove();
+
                 });
 
 
@@ -221,7 +237,7 @@
 
                 });
                 providerCategory.change();
-                
+
 
             });
         }

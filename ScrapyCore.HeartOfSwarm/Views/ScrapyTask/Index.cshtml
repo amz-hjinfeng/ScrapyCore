@@ -152,47 +152,31 @@
                     <div class="am-panel am-panel-primary">
                         <div class="am-panel-hd">Landing</div>
                         <div class="am-panel-bd">
-                            <div>
-                                <div class="am-alert am-alert-secondary">
-                                    <i class="am-icon-circle lg li">
-                                        News <span class="am-icon-arrow-right"></span> Aritical-ElasticSearch
-                                    </i>
-                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                </div>
-                                <div class="am-alert am-alert-secondary">
-                                    <i class="am-icon-circle lg li">
-                                        News <span class="am-icon-arrow-right"></span> Aritical-AmazonS3
-                                    </i>
-                                    <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                </div>
-                                <div id="editors" class="am-panel am-panel-primary">
-                                    <div id="editor" class="am-panel-bd">
-                                        <label for="exportas">FromTransform:</label>
-                                        <select name="FromTransform">
-                                            <option value="news" selected>News</option>
-                                            <option value="news2">News2</option>
-                                        </select>
-                                        <label for="exportas">LoadProvider:</label>
-                                        <select name="LoadProvider">
-                                            <option value="news" selected>Aritical-ElasticSearch</option>
-                                            <option value="news2">Aritical-AmazonS3</option>
-                                        </select>
-                                        <label for="exportas">Parameter:</label>
-                                        <input type="text" placeholder="Prefix" value="$<hash>-$<datetime>.json" />
-
-                                        <div class="am-margin-top">
-                                            <a href="#" class="am-btn am-btn-secondary am-btn-sm"><i class="am-icon-save am-icon-sm"></i> 保存</a>
-                                            <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
-                                        </div>
+                            <div id="load-editor-container">
+                                <div id="saved-loads">
+                                    <div class="am-alert am-alert-secondary">
+                                        <i class="am-icon-circle lg li">
+                                            News <span class="am-icon-arrow-right"></span> Aritical-ElasticSearch
+                                        </i>
+                                        <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
+                                    </div>
+                                    <div class="am-alert am-alert-secondary">
+                                        <i class="am-icon-circle lg li">
+                                            News <span class="am-icon-arrow-right"></span> Aritical-AmazonS3
+                                        </i>
+                                        <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
                                     </div>
                                 </div>
+
+                                <div id="editors" class="am-panel am-panel-primary">
+
+                                </div>
                             </div>
-
-
                             <div class="am-margin-top">
                                 <a href="#" class="am-btn am-btn-success am-btn-sm"><i class="am-icon-plus am-icon-sm"></i> 添加</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -209,7 +193,7 @@
 <partial name="transform-group-template" />
 <partial name="field-editor-template" />
 <partial name="load-provider-editor-template" />
-<partial name="load-editor"/>
+<partial name="load-editor-template" />
 
 <script type="text/javascript">
     var newTaskForm = null;
@@ -221,7 +205,10 @@
             Scheduler: "default",
             Sources: [],
             Transforms: [],
-            LandingTargets: []
+            LandingTargets: {
+                LoadProviders: [],
+                LoadMaps: []
+            }
         };
 
         get saveSourceContainer() {
@@ -240,6 +227,10 @@
             return $("#providor-editor");
         }
 
+        get LoadEditorContainer() {
+            return $("#load-editor-container")
+        }
+
         constructor(form) {
             this.Form = form;
             this.SourceItemTemplate = new SourceItemTemplate();
@@ -247,9 +238,16 @@
             this.SavedSourceTemplate = new SavedSourceTemplate();
             this.TransformGroupTemplate = new TransformGroupTemplate();
             this.LoadProviderEditorTemplate = new LoadProviderEditorTemplate();
+            this.LoadEditorTemplate = new LoadEditorTemplate();
             this.SavedTransformTemplate = Handlebars.compile($("#saved-transform-template").text());
             this.data.MessageId = form.newguid();
             this.data.MessageName = "ScrapyMessage";
+        }
+
+        providerSavedHandler(savedData) {
+            console.log(savedData);
+            this.data.LandingTargets.LoadProviders.push(savedData);
+            console.log(this.data);
         }
 
         provision() {
@@ -260,7 +258,11 @@
             var html = template(this.data);
             this.current = html;
             this.Form.append(this.current);
-            this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer);
+
+            this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer, dat => {
+                self.providerSavedHandler(dat);
+            });
+
 
             $('#btn-newTransform').click((x, y) => {
                 self.newTransform(x, y);
@@ -340,7 +342,8 @@
                     'Name': x.Name
                 });
             });
-
+            var dataMaster = this.data;
+            //"InnerTextTable[":a80980798hkkvba"]"
             tgtemplate.newTransformEditor(
                 transformContainer,
                 dataModel,
@@ -348,21 +351,40 @@
                     var html = $(savedTransformTemplate(dat));
                     html.find(dat.transformName).val(JSON.stringify(dat));
                     transformContainer.append(html);
+                    var transformData = {
+                        Name: dat.transformName,
+                        ExportAs: dat.ExportAs,
+                        MapToSource: [],
+                        FieldDefinitions: []
+                    };
+
+                    dat.sources.forEach(x => transformData.MapToSource.push(x.srcName));
+                    dat.fields.forEach(x => {
+                        var field = {
+                            Title: x.fieldTitle,
+                            Name: x.fieldName,
+                            CanNullable: x.nullable,
+                            ConvertorNavigators: []
+                        }
+                        x.conventors.forEach(y => {
+                            field.ConvertorNavigators.push({
+                                Name: y.conventorName,
+                                Parameter: y.conventorValue.match(/\[\"(\S*)\"\]/)[1]
+                            });
+                        });
+                        transformData.FieldDefinitions.push(field);
+                    });
+
+                    dataMaster.Transforms.push(transformData);
                     html.find("#remove-saved-transform").click(function () {
                         html.remove();
                     });
                     savedPrincipal.remove();
+                    console.log(dataMaster);
                 }
             );
 
         }
-
-        provisionProviderEditor() {
-            var transformGroupContainer = this.TransformGroupContainer;
-
-
-        }
-
     }
 
     function sourceTypeChanged(v, n) {

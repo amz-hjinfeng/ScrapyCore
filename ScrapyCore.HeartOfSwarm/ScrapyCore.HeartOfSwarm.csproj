@@ -25,6 +25,7 @@
     <Content Remove="configure\aws\Kerrigan.json" />
     <Content Remove="configure\aws\hydralisk-utralisk.json" />
     <Content Remove="configure\aws\redis-cache.json" />
+    <Content Remove="package-lock.json" />
   </ItemGroup>
 
   <ItemGroup>
