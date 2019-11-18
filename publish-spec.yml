@@ -28,31 +28,36 @@ phases:
         - dotnet publish -c Release
     post_build:
       commands:
-        - zip -r hydralisk-$CODEBUILD_START_TIME.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
-        - zip -r kerrigan-$CODEBUILD_START_TIME.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
+        #- zip -r hydralisk-$CODEBUILD_START_TIME.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
+        #- zip -r kerrigan-$CODEBUILD_START_TIME.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
         #- zip -r heartofswarmweb-$CODEBUILD_START_TIME.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
-        - zip -r utralisks-$CODEBUILD_START_TIME.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
+        #- zip -r utralisks-$CODEBUILD_START_TIME.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
 artifacts:
     files:
-        - ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/**/*
+        - '**/*'
+    base-directory: './ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
     name: heartofswarmweb
     secondary-artifacts:
       heartofswarmweb:
         files:
-          - heartofswarmweb-$CODEBUILD_START_TIME.zip
+          - '**/*'
         name: heartofswarmweb
+        base-directory:'./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/'
       hydralisk:
         files:
-          - hydralisk-$CODEBUILD_START_TIME.zip
+          - '**/*'
         name: hydralisk
+        base-directory:'./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/'
       kerrigan:
         files:
-          - kerrigan-$CODEBUILD_START_TIME.zip
+          - '**/*'
         name: kerrigan
+        base-directory:'./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/'
       utralisks:
         files:
-          - utralisks-$CODEBUILD_START_TIME.zip
+          - '**/*'
         name: utralisks
+        base-directory:'./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/'
 
   #name: $(date +%Y-%m-%d)
   #discard-paths: yes
