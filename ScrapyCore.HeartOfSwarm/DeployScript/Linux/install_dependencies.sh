@@ -3,9 +3,9 @@ easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
 
 
-if  [ ! -f /opt/supervisor ];
+if  [ ! -f /opt/supervisor.installed ];
 
-cat << EOF > /etc/supervisor/supervisord.conf
+cat << EOF > /etc/supervisord.conf
 ; Sample supervisor config file.
 ;
 ; For more information on the config file, please see:
@@ -187,10 +187,14 @@ stopsignal=INT
 autostart=true
 autorestart=true
 startsecs=1
-stderr_logfile=/var/log/HeartOfSwarm.err.log
-stdout_logfile=/var/log/HeartOfSwarm.out.log
+stderr_logfile=/opt/applications/heartofswarm/HeartOfSwarm.err.log
+stdout_logfile=/opt/applications/heartofswarm/HeartOfSwarm.out.log
 EOF
 
-echo installed >> /opt/supervisor
+chmod +x /usr/bin/supervisord
+chmod +x /usr/bin/supervisorctl
+chmod +x /etc/supervisord.conf
+
+echo installed >> /opt/supervisor.installed
 
 fi

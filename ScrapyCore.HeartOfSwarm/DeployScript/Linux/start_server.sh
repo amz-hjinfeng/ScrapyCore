@@ -1,3 +1,3 @@
 #!/bin/sh
 
-service supervisor start
+supervisorctl start heartofswarm

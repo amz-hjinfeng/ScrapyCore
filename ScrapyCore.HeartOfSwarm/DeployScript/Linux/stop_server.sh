@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if  [ -f /opt/supervisor ];
-service supervisor stop
+if  [ -f /opt/supervisor.installed ];
+supervisorctl stop heartofswarm
 
 fi
