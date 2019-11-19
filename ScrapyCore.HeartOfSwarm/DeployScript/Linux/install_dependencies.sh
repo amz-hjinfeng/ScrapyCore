@@ -58,7 +58,7 @@ chmod +x /usr/bin/supervisorctl
 chmod +x /etc/supervisord.conf
 
 echo installed >> /opt/supervisor.installed
-supervisord reload
+supervisorctl reload
 else
 
 echo Installed.
