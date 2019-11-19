@@ -2,6 +2,9 @@
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
 
+
+if  [ ! -f /opt/supervisor ];
+
 cat << EOF > /etc/supervisor/supervisord.conf
 ; Sample supervisor config file.
 ;
@@ -181,10 +184,13 @@ directory=/opt/applications/heartofswarm
 environment=ASPNETCORE__ENVIRONMENT=Production
 user=root
 stopsignal=INT
-autostart=false
+autostart=true
 autorestart=true
 startsecs=1
 stderr_logfile=/var/log/HeartOfSwarm.err.log
 stdout_logfile=/var/log/HeartOfSwarm.out.log
 EOF
 
+echo installed >> /opt/supervisor
+
+fi
