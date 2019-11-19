@@ -6,6 +6,10 @@ if  [ ! -f "/opt/supervisor.installed" ];
 then
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
+mkdir -p /opt/applications/heartofswarm/
+echo >> /opt/applications/heartofswarm/HeartOfSwarm.err.log
+echo >> /opt/applications/heartofswarm/HeartOfSwarm.out.log
+
 cat << EOF > /etc/supervisord.conf
 
 [unix_http_server]
@@ -32,7 +36,9 @@ serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 files = /etc/supervisor/conf.d/*.conf
 
 EOF
-    
+
+supervisord -c  /etc/supervisord.conf
+
 cat << EOF > /etc/supervisor/conf.d/heartofswarm.conf
 [program:heartofswarm]
 command=dotnet ScrapyCore.HeartOfSwarm.dll
@@ -51,7 +57,7 @@ chmod +x /usr/bin/supervisord
 chmod +x /usr/bin/supervisorctl
 chmod +x /etc/supervisord.conf
 
-supervisord -c  /etc/supervisord.conf
+
 
 echo installed >> /opt/supervisor.installed
 else
