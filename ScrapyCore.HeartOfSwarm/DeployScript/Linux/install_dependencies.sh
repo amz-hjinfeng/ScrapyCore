@@ -29,7 +29,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [include]
-files = conf.d/*.conf
+files = /etc/supervisor/conf.d/*.conf
 
 EOF
     
