@@ -1,10 +1,11 @@
 #!/bin/sh
+
+
+
+if  [ ! -f "/opt/supervisor.installed" ];
+then
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
-
-
-if  [ ! -f /opt/supervisor.installed ];
-
 cat << EOF > /etc/supervisord.conf
 [unix_http_server]
 file=/tmp/supervisor.sock   ; the path to the socket file
@@ -49,5 +50,9 @@ chmod +x /usr/bin/supervisorctl
 chmod +x /etc/supervisord.conf
 
 echo installed >> /opt/supervisor.installed
+else
+
+echo Installed.
 
 fi
+
