@@ -1,4 +1,4 @@
-﻿#!/bin/sh
+#!/bin/sh
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
 
@@ -188,4 +188,3 @@ stderr_logfile=/var/log/HeartOfSwarm.err.log
 stdout_logfile=/var/log/HeartOfSwarm.out.log
 EOF
 
-supervisorctl shutdown && supervisord -c /etc/supervisor/supervisord.conf
