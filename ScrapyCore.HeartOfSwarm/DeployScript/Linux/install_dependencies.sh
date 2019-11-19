@@ -7,6 +7,7 @@ then
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
 cat << EOF > /etc/supervisord.conf
+
 [unix_http_server]
 file=/tmp/supervisor.sock   ; the path to the socket file
 
@@ -29,6 +30,7 @@ serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
 
 [include]
 files = conf.d/*.conf
+
 EOF
     
 cat << EOF > /etc/supervisor/conf.d/heartofswarm.conf
@@ -48,6 +50,8 @@ EOF
 chmod +x /usr/bin/supervisord
 chmod +x /usr/bin/supervisorctl
 chmod +x /etc/supervisord.conf
+
+supervisord -c  /etc/supervisord.conf
 
 echo installed >> /opt/supervisor.installed
 else
