@@ -6,9 +6,9 @@ if  [ ! -f "/opt/supervisor.installed" ];
 then
 easy_install supervisor
 mkdir -p /etc/supervisor/conf.d/
-mkdir -p /opt/applications/heartofswarm/
-echo >> /opt/applications/heartofswarm/HeartOfSwarm.err.log
-echo >> /opt/applications/heartofswarm/HeartOfSwarm.out.log
+mkdir -p /opt/applications/kerrigan/
+echo >> /opt/applications/kerrigan/kerrigan.err.log
+echo >> /opt/applications/kerrigan/kerrigan.out.log
 
 cat << EOF > /etc/supervisord.conf
 
@@ -40,22 +40,24 @@ EOF
 supervisord -c  /etc/supervisord.conf
 
 cat << EOF > /etc/supervisor/conf.d/heartofswarm.conf
-[program:heartofswarm]
-command=dotnet ScrapyCore.HeartOfSwarm.dll
-directory=/opt/applications/heartofswarm
+[program:kerrigan]
+command=dotnet ScrapyCore.Kerrigan.dll
+directory=/opt/applications/kerrigan
 environment=ASPNETCORE__ENVIRONMENT=Production
 user=root
 stopsignal=INT
 autostart=false
 autorestart=true
 startsecs=1
-stderr_logfile=/opt/applications/heartofswarm/HeartOfSwarm.err.log
-stdout_logfile=/opt/applications/heartofswarm/HeartOfSwarm.out.log
+stderr_logfile=/opt/applications/kerrigan/kerrigan.err.log
+stdout_logfile=/opt/applications/kerrigan/kerrigan.out.log
 EOF
 
 chmod +x /usr/bin/supervisord
 chmod +x /usr/bin/supervisorctl
 chmod +x /etc/supervisord.conf
+
+
 
 echo installed >> /opt/supervisor.installed
 supervisord reload
@@ -65,6 +67,3 @@ echo Installed.
 
 fi
 
-
-
-exit 0 
