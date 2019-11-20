@@ -7,7 +7,7 @@ env:
   #parameter-store:
      # key: "value"
      # key: "value"
-  secrets-manager:
+  #secrets-manager:
      # key: secret-id:json-key:version-stage:version-id
      # key: secret-id:json-key:version-stage:version-id
   #exported-variables:
