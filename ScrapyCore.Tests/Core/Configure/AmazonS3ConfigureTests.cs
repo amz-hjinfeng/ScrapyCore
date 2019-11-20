@@ -32,7 +32,7 @@ namespace ScrapyCore.Tests.Core.Configure
         [Fact]
         public void StorageTypeTest()
         {
-            Assert.Equal("AmazonS3", s3Configure.StorageType);
+            Assert.Equal("AmazonS3Storage", s3Configure.StorageType);
         }
 
     }
