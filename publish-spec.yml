@@ -1,8 +1,8 @@
 ﻿version: 0.2
 
-env:
-  variables:
-       key: "value"
+#env:
+  #variables:
+     # key: "value"
      # key: "value"
   #parameter-store:
      # key: "value"
@@ -30,10 +30,8 @@ phases:
       commands:
         - cp ./ScrapyCore.HeartOfSwarm/DeployScript/Linux/* ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Kerrigan/DeployScript/Linux/* ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
-        #- zip -r hydralisk-$CODEBUILD_START_TIME.zip ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/*
-        #- zip -r kerrigan-$CODEBUILD_START_TIME.zip ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/*
-        #- zip -r heartofswarmweb-$CODEBUILD_START_TIME.zip ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/*
-        #- zip -r utralisks-$CODEBUILD_START_TIME.zip ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/*
+        - cp ./ScrapyCore.Hydralisk/DeployScript/Linux/* ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Utralisks/DeployScript/Linux/* ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
 artifacts:
     files:
         - '**/*'

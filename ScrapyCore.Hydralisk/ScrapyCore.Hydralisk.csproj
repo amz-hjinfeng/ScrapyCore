@@ -77,4 +77,7 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DeployScript\" />
+  </ItemGroup>
 </Project>
