@@ -29,9 +29,16 @@ phases:
     post_build:
       commands:
         - cp ./ScrapyCore.HeartOfSwarm/DeployScript/Linux/* ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/
+        - rm -rf ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/Bootstrap.json
+        - cp ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/configure/bootstrap/bootstrap-aws.json ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/Bootstrap.json
+
         - cp ./ScrapyCore.Kerrigan/DeployScript/Linux/* ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
+        
         - cp ./ScrapyCore.Hydralisk/DeployScript/Linux/* ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/
+
         - cp ./ScrapyCore.Utralisks/DeployScript/Linux/* ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+
+
 artifacts:
     files:
         - '**/*'

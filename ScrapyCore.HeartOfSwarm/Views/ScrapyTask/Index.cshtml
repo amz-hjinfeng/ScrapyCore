@@ -87,6 +87,15 @@
 
 </script>
 
+<script id="saved-load-template" type="text/x-handlebars-template">
+    <div class="am-alert am-alert-secondary">
+        <i class="am-icon-circle lg li">
+        {{FromTransform}} <span class="am-icon-arrow-right"></span> {{LoadProvider}}
+        </i>
+        <a class="am-btn am-btn-danger am-fr am-btn-xs" id="rm-saved-load">删除</a>
+    </div>
+</script>
+
 
 
 <script type="text/javascript" src="~/js/scrapytasklist.js"></script>
@@ -96,7 +105,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
                 <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
-                    ScrapySource - 源
+                    ScrapySource
                 </h4>
             </div>
             <div id="do-not-say-1" class="am-panel-collapse am-collapse ">
@@ -123,7 +132,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
                 <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
-                    Transform - 转换
+                    Analysis 
                 </h4>
             </div>
             <div id="do-not-say-2" class="am-panel-collapse am-collapse">
@@ -141,7 +150,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
                 <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-3'}">
-                    Landing - 转储
+                    Landing 
                 </h4>
             </div>
             <div id="do-not-say-3" class="am-panel-collapse am-collapse">
@@ -154,18 +163,7 @@
                         <div class="am-panel-bd">
                             <div id="load-editor-container">
                                 <div id="saved-loads">
-                                    <div class="am-alert am-alert-secondary">
-                                        <i class="am-icon-circle lg li">
-                                            News <span class="am-icon-arrow-right"></span> Aritical-ElasticSearch
-                                        </i>
-                                        <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                    </div>
-                                    <div class="am-alert am-alert-secondary">
-                                        <i class="am-icon-circle lg li">
-                                            News <span class="am-icon-arrow-right"></span> Aritical-AmazonS3
-                                        </i>
-                                        <a class="am-btn am-btn-danger am-fr am-btn-xs">删除</a>
-                                    </div>
+                                   <label for="sourcedefine">Landing Definition:</label>
                                 </div>
 
                                 <div id="load-editors" class="am-panel am-panel-primary">
@@ -183,7 +181,7 @@
         </div>
     </div>
     <div class="am-btn-group">
-        <a href="#" class="am-btn am-btn-primary am-btn-sm"><i class="am-icon-rocket am-icon-sm"></i> 启动</a>
+        <a href="#" class="am-btn am-btn-primary am-btn-sm" id="launchButton"><i class="am-icon-rocket am-icon-sm"></i> 启动</a>
         <a href="#" class="am-btn am-btn-danger am-btn-sm"><i class="am-icon-remove am-icon-sm"></i> 取消</a>
     </div>
 </script>
@@ -238,6 +236,8 @@
             this.SavedSourceTemplate = new SavedSourceTemplate();
             this.TransformGroupTemplate = new TransformGroupTemplate();
             this.LoadProviderEditorTemplate = new LoadProviderEditorTemplate();
+
+
             this.LoadEditorTemplate = new LoadEditorTemplate();
             this.SavedTransformTemplate = Handlebars.compile($("#saved-transform-template").text());
             this.data.MessageId = form.newguid();
@@ -263,6 +263,9 @@
                 self.providerSavedHandler(dat);
             });
 
+            var savedLoadContainer = this.current.find("#saved-loads");
+            var savedLoadTemplate = Handlebars.compile($("#saved-load-template").text())
+
 
             this.current
                 .find("#btn-new-load-editor")
@@ -287,8 +290,17 @@
                         loadReferencesData,
                         x => {
                             self.data.LandingTargets.LoadMaps.push(x);
+                            var loadhtml = $(savedLoadTemplate(x));
 
-
+                            var deletebtn = loadhtml.find("#rm-saved-load");
+                            deletebtn.data = x;
+                            deletebtn.click(btn => {
+                                self.data.LandingTargets.LoadMaps.remove(btn.data);
+                                loadhtml.remove();
+                            });
+                            savedLoadContainer.append(
+                                loadhtml
+                            );
                         });
                 });
 
@@ -303,6 +315,20 @@
             $('#src-add').click(function (e, v) {
                 sit.newSourceGroup(container);
             });
+            $("#launchButton").click(x => {
+                $.ajax(
+                    {
+                        contentType: "application/json;charset=UTF-8",
+                        type: "POST",
+                        dataType:"json",
+                        url: "/api/scarpy/new-task",
+                        data: JSON.stringify(self.data),
+                        success: (data, res) => {
+                            alert(data);
+                        }
+                    });
+            });
+
         }
 
         renderParameter(container, type) {
@@ -371,7 +397,6 @@
                 });
             });
             var dataMaster = this.data;
-            //"InnerTextTable[":a80980798hkkvba"]"
             tgtemplate.newTransformEditor(
                 transformContainer,
                 dataModel,

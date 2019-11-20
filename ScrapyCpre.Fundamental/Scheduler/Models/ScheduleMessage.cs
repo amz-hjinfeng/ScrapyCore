@@ -11,6 +11,6 @@ namespace ScrapyCore.Fundamental.Scheduler.Models
         public string Scheduler { get; set; }
         public ScheduleSource[] Sources { get; set; }
         public ScheduleTransform[] Transforms { get; set; }
-        public ScheduleLoad LandingTarget { get; set; }
+        public ScheduleLoad LandingTargets { get; set; }
     }
 }

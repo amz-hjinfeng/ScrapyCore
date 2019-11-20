@@ -40,7 +40,7 @@ namespace ScrapyCore.Fundamental.Scheduler
                 TransformGenManager.Instance.GenerateTransform(sourceDict, scheduleMessage.Transforms);
 
             LoadEventData loadEventData = LoadGenManager.Instance
-                .GenerateLoadEvent(transformEventData, scheduleMessage.LandingTarget);
+                .GenerateLoadEvent(transformEventData, scheduleMessage.LandingTargets);
 
 
             MessageIndexer messageIndexer = new MessageIndexer()

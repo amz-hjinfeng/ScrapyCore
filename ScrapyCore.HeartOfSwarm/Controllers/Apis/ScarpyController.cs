@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapyCore.Core;
+using ScrapyCore.Fundamental.Scheduler.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,15 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
                         Completed= 60
                     }
             });
+        }
+
+        [HttpPost]
+        [Route("new-task")]
+        public ActionResult ScrapyNewTask([FromBody]ScheduleMessage scheduleMessage)
+        {
+           
+
+            return Json("");
         }
 
     }
