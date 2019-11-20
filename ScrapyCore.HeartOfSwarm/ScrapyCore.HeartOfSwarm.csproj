@@ -94,5 +94,8 @@
     <Content Update="configure\aws\utralisk-kerrigan.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="configure\aws\kerrigan.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

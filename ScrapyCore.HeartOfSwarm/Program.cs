@@ -12,6 +12,7 @@ namespace ScrapyCore.HeartOfSwarm
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:8080")
                 .UseStartup<Startup>();
     }
 }
