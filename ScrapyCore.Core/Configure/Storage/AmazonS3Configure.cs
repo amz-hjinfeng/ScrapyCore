@@ -14,7 +14,7 @@ namespace ScrapyCore.Core.Configure
         }
 
         public string Prefix { get; }
-        public string StorageType => "AmazonS3";
+        public string StorageType => "AmazonS3Storage";
         public IDictionary<string, string> ConfigureDetail { get; private set; }
 
     }

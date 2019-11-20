@@ -86,5 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DeployScript\" />
+    <Folder Include="DeployScript\Linux\" />
   </ItemGroup>
 </Project>

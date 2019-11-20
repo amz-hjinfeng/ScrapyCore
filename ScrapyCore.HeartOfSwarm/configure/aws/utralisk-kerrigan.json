@@ -1,18 +1,8 @@
 {
-  "MessageQueueEngine": "RabbitMQ",
-  "QueueName": "Utralisks",
+  "MessageQueueEngine": "AmazonSQS",
+  "QueueName": "https://sqs.ap-southeast-1.amazonaws.com/089348459769/Ultralisks2Kerrigan",
   "Configure": [
-    [ "exchange", "ex-heartofswarm" ],
-    [ "route-key", "Utralisks" ],
-    [ "host-name", "172.0.0.1:5672" ],
-    [ "user-name", "usr-utralisk" ],
-    [ "password", "usr-utralisk" ],
-    [ "virtual-host", "/" ],
-    [ "type", "direct" ],
-    [ "ex-durable", "true" ],
-    [ "ex-auto-delete", "false" ],
-    [ "q-durable", "true" ],
-    [ "q-exclusive", "false" ],
-    [ "q-auto-delete", "false" ]
+    [ "region", "ap-southeast-1" ],
+    [ "buffer-size", "1024" ]
   ]
 }

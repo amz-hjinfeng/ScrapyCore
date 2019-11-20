@@ -8,6 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="configure\" />
+    <Folder Include="configure\bootstrap\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,12 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="configure\aws\hydralisk.json" />
-    <Content Remove="configure\aws\kerrigan-hydralisk.json" />
-    <Content Remove="configure\aws\bootstrap-storage.json" />
-    <Content Remove="configure\aws\Kerrigan.json" />
-    <Content Remove="configure\aws\hydralisk-utralisk.json" />
-    <Content Remove="configure\aws\redis-cache.json" />
     <Content Remove="package-lock.json" />
   </ItemGroup>
 
@@ -65,6 +60,15 @@
     </Content>
     <Content Update="Views\ScrapyTask\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="configure\bootstrap\Bootstrap.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="configure\bootstrap\bootstrap-local.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="configure\bootstrap\bootstrap-aws.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 </Project>
