@@ -1,13 +1,13 @@
 ﻿version: 0.2
 
-#env:
-  #variables:
-     # key: "value"
+env:
+  variables:
+       key: "value"
      # key: "value"
   #parameter-store:
      # key: "value"
      # key: "value"
-  #secrets-manager:
+  secrets-manager:
      # key: secret-id:json-key:version-stage:version-id
      # key: secret-id:json-key:version-stage:version-id
   #exported-variables:
