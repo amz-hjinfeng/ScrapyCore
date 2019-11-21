@@ -11,5 +11,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
         public string Id { get; set; }
 
         public string RecommendLocation { get; set; }
+
+        public string SourceType { get; set; }
     }
 }

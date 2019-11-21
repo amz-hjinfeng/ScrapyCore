@@ -79,13 +79,12 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
             Dictionary<string, ScrapySource> result = new Dictionary<string, ScrapySource>();
             foreach (var item in scheduleSources)
             {
-
                 ISourceGen sourceGen = GetSourceGen(item.Type);
-                var param = sourceGen.GetParameter(item.Parameters);
+                var param = sourceGen.GetParameter(item.Parameters, Guid.NewGuid().ToString());
                 SourceObject sourceObject = new SourceObject()
                 {
                     Parameters = param.Parameter,
-                    Type = sourceGen.GenType
+                    Type = param.SourceType
                 };
                 ScrapySource scrapySource = new ScrapySource()
                 {

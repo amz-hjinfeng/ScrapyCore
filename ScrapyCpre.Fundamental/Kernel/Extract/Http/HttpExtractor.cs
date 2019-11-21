@@ -17,7 +17,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
         public HttpExtractor(
             [Inject("default-agents")]
             IUserAgentPool userAgentPool,
-            [Inject("source-storage")]
+            [Inject("CoreStorage")]
             IStorage storage)
         {
             UserAgentPool = userAgentPool;
@@ -39,13 +39,17 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 webRequest.UserAgent = httpSource.UserAgent == "Random" ?
                     UserAgentPool.GetRandomUserAgent().AgentString
                     : UserAgentPool.GetUserAgent(httpSource.UserAgent).AgentString;
-                foreach (var kv in httpSource.Header)
+                if (httpSource.Header != null && httpSource.Header.Count > 0)
                 {
-                    webRequest.Headers.Add(kv.Key, kv.Value);
+                    foreach (var kv in httpSource.Header)
+                    {
+                        webRequest.Headers.Add(kv.Key, kv.Value);
+                    }
                 }
                 webRequest.ContentType = httpSource.ContentType;
                 var response = await webRequest.GetResponseAsync();
                 Stream stream = response.GetResponseStream();
+                await Storage.WriteBytes(response.Headers.ToByteArray(), path + ".head");
                 await Storage.WriteStream(stream, path);
                 stream.Dispose();
             }

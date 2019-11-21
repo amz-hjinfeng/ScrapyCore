@@ -102,6 +102,7 @@
     </Content>
     <Content Update="configure\aws\user-agents.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="configure\aws\utralisk-kerrigan.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

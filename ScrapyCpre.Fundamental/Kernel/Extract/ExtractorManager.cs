@@ -2,6 +2,7 @@
 using ScrapyCore.Core.Injection;
 using ScrapyCore.Fundamental.Kernel.Extract.Attributes;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,7 +15,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
         private readonly IInjectionProvider injectionProvider;
         public static Dictionary<string, ExtractorAttribute> SourceTypeMapping { get; private set; }
 
-        public Dictionary<string, IExtractor> Extractors { get; set; }
+        public ConcurrentDictionary<string, IExtractor> Extractors { get; set; }
 
         static ExtractorManager()
         {
@@ -40,7 +41,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
         public ExtractorManager(IInjectionProvider injectionProvider)
         {
             this.injectionProvider = injectionProvider;
-            Extractors = new Dictionary<string, IExtractor>();
+            Extractors = new ConcurrentDictionary<string, IExtractor>();
         }
 
         public IExtractor GetExtrator(string type)

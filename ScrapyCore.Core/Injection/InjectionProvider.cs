@@ -16,11 +16,11 @@ namespace ScrapyCore.Core.Injection
             {
                 {
                     typeof(IStorage),
-                    (n)=> bootstrap.Provisioning.Storages[n]
+                    (n)=> bootstrap.GetStorageFromVariableSet(n)
                 },
                 {
                     typeof(IMessageQueue),
-                    n=> bootstrap.Provisioning.MessageQueues[n]
+                    n=> bootstrap.GetMessageQueueFromVariableSet(n)
                 },
                 {
                     typeof(IUserAgentPool),

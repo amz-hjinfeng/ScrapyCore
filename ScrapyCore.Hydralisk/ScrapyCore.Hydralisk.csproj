@@ -29,6 +29,9 @@
     <Content Update="configure\aws\bootstrap-storage.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="configure\aws\corestorage.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="configure\aws\hydralisk-utralisk.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -51,6 +54,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="configure\local\bootstrap-storage.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="configure\local\corestorage.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="configure\local\hydralisk-utralisk.json">

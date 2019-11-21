@@ -8,7 +8,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
 {
     public interface ISourceGen
     {
-        ParamWithId GetParameter(object templateParameter);
+        ParamWithId GetParameter(object templateParameter, string identificationCode);
         string GenType { get; }
     }
 }

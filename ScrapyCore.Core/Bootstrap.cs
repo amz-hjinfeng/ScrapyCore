@@ -92,7 +92,7 @@ namespace ScrapyCore.Core
             if (this.Provisioning.Variables.ContainsKey(variableKey))
             {
                 string key = this.Provisioning.Variables[variableKey];
-                return this.Provisioning.Storages[variableKey];
+                return this.Provisioning.Storages[key];
             }
             return null;
         }

@@ -11,7 +11,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
     {
         public string GenType => "DigHttpSource";
 
-        public ParamWithId GetParameter(object templateParameter)
+        public ParamWithId GetParameter(object templateParameter, string identificationCode)
         {
             WebSeed seed = JsonConvert.DeserializeObject<WebSeed>(templateParameter.ToString());
             HttpSource httpSource = new HttpSource()
@@ -25,15 +25,15 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                 Url = seed.SeedUrl,
                 UserAgent = seed.UserAgent
             };
-            string hashid = (seed.SeedUrl + this.GenType).ToMD5Base64();
+            string hashid = (seed.SeedUrl + this.GenType + identificationCode).ToMD5Hex();
             string recommendLoacation = $"level{seed.Depth}/" + hashid;
 
             return new ParamWithId()
             {
                 Parameter = httpSource,
                 Id = hashid,
-                RecommendLocation = recommendLoacation
-
+                RecommendLocation = recommendLoacation,
+                SourceType = "Http"
             };
         }
     }

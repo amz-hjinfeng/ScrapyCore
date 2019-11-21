@@ -14,7 +14,7 @@ namespace ScrapyCore.Core.Platform.System
         protected int SystemStatus { get; set; }
         public abstract IMessagePipline MessagePipline { get; }
 
-        public virtual IWorkingMessageProcessor WorkingProcessor { get; }
+        public virtual IWorkingMessageProcessor WorkingProcessor { get; protected set; }
 
         public SystemController(Bootstrap bootstrap)
         {

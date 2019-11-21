@@ -32,22 +32,22 @@
       "Desktop"
     ],
     [
-      "Firefox 4.0.1 每 MAC",
+      "Firefox 4.0.1 - MAC",
       "Mozilla/5.0 (Windows NT 6.1; rv,2.0.1) Gecko/20100101 Firefox/4.0.1",
       "Desktop"
     ],
     [
-      "Opera 11.11 每 MAC",
+      "Opera 11.11 - MAC",
       "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11",
       "Desktop"
     ],
     [
-      "Opera 11.11 每 Windows",
+      "Opera 11.11 - Windows",
       "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11",
       "Desktop"
     ],
     [
-      "Chrome 17.0 每 MAC",
+      "Chrome 17.0 - MAC",
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",
       "Desktop"
     ],
@@ -97,7 +97,7 @@
       "Mobile"
     ],
     [
-      "Safari iOS 4.33 每 iPad",
+      "Safari iOS 4.33 - iPad",
       "Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5",
       "Mobile"
     ],

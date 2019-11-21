@@ -40,7 +40,7 @@ namespace ScrapyCore.Core.Storages
 
         public override async Task WriteBytes(byte[] byteArray, string path)
         {
-            using (var fs = File.OpenWrite(Path.Combine(prefix, path)))
+            using (var fs = CreateFileWrite(prefix, path))
             {
                 await fs.WriteAsync(byteArray, 0, byteArray.Length);
                 await fs.FlushAsync();
@@ -50,12 +50,23 @@ namespace ScrapyCore.Core.Storages
 
         public override async Task WriteStream(Stream stream, string path)
         {
-            using (var fs = File.OpenWrite(Path.Combine(prefix, path)))
+            using (var fs = CreateFileWrite(prefix, path))
             {
                 await stream.CopyToAsync(fs);
                 await fs.FlushAsync();
                 fs.Close();
             }
+        }
+
+        private FileStream CreateFileWrite(string prefix, string path)
+        {
+            string filePath = Path.Combine(prefix, path);
+            FileInfo fileInfo = new FileInfo(filePath);
+            if (!Directory.Exists(fileInfo.DirectoryName))
+            {
+                Directory.CreateDirectory(fileInfo.DirectoryName);
+            }
+            return new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
         }
     }
 }

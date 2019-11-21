@@ -23,15 +23,15 @@ namespace ScrapyCore.Hydralisk
             : base(bootstrap)
         {
             IMessageEntrance messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            WorkingProcessor = new SourceIntergation(bootstrap.Provisioning.Caches["default-cache"],
+                new ExtractorManager(bootstrap.InjectionProvider));
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
             //TODO : Cache should comes from the variable.
-            WorkingProcessor = new SourceIntergation(bootstrap.Provisioning.Caches["default-cache"],
-                new ExtractorManager(bootstrap.InjectionProvider));
+
         }
-        public override IWorkingMessageProcessor WorkingProcessor { get; }
 
         public override IMessagePipline MessagePipline => this.messagePipline;
 
