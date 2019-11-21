@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ScrapyCore.Core;
 using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Fundamental.Kernel;
 using ScrapyCore.Fundamental.Kernel.Extract;
-using ScrapyCore.Fundamental.Kernel.Transform;
 using ScrapyCore.Fundamental.Scheduler.Gen;
 using ScrapyCore.Fundamental.Scheduler.Models;
 
