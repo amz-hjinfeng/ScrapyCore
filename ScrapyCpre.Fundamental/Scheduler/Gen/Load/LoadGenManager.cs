@@ -25,9 +25,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
 
 
         private LoadGenManager()
-        {
-
-        }
+        { }
 
         public LoadEventData GenerateLoadEvent(TransformEventData eventData, ScheduleLoad scheduleLoad)
         {

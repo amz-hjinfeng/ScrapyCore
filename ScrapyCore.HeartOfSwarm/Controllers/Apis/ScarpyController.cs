@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapyCore.Core;
+using ScrapyCore.Core.External.Utils;
+using ScrapyCore.Core.Platform;
+using ScrapyCore.Core.Platform.Processors;
+using ScrapyCore.Fundamental.Scheduler;
 using ScrapyCore.Fundamental.Scheduler.Models;
 using System;
 using System.Collections.Generic;
@@ -12,42 +16,44 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
     public class ScarpyController : Controller
     {
         private readonly ICache cache;
-        public ScarpyController(ICache cache)
+        private IMessageQueue messageQueue;
+        private IPlatformExit platformExit;
+        public ScarpyController(ICache cache, IMessageQueue messageQueue)
         {
             this.cache = cache;
+            this.messageQueue = messageQueue;
+            this.platformExit = new MessageQueuePlatformExit(messageQueue);
         }
 
         [Route("task-list")]
-        public ActionResult ScrapyTaskList()
+        public async Task<ActionResult> ScrapyTaskList()
         {
-            return Json(new object[]
+            List<object> result = new List<object>();
+            foreach (var item in await cache.SearchKeys("msg-*"))
             {
-                new {
-                        Id = Guid.NewGuid(),
-                        Name= "SinaScrapyTask",
-                        Status = "Processing",
-                        StartTime =DateTime.Now.ToString(),
-                        SubTask =60,
-                        Completed =30
-                    },
-                new {
-                        Id = Guid.NewGuid(),
-                        Name= "SinaScrapyTask2",
-                        Status = "Completed",
-                        StartTime =DateTime.Now.ToString(),
-                        SubTask =60,
-                        Completed= 60
-                    }
-            });
+                var indexer = cache.Restore<MessageIndexer>(item);
+                result.Add(new
+                {
+                    Id = indexer.MessageId,
+                    Name = indexer.MessageName,
+                    StartTime = indexer.StartTime.ToString(),
+                    SubTask = indexer.SubTask,
+                    Completed = indexer.Completed
+                });
+            }
+            return Json(result);
         }
 
         [HttpPost]
         [Route("new-task")]
-        public ActionResult ScrapyNewTask([FromBody]ScheduleMessage scheduleMessage)
+        public async Task<ActionResult> ScrapyNewTask([FromBody]ScheduleMessage scheduleMessage)
         {
-           
-
-            return Json("");
+            IScheduler scheduler =
+                ScheduleManager
+                .Manager
+                .GetDefaultScheduler(platformExit, this.cache);
+            await scheduler.ScheduleNew(scheduleMessage);
+            return Json("Scheduled finished");
         }
 
     }

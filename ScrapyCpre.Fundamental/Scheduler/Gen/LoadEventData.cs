@@ -14,6 +14,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
         public LoadEventData()
         {
             TransformToLoadMap = new Dictionary<string, string>();
+            LoadEvents = new List<LoadEvent>();
         }
 
 

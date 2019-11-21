@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform.Processors
 {
-    class MessageQueuePlatformExit : IPlatformExit
+    public class MessageQueuePlatformExit : IPlatformExit
     {
         public MessageQueuePlatformExit(IMessageQueue messageQueue)
         {

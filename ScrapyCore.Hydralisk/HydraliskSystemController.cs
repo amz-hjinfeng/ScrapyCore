@@ -29,7 +29,7 @@ namespace ScrapyCore.Hydralisk
             this.hostedMachine = hostedMachine;
             //TODO : Cache should comes from the variable.
             WorkingProcessor = new SourceIntergation(bootstrap.Provisioning.Caches["default-cache"],
-                new ExtractorManager(bootstrap.injectionProvider));
+                new ExtractorManager(bootstrap.InjectionProvider));
         }
         public override IWorkingMessageProcessor WorkingProcessor { get; }
 
@@ -37,7 +37,7 @@ namespace ScrapyCore.Hydralisk
 
         protected override void HeartBeatProcessor()
         {
-            // TODO: Refactor to a method or may a base method.
+            // TODO: Refactor to a method or may be class
             PlatformMessage platformMessage = new PlatformMessage()
             {
                 Command = new Core.Platform.Commands.Command()

@@ -10,7 +10,7 @@ namespace ScrapyCore.Fundamental.Scheduler
     {
         public IScheduler GetScheduler(string schedulerName)
         {
-            return null;
+            return new DefaultSchueduler(null, null);
         }
 
         public IScheduler GetDefaultScheduler(IPlatformExit platformExit, ICache coreCache)

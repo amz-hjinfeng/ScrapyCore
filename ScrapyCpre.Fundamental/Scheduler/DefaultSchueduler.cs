@@ -42,18 +42,20 @@ namespace ScrapyCore.Fundamental.Scheduler
             LoadEventData loadEventData = LoadGenManager.Instance
                 .GenerateLoadEvent(transformEventData, scheduleMessage.LandingTargets);
 
-
             MessageIndexer messageIndexer = new MessageIndexer()
             {
                 MessageId = scheduleMessage.MessageId,
+                MessageName = scheduleMessage.MessageName,
+                StartTime = DateTime.Now,
                 SourceJobIds = sourceDict.Values
-                        .Select(x => x.JobId).ToList(),
+                        .Select(x => x.JobId).ToDictionary(x => x, x => 0),
                 TransformJobIds = transformEventData.TransformEvents
                         .SelectMany(x => x.Value)
-                        .Select(x => x.JobId).ToList(),
+                        .Select(x => x.JobId)
+                        .ToDictionary(x => x, x => 0),
                 LoadJobIds = loadEventData.LoadEvents
                         .Select(x => x.JobId)
-                        .ToList()
+                        .ToDictionary(x => x, x => 0)
             };
             TaskingManager manager = new TaskingManager();
 
@@ -80,7 +82,7 @@ namespace ScrapyCore.Fundamental.Scheduler
             foreach (var transform in transformEventData.TransformEvents.SelectMany(x => x.Value))
             {
                 manager.AddTask(coreCache.StoreAsync(
-                    PrefixConst.TRANSFORM_META, transform));
+                    PrefixConst.TRANSFORM_META + transform.JobId, transform));
             }
 
             foreach (var load in loadEventData.LoadEvents)
@@ -90,7 +92,7 @@ namespace ScrapyCore.Fundamental.Scheduler
             }
 
             await manager.Wait();
-            await PublishSourceJobs(scheduleMessage.MessageName, scheduleMessage.MessageId, messageIndexer.SourceJobIds.ToArray());
+            await PublishSourceJobs(scheduleMessage.MessageName, scheduleMessage.MessageId, messageIndexer.SourceJobIds.Keys.ToArray());
 
         }
 

@@ -4,7 +4,7 @@
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
     [ "route-key", "Utralisks" ],
-    [ "host-name", "172.0.0.1:5672" ],
+    [ "host-name", "127.0.0.1" ],
     [ "user-name", "usr-utralisk" ],
     [ "password", "usr-utralisk" ],
     [ "virtual-host", "/" ],

@@ -4,9 +4,9 @@
   "Configure": [
     [ "exchange", "ex-heartofswarm" ],
     [ "route-key", "Hydralisk" ],
-    [ "host-name", "172.0.0.1:5672" ],
-    [ "user-name", "usr-hydralisk" ],
-    [ "password", "usr-hydralisk" ],
+    [ "host-name", "127.0.0.1" ],
+    [ "user-name", "usr-hos" ],
+    [ "password", "usr-hos" ],
     [ "virtual-host", "/" ],
     [ "type", "direct" ],
     [ "ex-durable", "true" ],

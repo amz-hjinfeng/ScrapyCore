@@ -1,0 +1,8 @@
+{
+  "StorageType": "AmazonS3",
+  "Prefix": "utralisks-pack",
+  "Configure": [
+    [ "region", "ap-southeast-1" ],
+    [ "bucket", "scrapy-core-storage" ]
+  ]
+}

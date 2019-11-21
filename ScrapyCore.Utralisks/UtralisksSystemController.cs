@@ -12,6 +12,7 @@ using ScrapyCore.Core.HostMachine;
 using ScrapyCore.Core.Platform.Message;
 using Newtonsoft.Json;
 using System.Text;
+using ScrapyCore.Fundamental.Kernel.Transform;
 
 namespace ScrapyCore.Utralisks
 {
@@ -29,7 +30,13 @@ namespace ScrapyCore.Utralisks
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
+            WorkingProcessor = new TransformIntegration(
+                bootstrap.GetCachedFromVariableSet("CoreCache"),
+                bootstrap.GetStorageFromVariableSet("")
+                );
         }
+
+        public override IWorkingMessageProcessor WorkingProcessor { get; }
 
         public override IMessagePipline MessagePipline => this.messagePipline;
 

@@ -25,6 +25,11 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
 
         }
 
+        private SourceGenManager()
+        {
+            SourceGenerators = new Dictionary<string, ISourceGen>();
+        }
+
         public static Dictionary<string, SourceGenAttribute> SourceGenMeta { get; set; }
         static SourceGenManager()
         {

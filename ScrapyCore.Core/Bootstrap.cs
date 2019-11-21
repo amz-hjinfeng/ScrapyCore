@@ -55,7 +55,7 @@ namespace ScrapyCore.Core
             initialStorage = StorageFactory.Factory.GetLocalStorage(applicationPath);
             var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString(boostrapFile));
             Provisioning = new ProvisioningModel(model, initialStorage);
-            injectionProvider = new InjectionProvider(this);
+            InjectionProvider = new InjectionProvider(this);
         }
 
         public string GetVariableSet(string variableKey)
@@ -87,7 +87,18 @@ namespace ScrapyCore.Core
             return null;
         }
 
-        public InjectionProvider injectionProvider { get; }
+        public IStorage GetStorageFromVariableSet(string variableKey)
+        {
+            if (this.Provisioning.Variables.ContainsKey(variableKey))
+            {
+                string key = this.Provisioning.Variables[variableKey];
+                return this.Provisioning.Storages[variableKey];
+            }
+            return null;
+        }
+
+
+        public InjectionProvider InjectionProvider { get; }
 
 
         public ProvisioningModel Provisioning { get; }

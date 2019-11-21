@@ -29,6 +29,7 @@ namespace ScrapyCore.HeartOfSwarm
 
             var builder = new ContainerBuilder();
             builder.RegisterInstance(bootstrap.GetCachedFromVariableSet("HeartbeatCache"));
+            builder.RegisterInstance(bootstrap.GetMessageQueueFromVariableSet("Termination"));
             builder.Populate(services);
             var applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
