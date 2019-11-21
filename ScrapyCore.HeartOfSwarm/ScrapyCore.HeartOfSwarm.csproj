@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="configure\" />
     <Folder Include="configure\bootstrap\" />
+    <Folder Include="log\r\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -108,5 +109,8 @@
     <Content Update="configure\aws\kerrigan.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="log\r\log.txt" />
   </ItemGroup>
 </Project>

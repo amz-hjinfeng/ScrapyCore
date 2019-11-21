@@ -19,6 +19,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="log\" />
+    <None Remove="log\r\log.txt.1" />
+    <None Remove="log\r\log.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Bootstrap.json">
