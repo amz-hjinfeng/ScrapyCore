@@ -60,10 +60,21 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
             }
             using (Stream serialzedStream = await transformDataSet.SerialzeToStream(transformEvent.ExportAs))
             {
-                await coreStorage.WriteStream(
-                    serialzedStream,
-                    transformEvent.SaveTo);
+                await coreStorage.WriteStream(serialzedStream, transformEvent.SaveTo);
             }
+
+            var landingMessage = await CoreCache.RestoreStringAsync(PrefixConst.TRANSFORM_LOAD_MAP + transformEvent.JobId);
+
+            //TODO:Update the Jobs Status.
+
+            await platformExit.OutRandom(new KernelMessage()
+            {
+                 JobId = landingMessage,
+                 MessageId = kernelMessage.MessageId,
+                 MessageName = kernelMessage.MessageName
+            });
+
+
         }
     }
 }

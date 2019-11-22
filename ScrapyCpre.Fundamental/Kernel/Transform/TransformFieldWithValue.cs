@@ -14,7 +14,7 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
 
         public TransformFieldWithValue()
         {
-
+            Value = new List<string>();
         }
     }
 }

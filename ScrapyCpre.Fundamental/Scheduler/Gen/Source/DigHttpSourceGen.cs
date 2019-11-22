@@ -25,8 +25,9 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                 Url = seed.SeedUrl,
                 UserAgent = seed.UserAgent
             };
+
             string hashid = (seed.SeedUrl + this.GenType + identificationCode).ToMD5Hex();
-            string recommendLoacation = $"level{seed.Depth}/" + hashid;
+            string recommendLoacation = $"level-{seed.Depth}/" + hashid;
 
             return new ParamWithId()
             {
