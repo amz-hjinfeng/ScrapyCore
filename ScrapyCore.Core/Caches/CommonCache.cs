@@ -28,5 +28,10 @@ namespace ScrapyCore.Core.Caches
         public abstract Task<IEnumerable<string>> SearchKeys(string keyPatten);
         public abstract Task StoreStringAsync(string key, string strValue, TimeSpan? timeSpan = null);
         public abstract Task<string> RestoreStringAsync(string key);
+
+        public virtual ICacheLocker GetLocker(string lockerKey)
+        {
+            return new DefaultLocker();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScrapyCore.Core.Caches;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,5 +28,7 @@ namespace ScrapyCore.Core
         Task<bool> RemoveAsync(string key);
 
         Task<IEnumerable<string>> SearchKeys(string keyPatten);
+
+        ICacheLocker GetLocker(string lockerKey);
     }
 }

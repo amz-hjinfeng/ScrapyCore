@@ -1,6 +1,8 @@
 ﻿using Moq;
 using Newtonsoft.Json;
 using ScrapyCore.Core;
+using ScrapyCore.Core.Platform;
+using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Storages;
 using ScrapyCore.Fundamental.Kernel.Extract;
 using System;
@@ -15,6 +17,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
     {
         ICache cache;
         IExtractorManager extractorManager;
+        IPlatformExit platformExit;
         string httpSourceDemoString;
         ScrapySource scrapySource;
         public SourceIntergationTests()
@@ -25,10 +28,20 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
             cache = Mock.Of<ICache>();
             extractorManager = Mock.Of<IExtractorManager>();
             var extractor = Mock.Of<IExtractor>();
+            platformExit = Mock.Of<IPlatformExit>();
+
+
 
             Mock.Get(cache)
                 .Setup(x => x.RestoreAsync<ScrapySource>(It.IsAny<string>()))
                 .Returns(Task.FromResult(scrapySource));
+
+            Mock.Get(cache)
+                .Setup(x => x.RestoreAsync<List<string>>(It.IsAny<string>()))
+                .Returns(Task.FromResult(new List<string>()
+                {
+                    "a","b"
+                }));
 
             Mock.Get(extractorManager)
                 .Setup(x => x.GetExtrator(It.IsAny<string>()))
@@ -41,6 +54,9 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
                     Assert.Equal(scrapySource.SaveTo, b);
                     return Task.CompletedTask;
                 });
+            Mock.Get(platformExit).Setup(x => x.OutRandom(It.IsAny<PlatformMessage>()))
+                .Returns(Task.CompletedTask);
+
 
         }
 
@@ -48,7 +64,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Extract
         public async Task ProcessTest()
         {
             SourceIntergation sourceIntergation = new SourceIntergation(cache, extractorManager);
-            await sourceIntergation.Process(Encoding.UTF8.GetBytes(httpSourceDemoString), null);
+            await sourceIntergation.Process(Encoding.UTF8.GetBytes(httpSourceDemoString), platformExit);
 
         }
     }

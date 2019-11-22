@@ -52,6 +52,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 await Storage.WriteBytes(response.Headers.ToByteArray(), path + ".head");
                 await Storage.WriteStream(stream, path);
                 stream.Dispose();
+                Logger.Info("Http Extractor finished :" + httpSource.Url);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ScrapyCore.Core;
+using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using System;
@@ -28,6 +29,20 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
             var sourceType = scrapySource.Source.Type;
             IExtractor extractor = extractorManager.GetExtrator(sourceType);
             await extractor.ExtractTarget(scrapySource.Source.Parameters.ToString(), scrapySource.SaveTo);
+            string transformJobIdsKey = PrefixConst.SOURCE_TRANSFOR_MAP + kernelMessage.JobId;
+            TaskingManager taskingManager = new TaskingManager();
+            List<string> jobIds = await coreCache.RestoreAsync<List<string>>(transformJobIdsKey);
+            foreach (var x in jobIds)
+            {
+                KernelMessage transforMsg = new KernelMessage()
+                {
+                    JobId = x,
+                    MessageId = kernelMessage.MessageId,
+                    MessageName = kernelMessage.MessageName
+                };
+                taskingManager.AddTask(platformExit.OutRandom(x));
+            }
+            await taskingManager.WhenAll();
         }
     }
 }

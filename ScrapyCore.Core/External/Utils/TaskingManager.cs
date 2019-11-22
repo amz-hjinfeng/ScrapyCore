@@ -13,7 +13,7 @@ namespace ScrapyCore.Core.External.Utils
             Tasks.Add(tsk);
         }
 
-        public Task Wait()
+        public Task WhenAll()
         {
             return Task.WhenAll(Tasks.ToArray());
         }

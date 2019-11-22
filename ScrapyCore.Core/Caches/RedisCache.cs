@@ -102,7 +102,6 @@ namespace ScrapyCore.Core.Caches
             Logger.Debug($"Store key:{key}");
             string json = JsonConvert.SerializeObject(model);
             await database.StringSetAsync(key, json, expiry: timeSpan);
-
         }
 
         public override Task<IEnumerable<string>> SearchKeys(string keyPatten)
@@ -118,6 +117,15 @@ namespace ScrapyCore.Core.Caches
         public override async Task<string> RestoreStringAsync(string key)
         {
             return await database.StringGetAsync(key);
+        }
+        /// <summary>
+        /// Will lock 5 second
+        /// </summary>
+        /// <param name="lockerKey"></param>
+        /// <returns></returns>
+        public override ICacheLocker GetLocker(string lockerKey)
+        {
+            return new RedisLocker(lockerKey, this.database, null);
         }
     }
 }

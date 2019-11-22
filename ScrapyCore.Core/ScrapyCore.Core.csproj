@@ -8,7 +8,6 @@
     <Folder Include="Cookies\" />
     <Folder Include="Analyzer\" />
     <Folder Include="Proxy\" />
-    <Folder Include="Caches\" />
     <Folder Include="Configure\UserAgents\" />
     <Folder Include="External\Conventor\" />
     <Folder Include="Configure\Analyzer\" />

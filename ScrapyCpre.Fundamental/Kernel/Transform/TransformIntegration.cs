@@ -37,7 +37,7 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
         public async Task Process(byte[] processMessage, IPlatformExit platformExit)
         {
             KernelMessage kernelMessage = JsonConvert.DeserializeObject<KernelMessage>(Encoding.UTF8.GetString(processMessage));
-            TransformEvent transformEvent = await CoreCache.RestoreAsync<TransformEvent>("Transform-" + kernelMessage.JobId);
+            TransformEvent transformEvent = await CoreCache.RestoreAsync<TransformEvent>(PrefixConst.TRANSFORM_META + kernelMessage.JobId);
             TransformDataSet transformDataSet = new TransformDataSet();
             string data = await coreStorage.GetStringAsync(transformEvent.GetFrom);
 

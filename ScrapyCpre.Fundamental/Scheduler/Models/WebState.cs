@@ -12,6 +12,8 @@ namespace ScrapyCore.Fundamental.Scheduler
 
         public int Depth { get; set; }
 
-        public List<string> Children { get; set; }
+        public bool IsCompleted { get; set; }
+
+        public Dictionary<string, WebState> Children { get; set; }
     }
 }

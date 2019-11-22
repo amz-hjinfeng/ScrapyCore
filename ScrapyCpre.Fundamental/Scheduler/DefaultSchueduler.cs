@@ -89,7 +89,7 @@ namespace ScrapyCore.Fundamental.Scheduler
                     PrefixConst.LOAD_META + load.JobId, load));
             }
 
-            await manager.Wait();
+            await manager.WhenAll();
             await PublishSourceJobs(scheduleMessage.MessageName, scheduleMessage.MessageId, messageIndexer.SourceJobIds.Keys.ToArray());
 
         }
