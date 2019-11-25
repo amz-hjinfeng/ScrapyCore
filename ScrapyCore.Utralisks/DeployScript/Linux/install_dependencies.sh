@@ -41,7 +41,7 @@ supervisord -c  /etc/supervisord.conf
 
 cat << EOF > /etc/supervisor/conf.d/heartofswarm.conf
 [program:utralisks]
-command=dotnet ScrapyCore.utralisks.dll
+command=dotnet ScrapyCore.Utralisks.dll
 directory=/opt/applications/utralisks
 environment=ASPNETCORE__ENVIRONMENT=Production
 user=root

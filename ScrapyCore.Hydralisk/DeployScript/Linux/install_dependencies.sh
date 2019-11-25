@@ -41,7 +41,7 @@ supervisord -c  /etc/supervisord.conf
 
 cat << EOF > /etc/supervisor/conf.d/heartofswarm.conf
 [program:hydralisk]
-command=dotnet ScrapyCore.hydralisk.dll
+command=dotnet ScrapyCore.Hydralisk.dll
 directory=/opt/applications/hydralisk
 environment=ASPNETCORE__ENVIRONMENT=Production
 user=root
