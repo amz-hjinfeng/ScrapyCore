@@ -17,7 +17,7 @@
       },
       {
         "Name": "kerrigan",
-        "ConfigureFile": "configure/{$environment}/kerrigan.json"
+        "ConfigureFile": "configure/{$environment}/Kerrigan.json"
       }
     ],
     "MessageQueues": [
