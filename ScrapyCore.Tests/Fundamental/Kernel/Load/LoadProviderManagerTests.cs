@@ -12,7 +12,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Load
     {
         public LoadProviderManagerTests()
         {
-
+            Console.WriteLine(ConstVariable.ApplicationPath);
         }
 
         [Fact]
