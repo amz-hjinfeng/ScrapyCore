@@ -89,9 +89,13 @@
     <Content Update="configure\aws\elasticsearch.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="configure\bootstrap\bootstrap-aws.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DeployScript\" />
+    <Folder Include="configure\bootstrap\" />
   </ItemGroup>
 </Project>
