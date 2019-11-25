@@ -1,5 +1,8 @@
 ﻿{
-  "StorageType": "LocalFileSystem",
-  "Prefix": "./kerrigan",
-  "Configure": []
+  "StorageType": "AmazonS3",
+  "Prefix": "kerrigan-pack",
+  "Configure": [
+    [ "region", "ap-southeast-1" ],
+    [ "bucket", "scrapy-core-storage" ]
+  ]
 }

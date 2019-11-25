@@ -1,18 +1,8 @@
 {
-  "MessageQueueEngine": "RabbitMQ",
-  "QueueName": "Hydralisk",
+  "MessageQueueEngine": "AmazonSQS",
+  "QueueName": "https://sqs.ap-southeast-1.amazonaws.com/089348459769/Hydralisk2Ultralisks",
   "Configure": [
-    [ "exchange", "ex-heartofswarm" ],
-    [ "route-key", "Hydralisk" ],
-    [ "host-name", "127.0.0.1" ],
-    [ "user-name", "usr-hos" ],
-    [ "password", "usr-hos" ],
-    [ "virtual-host", "/" ],
-    [ "type", "direct" ],
-    [ "ex-durable", "true" ],
-    [ "ex-auto-delete", "false" ],
-    [ "q-durable", "true" ],
-    [ "q-exclusive", "false" ],
-    [ "q-auto-delete", "false" ]
+    [ "region", "ap-southeast-1" ],
+    [ "buffer-size", "1024" ]
   ]
 }

@@ -2,7 +2,7 @@
   "CacheEngine": "RedisCache",
 
   "ConfigureDetail": [
-    [ "end-points", "localhost:6379" ],
+    [ "end-points", "hos-core-cache.hioh47.ng.0001.apse1.cache.amazonaws.com:6379" ],
     [ "abortConnect", "false" ],
     [ "allowAdmin", "false" ],
     [ "channelPrefix", "" ],
