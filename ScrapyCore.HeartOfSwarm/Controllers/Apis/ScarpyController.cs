@@ -2,6 +2,7 @@
 using ScrapyCore.Core;
 using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
+using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors;
 using ScrapyCore.Fundamental.Scheduler;
 using ScrapyCore.Fundamental.Scheduler.Models;
@@ -51,6 +52,26 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
             ScheduleIntegration scheduleIntegration = new ScheduleIntegration(null, cache, platformExit);
             await scheduleIntegration.ScheduleNew(scheduleMessage);
             return Json("Scheduled finished");
+        }
+
+
+        [Route("block-queue")]
+        [HttpGet]
+        public async Task<ActionResult> SendMessageToHydalisk([FromQuery(Name = "delay")]int delay, [FromQuery(Name = "loop")]int loop)
+        {
+            for (int i = 0; i < loop; i++)
+            {
+                await messageQueue.SendQueueMessage(new PlatformMessage()
+                {
+                    Command = new Core.Platform.Commands.Command()
+                    {
+                        CommandCode = Core.Platform.Commands.CommandCode.Configure,
+                        CommandType = Core.Platform.Commands.CommandTransfer.Random,
+                    },
+                    MessageData = BitConverter.GetBytes(delay)
+                });
+            }
+            return Json($"Send {loop} heavy message delay {delay} to hyralisk.....");
         }
 
     }

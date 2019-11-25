@@ -1,4 +1,5 @@
 ﻿using log4net;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,9 +23,19 @@ namespace ScrapyCore.Core.Platform
             if (messageHandler != null)
             {
                 var message = messageHandler.MessageObject;
-                logger.Info("Message Get:" + message.Command.CommandType.ToString());
-                await Termination.Terminate(message);
-                logger.Info("Message Terminated");
+                if (message.Command.CommandCode == Commands.CommandCode.Configure)
+                {
+                    logger.Info("Recesived the delay command");
+                    int delay = BitConverter.ToInt32(message.MessageData);
+                    await Task.Delay(delay);
+                    logger.Info("Completed the delay command");
+                }
+                else
+                {
+                    logger.Info("Message Get:" + message.Command.CommandType.ToString());
+                    await Termination.Terminate(message);
+                    logger.Info("Message Terminated");
+                }
                 await messageHandler.Complete();
                 logger.Info("Message Pipline Completed");
             }
@@ -33,6 +44,7 @@ namespace ScrapyCore.Core.Platform
                 logger.Info("Message get nothing from Queue");
                 Thread.Sleep(1000);
             }
+
         }
         public Task Drive(string[] args)
         {
