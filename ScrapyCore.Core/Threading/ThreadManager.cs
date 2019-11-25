@@ -54,7 +54,7 @@ namespace ScrapyCore.Core.Threading
                     if (!isDisposed && numberOfRunningThread >= MaxThreads)
                         autoResetEvent.Reset();
 
-                    logger.DebugFormat("Starting another thread, increasing running threads to [{0}].", numberOfRunningThread);
+                    //logger.DebugFormat("Starting another thread, increasing running threads to [{0}].", numberOfRunningThread);
                 }
                 RunActionOnDedicatedThread(action);
             }
@@ -87,7 +87,7 @@ namespace ScrapyCore.Core.Threading
             try
             {
                 action.Invoke();
-                logger.Debug("Action completed successfully.");
+                //logger.Debug("Action completed successfully.");
             }
             catch (OperationCanceledException)
             {
@@ -106,7 +106,7 @@ namespace ScrapyCore.Core.Threading
                     lock (locker)
                     {
                         numberOfRunningThread--;
-                        logger.DebugFormat("[{0}] threads are running.", numberOfRunningThread);
+                        //logger.DebugFormat("[{0}] threads are running.", numberOfRunningThread);
                         if (!isDisposed && numberOfRunningThread < MaxThreads)
                             autoResetEvent.Set();
                     }

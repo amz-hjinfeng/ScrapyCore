@@ -16,6 +16,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
             WebSeed seed = JsonConvert.DeserializeObject<WebSeed>(templateParameter.ToString());
             HttpSource httpSource = new HttpSource()
             {
+                GenName = GenType,
                 Accept = seed.Accept,
                 ContentType = seed.ContentType,
                 Encoding = seed.Encoding,
@@ -23,11 +24,11 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                 Method = seed.Method,
                 Referer = seed.Referer,
                 Url = seed.SeedUrl,
-                UserAgent = seed.UserAgent
+                UserAgent = seed.UserAgent,
+                Layer = seed.Depth
             };
-
             string hashid = (seed.SeedUrl + this.GenType + identificationCode).ToMD5Hex();
-            string recommendLoacation = $"level-{seed.Depth}/" + hashid;
+            string recommendLoacation = $"level{seed.Depth}/" + hashid;
 
             return new ParamWithId()
             {

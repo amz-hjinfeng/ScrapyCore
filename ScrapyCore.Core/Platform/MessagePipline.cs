@@ -31,7 +31,7 @@ namespace ScrapyCore.Core.Platform
             else
             {
                 logger.Info("Message get nothing from Queue");
-                Thread.Sleep(200);
+                Thread.Sleep(1000);
             }
         }
         public Task Drive(string[] args)

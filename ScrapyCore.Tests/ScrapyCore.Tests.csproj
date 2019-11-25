@@ -22,6 +22,14 @@
 
   <ItemGroup>
     <None Remove="Core\Configure\AmazonS3ConfigureTest.css" />
+    <None Remove="log4net-fundamental.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="log4net-fundamental.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Update="log4net.config">

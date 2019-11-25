@@ -32,6 +32,8 @@
     <link href="~/css/amazeui.css" rel="stylesheet" />
     <link href="~/css/admin.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/app.css">
+    <script type="text/javascript" src="~/js/raphael-min.js"></script>
+    <script type="text/javascript" src="~/js/justgage.min.js"></script>
     <!--[if lt IE 9]>
     <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
@@ -45,6 +47,7 @@
     <script src="~/js/amazeui.widgets.helper.min.js"></script>
     <script src="~/js/jqueryext.js"></script>
     <script src="~/js/utils.js"></script>
+    <script src="~/js/xregexp.js"></script>
 </head>
 <body>
 
@@ -83,38 +86,44 @@
         <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
             <div class="am-offcanvas-bar admin-offcanvas-bar">
                 <ul class="am-list admin-sidebar-list">
-                    <li><a href="home"><span class="am-icon-home"></span> 仪表板 </a></li>
+                    <li><a href="/views/home/index"><span class="am-icon-home"></span> 仪表板 </a></li>
                     <li class="admin-parent">
                         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}">
                             <span class="am-icon-file"></span> 虫群<span class="am-icon-angle-right am-fr am-margin-right"></span>
                         </a>
                         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
                             <li>
-                                <a href="kerrigan" class="am-cf">
+                                <a href="~/views/home/swarms/Kerrigan" class="am-cf">
                                     <span class="am-icon-check"></span> Kerrigan
                                     <span class="am-badge am-badge-secondary am-margin-right am-fr" id="kerrigan">0</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="hydralisks">
+                                <a href="~/views/home/swarms/Hydralisk">
                                     <span class="am-icon-puzzle-piece">
-                                        Hydralisks
+                                        Hydralisk
                                     </span>
                                     <span class="am-badge am-badge-secondary am-margin-right am-fr" id="hydralisks">0</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="ultralisks">
-                                    <span class="am-icon-th"></span> Ultralisks
+                                <a href="~/views/home/swarms/Utralisks">
+                                    <span class="am-icon-th"></span> Utralisks
                                     <span class="am-badge am-badge-secondary am-margin-right am-fr" id="ultralisks">0</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="scrapytask">
+                        <a href="~/views/scrapytask">
                             <span class="am-icon-tasks"></span>
                             虫群任务
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/views/search">
+                            <span class="am-icon-search"></span>
+                            文章搜索
                         </a>
                     </li>
                 </ul>
@@ -152,9 +161,9 @@
                     type: "GET",
                     url: "/api/statistics/menu-number",
                     success: (data, res) => {
-                        $("#kerrigan").html(data["kerrrigan"]);
-                        $("#hydralisks").html(data["hydralisk"]);
-                        $("#ultralisks").html(data["utralisks"]);
+                        $("#kerrigan,#kerrigan-num").html(data["kerrrigan"]);
+                        $("#hydralisks,#hyrdalisk-num").html(data["hydralisk"]);
+                        $("#ultralisks,#ultralisks-num").html(data["utralisks"]);
                     }
                 }
             );

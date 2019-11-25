@@ -88,6 +88,8 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                 };
                 ScrapySource scrapySource = new ScrapySource()
                 {
+                    GenType = sourceGen.GenType,
+                    Name = item.Name,
                     JobId = Guid.NewGuid().ToString(),
                     MessageId = messageId,
                     Source = sourceObject,

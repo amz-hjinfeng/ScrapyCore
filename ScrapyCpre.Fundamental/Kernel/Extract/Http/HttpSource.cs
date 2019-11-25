@@ -6,6 +6,8 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
 {
     public class HttpSource
     {
+        public string GenName { get; set; }
+        public int Layer { get; set; }
         public string Encoding { get; set; }
         public string ContentType { get; set; }
         public string Method { get; set; }

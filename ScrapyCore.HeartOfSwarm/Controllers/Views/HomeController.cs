@@ -14,9 +14,17 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Views
 
         }
 
+        [Route("index")]
         public ActionResult Index()
         {
             return View();
+        }
+
+        [Route("swarms/{model}")]
+        [HttpGet]
+        public ActionResult Swarms([FromRoute(Name = "model")]string model)
+        {
+            return View("swarms", model);
         }
     }
 }

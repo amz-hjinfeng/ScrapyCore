@@ -12,6 +12,6 @@ namespace ScrapyCore.Fundamental.Kernel.Load
 {
     public abstract class LoadProvider : ILoadProvider
     {
-        public abstract Task Load(Stream content, object paramter);
+        public abstract Task Load(Stream content, LoadContext paramter);
     }
 }

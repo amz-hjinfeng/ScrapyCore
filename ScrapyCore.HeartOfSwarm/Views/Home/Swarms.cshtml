@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "Swarms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">@Model</strong> / <small>@Model</small></div>
+</div>
+
+
+<table class="am-table am-table-striped am-table-hover table-main" id="host-table">
+    <thead>
+        <tr>
+            <th class="table-check"><input type="checkbox"></th>
+            <th width="20%">ID</th>
+            <th>私有IP</th>
+            <th>公有IP</th>
+            <th>主机名</th>
+            <th>操作系统</th>
+            <th class="table-set">操作</th>
+        </tr>
+    </thead>
+    <tbody id="hosts"></tbody>
+</table>
+
+
+<script type="text/x-handlebars-template" id="machine-table">
+    {{#each data}}
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><a href="#">{{Id}}</a></td>
+        <td>{{PrivateIpAddress}}</td>
+        <td>{{PublicIpAddress}}</td>
+        <td class="am-hide-sm-only">{{HostName}}</td>
+        <td class="am-hide-sm-only">{{OperatingSystem}}</td>
+        <td>
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 查看</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                    <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 取消</button>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
+<script type="text/javascript">
+    var machineTemlate = Handlebars.compile($("#machine-table").text());
+
+    $("#host-table").ready(x => {
+        $.ajax({
+            contentType: "application/json;charset=UTF-8",
+            type: "GET",
+            url: "/api/instances/instance-lists/@Model",
+            success: (data, res) => {
+                $("#hosts").html(machineTemlate({data:data}));
+            }
+        });
+    });
+
+</script>

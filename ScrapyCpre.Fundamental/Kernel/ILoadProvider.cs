@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScrapyCore.Fundamental.Kernel.Load;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ScrapyCore.Fundamental.Kernel
 {
     public interface ILoadProvider
     {
-        Task Load(Stream content, object parameter);
+        Task Load(Stream content, LoadContext ldContext);
     }
 }

@@ -66,3 +66,7 @@
     "Caches": []
   }
 }
+
+//\[\"([\W\w])+\]\"
+
+//"DateTime["{"InFormat": "yyyy年MM月dd日 HH:mm","OutFormat": "yyyy-MM-ddTHH:mm","CultureInfo": "zh-cn"}"]"

@@ -9,14 +9,13 @@ namespace ScrapyCore.Core.External
     {
         public static string ToMD5Hex(this string data)
         {
-            MD5 md5 = MD5.Create();
-            return md5.ComputeHash(Encoding.UTF8.GetBytes(data)).ToHex();
+            return Encoding.UTF8.GetBytes(data).ToMD5Hash().ToHex();
         }
 
         public static string ToMD5Base64(this string data)
         {
             MD5 md5 = MD5.Create();
-            return md5.ComputeHash(Encoding.UTF8.GetBytes(data)).ToBase64();
+            return Encoding.UTF8.GetBytes(data).ToMD5Hash().ToBase64();
         }
     }
 }

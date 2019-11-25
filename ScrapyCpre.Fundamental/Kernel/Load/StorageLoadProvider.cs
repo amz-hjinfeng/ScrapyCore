@@ -1,9 +1,8 @@
 ﻿using ScrapyCore.Core;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
+using ScrapyCore.Core.External;
 
 namespace ScrapyCore.Fundamental.Kernel.Load
 {
@@ -16,9 +15,31 @@ namespace ScrapyCore.Fundamental.Kernel.Load
             this.storage = storage;
         }
 
-        public override Task Load(Stream content, object paramter)
+        public override async Task Load(Stream content, LoadContext ldContext)
         {
-            return storage.WriteStream(content, paramter.ToString());
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                await content.CopyToAsync(memoryStream);
+                var hashHex = memoryStream.ToArray().ToMD5Hash().ToHex();
+                string fileName = ldContext.Parameter.ToString();
+                fileName = ReplateHashPlaceHolder(hashHex, fileName);
+                fileName = ReplaceDateTime(fileName);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                await storage.WriteStream(memoryStream, fileName);
+            }
         }
+
+        private string ReplateHashPlaceHolder(string hash, string parameter)
+        {
+            return parameter.Replace("{hash}", hash);
+        }
+
+        private string ReplaceDateTime(string parameter)
+        {
+            return parameter.Replace("{date-time}", DateTime.Now.ToString(".yyyy-MM-dd"));
+        }
+
+
+
     }
 }

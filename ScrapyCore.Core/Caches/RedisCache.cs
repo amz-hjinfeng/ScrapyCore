@@ -30,9 +30,12 @@ namespace ScrapyCore.Core.Caches
                 ConfigurationChannel = cachingConfigure.ConfigureDetail.DefaultValue("configChannel"),
                 DefaultDatabase = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("defaultDatabase", StringToInt32Conventor.Instance),
                 KeepAlive = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("keepAlive", StringToInt32Conventor.Instance),
+                SyncTimeout = 15000,
+                AsyncTimeout = 15000,
                 Proxy = Proxy.None,
                 ResolveDns = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("resolveDns", StringToBoolConvertor.Instance),
                 Ssl = cachingConfigure.ConfigureDetail.GetKeyAndConvertTo("ssl", StringToBoolConvertor.Instance),
+
             };
             cachingConfigure.ConfigureDetail.DefaultValue("end-points").Split(';').ToList().ForEach(x => configureOptions.EndPoints.Add(x));
 
@@ -82,11 +85,14 @@ namespace ScrapyCore.Core.Caches
 
         public override async Task<T> RestoreAsync<T>(string key)
         {
-            T obj = JsonConvert.DeserializeObject<T>(
-                await database.StringGetAsync(key)
-                );
-            Logger.Debug($"Restore key:{key}");
-            return obj;
+            var value = (string)await database.StringGetAsync(key);
+            if (value != null && !string.IsNullOrEmpty(value))
+            {
+                T obj = JsonConvert.DeserializeObject<T>(value);
+                Logger.Debug($"Restore key:{key}");
+                return obj;
+            }
+            return default(T);
         }
 
         public override void Store<T>(string key, T model, TimeSpan? timeSpan = null)

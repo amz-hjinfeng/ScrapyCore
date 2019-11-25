@@ -9,9 +9,12 @@ using Newtonsoft.Json;
 using ScrapyCore.Core.Caches;
 using ScrapyCore.Core.Configure;
 using ScrapyCore.Core.Configure.Caches;
+using ScrapyCore.Core.Configure.ElasticSearch;
 using ScrapyCore.Core.Configure.MessageQueue;
 using ScrapyCore.Core.Configure.Storage;
 using ScrapyCore.Core.Configure.UserAgents;
+using ScrapyCore.Core.Consts;
+using ScrapyCore.Core.ElasticSearch;
 using ScrapyCore.Core.Injection;
 using ScrapyCore.Core.MessageQueues;
 using ScrapyCore.Core.Storages;
@@ -44,18 +47,25 @@ namespace ScrapyCore.Core
 
         public Bootstrap(string boostrapFile)
         {
-            ILoggerRepository repository = LogManager.CreateRepository("Scrapy-Repo");
+            ILoggerRepository repository = LogManager.CreateRepository(LogConst.SCRAPY_CORE_REPO);
+            ILoggerRepository repositoryFundalmental = LogManager.CreateRepository(LogConst.SCRAPY_FUNDAMENTAL);
             log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            log4net.Config.XmlConfigurator.Configure(repositoryFundalmental, new FileInfo("log4net-fundamental.config"));
+
             logger = LogManager.GetLogger(repository.Name, typeof(Bootstrap));
             string location = Assembly.GetCallingAssembly().Location;
             var applicationPath = Path.GetDirectoryName(location);
 
             logger.Debug("Application Location:" + applicationPath);
 
+            ////TODO :Temp state here, refactor to other way.
+            ElasticSearchTypeManager.RegistAssemblyModels(Assembly.LoadFrom(Path.Combine(applicationPath, "ScrapyCore.Fundamental.dll")));
+
             initialStorage = StorageFactory.Factory.GetLocalStorage(applicationPath);
             var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString(boostrapFile));
             Provisioning = new ProvisioningModel(model, initialStorage);
             InjectionProvider = new InjectionProvider(this);
+
         }
 
         public string GetVariableSet(string variableKey)
@@ -97,9 +107,7 @@ namespace ScrapyCore.Core
             return null;
         }
 
-
         public InjectionProvider InjectionProvider { get; }
-
 
         public ProvisioningModel Provisioning { get; }
 
@@ -116,6 +124,7 @@ namespace ScrapyCore.Core
                 Dictionary<string, ICache> caches = new Dictionary<string, ICache>();
                 Dictionary<string, IUserAgentPool> useragentPools = new Dictionary<string, IUserAgentPool>();
                 Dictionary<string, IMessageQueue> messageQueues = new Dictionary<string, IMessageQueue>();
+                Dictionary<String, IElasticSearch> elasticSearch = new Dictionary<string, IElasticSearch>();
 
                 logger.Info("Provisioning Storage.");
                 Provision(model.Provisioning.Storages,
@@ -141,13 +150,23 @@ namespace ScrapyCore.Core
                     MessageQueueConfigureFactory.Factory,
                     MessageQueueFactory.Factory);
 
+                logger.Info("Provision Elasticsearch");
+                Provision(model.Provisioning.ElasticSearch,
+                    elasticSearch,
+                    ElasticSearchConfigureFactory.Factory,
+                    ElasticSearchFactory.Factory
+                    );
+
+
                 Storages = storages;
                 Caches = caches;
                 UseragentPools = useragentPools;
                 MessageQueues = messageQueues;
+                ElasticSearch = elasticSearch;
 
-                logger.Info($"Provisioned:Storage-{storages.Count},Cache-{caches.Count},UserAgentPools-{useragentPools.Count},MessageQueues-{messageQueues.Count}");
+                logger.Info($"Provisioned:Storage-{storages.Count},Cache-{caches.Count},UserAgentPools-{useragentPools.Count},MessageQueues-{messageQueues.Count},ElasticSearch-{elasticSearch.Count}");
             }
+            public IReadOnlyDictionary<string, IElasticSearch> ElasticSearch { get; }
 
             public IReadOnlyDictionary<string, IStorage> Storages { get; }
             public IReadOnlyDictionary<string, ICache> Caches { get; }
@@ -160,25 +179,35 @@ namespace ScrapyCore.Core
                         IConfigurationFactory<TConfigure> configurationFactory,
                         IServiceFactory<Target, TConfigure> serviceFactory) where TConfigure : IConfigure
             {
-                logger.Info("Provisioning...");
-                foreach (var item in nameConfigures)
+
+                if (nameConfigures != null)
                 {
-                    try
+                    logger.Info("Provisioning...");
+                    foreach (var item in nameConfigures)
                     {
-                        Variables.ToList().ForEach(x => item.ConfigureFile = item.ConfigureFile.Replace("{$" + x.Key + "}", x.Value));
-                        logger.Debug($"Provisioning:{item.Name}");
-                        logger.Info("Configure File:" + item.ConfigureFile);
-                        var configure = configurationFactory.CreateConfigure(this.Storage, item.ConfigureFile);
-                        var instance = serviceFactory.GetService(configure);
-                        container[item.Name] = instance;
-                        logger.Debug($"Provisioned:{item.Name}");
+                        try
+                        {
+                            Variables.ToList().ForEach(x => item.ConfigureFile = item.ConfigureFile.Replace("{$" + x.Key + "}", x.Value));
+                            logger.Debug($"Provisioning:{item.Name}");
+                            logger.Info("Configure File:" + item.ConfigureFile);
+                            var configure = configurationFactory.CreateConfigure(this.Storage, item.ConfigureFile);
+                            var instance = serviceFactory.GetService(configure);
+                            container[item.Name] = instance;
+                            logger.Debug($"Provisioned:{item.Name}");
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error($"{item.Name} provision fail, Caused by{ex.Message}");
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        logger.Error($"{item.Name} provision fail, Caused by{ex.Message}");
-                    }
+                    logger.Info("Provisioned");
                 }
-                logger.Info("Provisioned");
+                else
+                {
+                    logger.Warn("Nothing Provision");
+                }
+
+
             }
         }
 
@@ -214,6 +243,7 @@ namespace ScrapyCore.Core
             public NameConfigure[] MessageQueues { get; set; }
             public NameConfigure[] UserAgents { get; set; }
             public NameConfigure[] Caches { get; set; }
+            public NameConfigure[] ElasticSearch { get; set; }
 
         }
 

@@ -13,13 +13,13 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Convertors.Strings
     {
         string testPatten = @"https://blog.csdn.net/[\w|/|-]*";
         RegexConvertor conventor;
-        DistinctConventor inlineConventor;
+        DistinctConvertor inlineConventor;
         private string htmlPath;
 
         public RegexConvertorTests()
         {
             conventor = new RegexConvertor(testPatten);
-            inlineConventor = new DistinctConventor();
+            inlineConventor = new DistinctConvertor();
             htmlPath = ConstVariable.ApplicationPath + "/MockData/Fundamental/Conventors/MockedHtml.html";
 
         }

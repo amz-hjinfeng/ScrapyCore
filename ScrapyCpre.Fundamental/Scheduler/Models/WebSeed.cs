@@ -1,4 +1,5 @@
-﻿using ScrapyCore.Core.Attributes;
+﻿using Newtonsoft.Json;
+using ScrapyCore.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +34,11 @@ namespace ScrapyCore.Fundamental.Scheduler.Impls.Web
 
         [Field(AcceptTypeName = "int", DefaultValue = "2", FieldName = nameof(Depth))]
         public int Depth { get; set; }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
 
     }
 }

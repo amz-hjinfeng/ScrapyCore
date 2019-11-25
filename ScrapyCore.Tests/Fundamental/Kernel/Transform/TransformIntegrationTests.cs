@@ -9,6 +9,8 @@ using Moq;
 using ScrapyCore.Fundamental.Kernel.Transform;
 using Newtonsoft.Json;
 using System.IO;
+using ScrapyCore.Core.Platform;
+using ScrapyCore.Fundamental.Kernel;
 
 namespace ScrapyCore.Tests.Fundamental.Kernel.Transform
 {
@@ -20,6 +22,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Transform
         string result;
         ICache coreCache;
         IStorage coreStorage;
+        IPlatformExit platformExit;
         public TransformIntegrationTests()
         {
             IStorage storage = StorageFactory.Factory.GetLocalStorage(ConstVariable.ApplicationPath);
@@ -43,6 +46,9 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Transform
                 .Setup(x => x.WriteStream(It.IsAny<Stream>(), It.IsAny<String>()))
                 .Returns(new Func<Stream, string, Task>(AssertTransformResult));
 
+            this.platformExit = Mock.Of<IPlatformExit>();
+            Mock.Get(platformExit).Setup(x => x.OutRandom(It.IsAny<KernelMessage>()))
+                .Returns(Task.CompletedTask);
         }
 
         [Fact]
@@ -50,7 +56,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Transform
         {
             byte[] byteKernelMessage = Encoding.UTF8.GetBytes(kernelMessage);
             TransformIntegration transformIntegration = new TransformIntegration(coreCache, coreStorage);
-            await transformIntegration.Process(byteKernelMessage, null);
+            await transformIntegration.Process(byteKernelMessage, platformExit);
         }
 
         private async Task AssertTransformResult(Stream stream, string path)

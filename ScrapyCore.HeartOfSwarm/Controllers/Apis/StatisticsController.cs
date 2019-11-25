@@ -19,7 +19,6 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
             this.cache = cache;
         }
 
-
         [Route("menu-number")]
         public ActionResult MenuNumber()
         {

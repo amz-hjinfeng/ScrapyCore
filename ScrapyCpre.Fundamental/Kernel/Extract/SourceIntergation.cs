@@ -1,10 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using Newtonsoft.Json;
 using ScrapyCore.Core;
+using ScrapyCore.Core.Consts;
 using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +15,7 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
 {
     public class SourceIntergation : IWorkingMessageProcessor
     {
+        private static ILog logger = LogManager.GetLogger(LogConst.SCRAPY_FUNDAMENTAL, nameof(SourceIntergation));
         private readonly ICache coreCache;
         private readonly IExtractorManager extractorManager;
 
@@ -32,15 +36,19 @@ namespace ScrapyCore.Fundamental.Kernel.Extract
             string transformJobIdsKey = PrefixConst.SOURCE_TRANSFOR_MAP + kernelMessage.JobId;
             TaskingManager taskingManager = new TaskingManager();
             List<string> jobIds = await coreCache.RestoreAsync<List<string>>(transformJobIdsKey);
-            foreach (var x in jobIds)
+            if (jobIds != null)
             {
-                KernelMessage transforMsg = new KernelMessage()
+                foreach (var x in jobIds)
                 {
-                    JobId = x,
-                    MessageId = kernelMessage.MessageId,
-                    MessageName = kernelMessage.MessageName
-                };
-                taskingManager.AddTask(platformExit.OutRandom(x));
+                    KernelMessage transforMsg = new KernelMessage()
+                    {
+                        JobId = x,
+                        MessageId = kernelMessage.MessageId,
+                        MessageName = kernelMessage.MessageName
+                    };
+                    taskingManager.AddTask(platformExit.OutRandom(transforMsg));
+                    logger.Debug(JsonConvert.SerializeObject(transforMsg));
+                }
             }
             await taskingManager.WhenAll();
         }

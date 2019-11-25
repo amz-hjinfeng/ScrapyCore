@@ -7,6 +7,7 @@ using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors.Model;
 using ScrapyCore.Core.Platform.System;
+using ScrapyCore.Fundamental.Kernel.Load;
 using ScrapyCore.Kerrigan.WebHosting;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,23 @@ namespace ScrapyCore.Kerrigan
         private readonly IHostedMachine hostedMachine;
         private IMessagePipline messagePipline;
         private IMessageQueue messageOut;
+        private LoadProviderManager loadProviderManager;
         public KerriganSystemController(Bootstrap bootstrap, IHostedMachine hostedMachine)
             : base(bootstrap)
         {
             var entrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            this.loadProviderManager = new LoadProviderManager();
+            this.WorkingProcessor = new LoadIntegration(
+                bootstrap.GetCachedFromVariableSet("HeartbeatCache"),
+                bootstrap.GetStorageFromVariableSet("CoreStorage"),
+                this.loadProviderManager
+            );
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
             messagePipline = new MessagePipline(entrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
+
+
         }
 
         public override IMessagePipline MessagePipline => this.messagePipline;
@@ -50,7 +60,8 @@ namespace ScrapyCore.Kerrigan
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
                 Id = hostedMachine.Id,
-                Model = "Kerrigan"
+                Model = "Kerrigan",
+                External = hostedMachine
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

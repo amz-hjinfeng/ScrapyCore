@@ -1,11 +1,9 @@
 ﻿using ScrapyCore.Core;
 using ScrapyCore.Core.Platform.System;
-using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using ScrapyCore.Utralisks.WebHosting;
 using Microsoft.AspNetCore;
 using ScrapyCore.Core.Platform;
-using log4net;
 using ScrapyCore.Core.Platform.Processors.Model;
 using System;
 using ScrapyCore.Core.HostMachine;
@@ -13,6 +11,7 @@ using ScrapyCore.Core.Platform.Message;
 using Newtonsoft.Json;
 using System.Text;
 using ScrapyCore.Fundamental.Kernel.Transform;
+using System.Threading;
 
 namespace ScrapyCore.Utralisks
 {
@@ -26,17 +25,16 @@ namespace ScrapyCore.Utralisks
             : base(bootstrap)
         {
             messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            WorkingProcessor = new TransformIntegration(
+                bootstrap.GetCachedFromVariableSet("CoreCache"),
+                bootstrap.GetStorageFromVariableSet("CoreStorage")
+                );
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");
             this.hostedMachine = hostedMachine;
-            WorkingProcessor = new TransformIntegration(
-                bootstrap.GetCachedFromVariableSet("CoreCache"),
-                bootstrap.GetStorageFromVariableSet("")
-                );
-        }
 
-        public override IWorkingMessageProcessor WorkingProcessor { get; }
+        }
 
         public override IMessagePipline MessagePipline => this.messagePipline;
 
@@ -56,7 +54,8 @@ namespace ScrapyCore.Utralisks
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
                 Id = hostedMachine.Id,
-                Model = "Utralisks"
+                Model = "Utralisks",
+                External = hostedMachine
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

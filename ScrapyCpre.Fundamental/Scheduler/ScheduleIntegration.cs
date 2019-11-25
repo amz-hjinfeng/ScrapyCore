@@ -28,7 +28,7 @@ namespace ScrapyCore.Fundamental.Scheduler
         {
             await StoreMeta(scheduleMessage);
             IScheduler scheduler = ScheduleManager.Manager
-                 .GetScheduler(scheduleMessage.Scheduler);
+                 .GetDefaultScheduler(platformExit, coreCache);
             await scheduler.ScheduleNew(scheduleMessage);
         }
 

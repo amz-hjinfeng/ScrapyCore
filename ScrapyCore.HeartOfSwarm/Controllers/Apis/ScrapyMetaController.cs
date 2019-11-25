@@ -22,12 +22,13 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
     {
         private static IReadOnlyDictionary<string, SourceGenAttribute> SourceGenMeta => SourceGenManager.SourceGenMeta;
         private static IReadOnlyDictionary<string, ConvertorManager.ConvertorMeta> ConvertorMetas => ConvertorManager.ConvertorMetas;
-        private static IReadOnlyDictionary<string,LoadSuites> LoadProviderMetas = LoadProviderManager.LoadMetas;
+        private static IReadOnlyDictionary<string, LoadSuites> LoadProviderMetas = LoadProviderManager.LoadMetas;
 
         private static IReadOnlyDictionary<string, string> LoadProviderTypesFieldMapping => new Dictionary<string, string>()
         {
             {"Storage","StorageType" },
-            {"MessageQueue","MessageQueueEngine"}
+            {"MessageQueue","MessageQueueEngine"},
+            { "ElasticSearch","ElasticSearhEngine"}
         };
 
         /// <summary>
@@ -103,11 +104,12 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
                     Metas = x.Value.ConfigureFactory.GetType()
                         .GetInterfaces()[0]
                         .GenericTypeArguments[0]
-                        .GetProperties().Select(p=>new {
+                        .GetProperties().Select(p => new
+                        {
                             Name = p.Name,
                             Type = p.PropertyType.Name
                         }),
-                    Services = (x.Value.ServiceFactory as IServiceKeys).GetServiceKeys(),
+                    Services = (x.Value.ServiceFactory as IServiceKeys).GetServiceKeys().Select(q => q.Replace("Storage", "")),  //Temp replace here.
                     MappingTo = LoadProviderTypesFieldMapping[x.Key]
 
                 }

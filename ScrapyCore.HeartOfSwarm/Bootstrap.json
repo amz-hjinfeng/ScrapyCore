@@ -46,6 +46,14 @@
         "ConfigureFile": "configure/{$environment}/redis-cache.json"
       }
     ],
+    "ElasticSearch": [
+      {
+        "Name": "elasticsearch",
+        "ConfigureFile": "configure/{$environment}/elasticsearch.json"
+      }
+
+    ],
+
     "Analyzer": [
       {
         "Name": "regex-url",

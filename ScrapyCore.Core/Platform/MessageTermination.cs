@@ -22,6 +22,7 @@ namespace ScrapyCore.Core.Platform
             MessageProcessorManager messageProcessorManager = MessageProcessorManager.Builder.NewBuilder()
                  .WithSystemController(systemController)
                  .WithHeartbeatCache(bootstrap.GetCachedFromVariableSet(HEARTBEAT_CACHE))
+                 .WithOutMessageQueue(bootstrap.GetMessageQueueFromVariableSet(TERMINATION))
                  .Build();
             operationBuilder.WithProcessManager(messageProcessorManager);
 

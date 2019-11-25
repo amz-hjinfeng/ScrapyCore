@@ -48,11 +48,8 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
         [Route("new-task")]
         public async Task<ActionResult> ScrapyNewTask([FromBody]ScheduleMessage scheduleMessage)
         {
-            IScheduler scheduler =
-                ScheduleManager
-                .Manager
-                .GetDefaultScheduler(platformExit, this.cache);
-            await scheduler.ScheduleNew(scheduleMessage);
+            ScheduleIntegration scheduleIntegration = new ScheduleIntegration(null, cache, platformExit);
+            await scheduleIntegration.ScheduleNew(scheduleMessage);
             return Json("Scheduled finished");
         }
 

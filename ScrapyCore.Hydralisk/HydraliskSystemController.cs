@@ -11,11 +11,13 @@ using ScrapyCore.Fundamental.Kernel.Extract;
 using ScrapyCore.Hydralisk.WebHosting;
 using System;
 using System.Text;
+using System.Threading;
 
 namespace ScrapyCore.Hydralisk
 {
     public class HydraliskSystemController : SystemController
     {
+
         private readonly IHostedMachine hostedMachine;
         private IMessagePipline messagePipline;
         private IMessageQueue messageOut;
@@ -52,7 +54,8 @@ namespace ScrapyCore.Hydralisk
                 ChannelId = bootstrap.GetVariableSet("Termination"),
                 SentTime = DateTime.Now,
                 Id = hostedMachine.Id,
-                Model = "Hydralisk"
+                Model = "Hydralisk",
+                External = hostedMachine
             };
             platformMessage.Routes.Add(new MessageRoute(
                  new Pricipal()

@@ -90,7 +90,7 @@
 <script id="saved-load-template" type="text/x-handlebars-template">
     <div class="am-alert am-alert-secondary">
         <i class="am-icon-circle lg li">
-        {{FromTransform}} <span class="am-icon-arrow-right"></span> {{LoadProvider}}
+            {{FromTransform}} <span class="am-icon-arrow-right"></span> {{LoadProvider}}
         </i>
         <a class="am-btn am-btn-danger am-fr am-btn-xs" id="rm-saved-load">删除</a>
     </div>
@@ -132,7 +132,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
                 <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
-                    Analysis 
+                    Analysis
                 </h4>
             </div>
             <div id="do-not-say-2" class="am-panel-collapse am-collapse">
@@ -150,7 +150,7 @@
         <div class="am-panel am-panel-default">
             <div class="am-panel-hd">
                 <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-3'}">
-                    Landing 
+                    Landing
                 </h4>
             </div>
             <div id="do-not-say-3" class="am-panel-collapse am-collapse">
@@ -163,7 +163,7 @@
                         <div class="am-panel-bd">
                             <div id="load-editor-container">
                                 <div id="saved-loads">
-                                   <label for="sourcedefine">Landing Definition:</label>
+                                    <label for="sourcedefine">Landing Definition:</label>
                                 </div>
 
                                 <div id="load-editors" class="am-panel am-panel-primary">
@@ -195,7 +195,7 @@
 
 <script type="text/javascript">
     var newTaskForm = null;
-
+    var regex = /(?:\[\")([\W\w]+)(?:\"\])/g;
     class NewTaskForm {
         data = {
             MessageId: "",
@@ -259,9 +259,18 @@
             html = this.current = $(html);
             this.Form.append(this.current);
 
-            this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer, dat => {
-                self.providerSavedHandler(dat);
-            });
+            this.LoadProviderEditorTemplate.provisionEditor(this.ProviderEditorContainer,
+                dat => {
+                    self.providerSavedHandler(dat);
+                }, dat => {
+                    var newDataArray = [];
+                    for (var i = 0; i < self.data.LandingTargets.LoadProviders.length; i++) {
+                        if (self.data.LandingTargets.LoadProviders[i].Name != dat.Name)
+                            newDataArray.push(self.data.LandingTargets.LoadProviders[i]);
+                    }
+                    self.data.LandingTargets.LoadProviders = newDataArray;
+                }
+            );
 
             var savedLoadContainer = this.current.find("#saved-loads");
             var savedLoadTemplate = Handlebars.compile($("#saved-load-template").text())
@@ -274,7 +283,7 @@
                     var loadReferencesData = {
 
                         transforms: [],
-                        loadproviders:[]
+                        loadproviders: []
                     };
                     self.data.LandingTargets.LoadProviders.forEach(l => {
                         loadReferencesData.loadproviders.push(l.Name);
@@ -307,8 +316,8 @@
             this.current
                 .find('#btn-newTransform')
                 .click((x, y) => {
-                self.newTransform(x, y);
-            });
+                    self.newTransform(x, y);
+                });
 
             var container = this.SourceGroupContainer;
             var sit = this.SourceItemTemplate;
@@ -320,7 +329,7 @@
                     {
                         contentType: "application/json;charset=UTF-8",
                         type: "POST",
-                        dataType:"json",
+                        dataType: "json",
                         url: "/api/scarpy/new-task",
                         data: JSON.stringify(self.data),
                         success: (data, res) => {
@@ -420,16 +429,27 @@
                             ConvertorNavigators: []
                         }
                         x.conventors.forEach(y => {
-                            field.ConvertorNavigators.push({
-                                Name: y.conventorName,
-                                Parameter: y.conventorValue.match(/\[\"(\S*)\"\]/)[1]
-                            });
+
+                            var regRes = regex.exec(y.conventorValue);
+                            if (regRes == null)
+                                regRes = regex.exec(y.conventorValue);
+                            if (regRes != null) {
+                                field.ConvertorNavigators.push({
+                                    Name: y.conventorName,
+                                    Parameter: regRes["1"]
+                                });
+                            } else {
+                                console.log("regex null:" + y.conventorValue);
+                            }
                         });
                         transformData.FieldDefinitions.push(field);
                     });
 
                     dataMaster.Transforms.push(transformData);
-                    html.find("#remove-saved-transform").click(function () {
+                    var rmSavedTransformButton = html.find("#remove-saved-transform")
+                    rmSavedTransformButton.data = transformData;
+                    rmSavedTransformButton.click(function (btn) {
+                        dataMaster.Transforms.remove(btn.data);
                         html.remove();
                     });
                     savedPrincipal.remove();

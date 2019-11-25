@@ -24,7 +24,8 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
         }
 
 
-        private LoadGenManager() { }
+        private LoadGenManager()
+        { }
 
         public LoadEventData GenerateLoadEvent(TransformEventData eventData, ScheduleLoad scheduleLoad)
         {
@@ -49,6 +50,8 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                         JobId = jobId,
                         LoadProviders = providers,
                         MessageId = transform.MessageId,
+                        SourceId = transform.SourceId,
+                        TransformId = transform.JobId,
                         Data = loads.Select(x => new LoadDataNavigator()
                         {
                             DataPacket = transform.SaveTo,

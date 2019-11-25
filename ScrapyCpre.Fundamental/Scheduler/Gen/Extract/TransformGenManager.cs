@@ -45,7 +45,8 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                         ExportAs = item.ExportAs,
                         JobId = newGuid,
                         SaveTo = "/Load/" + newGuid.ToMD5Hex(),
-                        MessageId = scrapySource.MessageId
+                        MessageId = scrapySource.MessageId,
+                        SourceId = scrapySource.JobId
                     };
                     AddSourceMapToTransform(generated.SourceMapToTransform, scrapySource, transformEvent);
                     transformEvents.Add(transformEvent);

@@ -10,6 +10,8 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
 
         public string JobId { get; set; }
 
+        public string SourceId { get; set; }
+
         public string ExportAs { get; set; }
 
         public string GetFrom { get; set; }

@@ -131,22 +131,23 @@
         }
 
 
-        provisionEditor(container, savedCallback) {
+        provisionEditor(container, savedCallback, deleteCallback) {
 
             var template = this.LoadProviderEditorTemplate;
             var html = $(template());
-            this.newEditor(html, savedCallback);
+            this.newEditor(html, savedCallback, deleteCallback);
             //this.provisionSavedProviders(html.find("#saved-load-providers"), dat);
             container.append(html);
         }
 
-        provisionSavedProviders(parentContainer, dat) {
+        provisionSavedProviders(parentContainer, dat, removeCallBack) {
             if (dat) {
                 dat.SavedDatas.forEach(x => {
                     var saveProvider = this.SavedProviderTemplate(x);
                     var savedProviderJQ = $(saveProvider);
                     savedProviderJQ.find("#remove-saved-provider")
                         .click(x => {
+                            removeCallBack(dat.context);
                             savedProviderJQ.remove();
                         });
 
@@ -155,7 +156,7 @@
             }
         }
 
-        newEditor(html, savedCallback) {
+        newEditor(html, savedCallback, removedCallback) {
             var editorTemplate = this.ProviderEditor;
             var editorMeta = this.editorType;
             var configDetailTemplate = this.ProviderConfigureDetailTemplate;
@@ -203,16 +204,15 @@
                             return;
                         providerData.Context[x.key] = x.value;
                     });
-
-
                     savedCallback(providerData);
                     self.provisionSavedProviders(savedProdiderContainer, {
                         SavedDatas: [{
                             Type: savedData.Type,
                             Name: savedData.Name,
                             Values: savedData.Values
-                        }]
-                    });
+                        }],
+                        context: providerData
+                    }, removedCallback);
                     providerEditor.remove();
 
                 });

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="am-cf am-padding am-padding-bottom-0">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">搜索</strong> / <small>Search</small></div>
+</div>
+<div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}">
+
+
+    <form class="am-form am-form-horizontal">
+        <div class="am-form-group">
+            <div class="am-u-sm-9">
+                <input type="text" id="search-key" placeholder="内容">
+                <a class="am-btn am-btn-primary" id="btn-search" href="#">搜索</a>
+            </div>
+            <div class="am-u-sm-9 am-u-sm-push-3 am-align-right">
+
+            </div>
+        </div>
+    </form>
+
+
+
+
+    <div class="am-panel am-panel-default" id="contents">
+
+    </div>
+</div>
+
+
+<script id="artical-template" type="text/x-handlebars-template">
+    {{#each data}}
+    <div class="am-panel am-panel-default">
+        <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-{{@@index}}">
+            {{title}}
+            <span class="am-icon-chevron-down am-fr"></span>
+        </div>
+        <div class="am-panel-bd am-collapse am-in" id="collapse-panel-{{@@index}}" style="">
+            <div id="collapse-panel-4" class="am-panel-bd am-collapse am-in">
+                <ul class="am-list admin-content-task">
+                    <li>
+                        <div class="admin-task-meta"> 日期：{{publishTime}} 来源：{{source}}</div>
+                        <div class="admin-task-bd">
+                            {{content}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/javascript">
+
+    var template = Handlebars.compile($("#artical-template").text());
+    $("#btn-search").click(x => {
+        var searchKey = $("#search-key").val();
+
+        $("#contents").html("");
+        $.ajax({
+            contentType: "application/json;charset=UTF-8",
+            type: "GET",
+            url: "/api/contentsearch/search/" + searchKey,
+            success: (data, res) => {
+
+                var html = template({ data: data });
+                $("#contents").append(html);
+            }
+        });
+    });
+
+</script>

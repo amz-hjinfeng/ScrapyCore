@@ -7,6 +7,10 @@ using ScrapyCore.Core;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using System.Linq;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
 
 namespace ScrapyCore.HeartOfSwarm
 {
@@ -30,6 +34,7 @@ namespace ScrapyCore.HeartOfSwarm
             var builder = new ContainerBuilder();
             builder.RegisterInstance(bootstrap.GetCachedFromVariableSet("HeartbeatCache"));
             builder.RegisterInstance(bootstrap.GetMessageQueueFromVariableSet("Termination"));
+            builder.RegisterInstance<IElasticSearch>(bootstrap.Provisioning.ElasticSearch.First().Value);
             builder.Populate(services);
             var applicationContainer = builder.Build();
             return new AutofacServiceProvider(applicationContainer);
@@ -47,10 +52,9 @@ namespace ScrapyCore.HeartOfSwarm
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseStaticFiles();
-            app.UseDeveloperExceptionPage();
-            app.UseMvc();
-
+            app.UseDeveloperExceptionPage()
+                .UseMvc()
+                .UseStaticFiles();
         }
     }
 }

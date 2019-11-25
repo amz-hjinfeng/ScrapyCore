@@ -15,5 +15,10 @@ namespace ScrapyCore.Fundamental.Scheduler
         public bool IsCompleted { get; set; }
 
         public Dictionary<string, WebState> Children { get; set; }
+
+        public WebState()
+        {
+            Children = new Dictionary<string, WebState>();
+        }
     }
 }

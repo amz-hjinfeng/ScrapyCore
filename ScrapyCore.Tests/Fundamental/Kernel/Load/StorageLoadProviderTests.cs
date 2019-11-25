@@ -27,7 +27,7 @@ namespace ScrapyCore.Tests.Fundamental.Kernel.Load
             MemoryStream memoryStream = new MemoryStream();
             memoryStream.Write(new byte[] { 0x01, 0x02, 0x03, 0x04 }, 0, 4);
             memoryStream.Seek(0, SeekOrigin.Begin);
-            await loadProvider.Load(memoryStream, fileName);
+            await loadProvider.Load(memoryStream, new LoadContext() { Parameter = fileName });
             string writePath = Path.Combine(ConstVariable.ApplicationPath, fileName);
             Assert.True(File.Exists(writePath));
             Assert.Equal(4, File.ReadAllBytes(writePath).Length);

@@ -18,6 +18,8 @@ namespace ScrapyCore.Tests
             ApplicationPath = Path.GetDirectoryName(location);
             ILoggerRepository repository = LogManager.CreateRepository("Scrapy-Repo");
             log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            repository = LogManager.CreateRepository("Scrapy-Fundamental");
+            log4net.Config.XmlConfigurator.Configure(repository, new FileInfo("log4net-fundamental.config"));
         }
     }
 }

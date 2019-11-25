@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ScrapyCore.Core;
+using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform.Processors.Model;
 
 namespace ScrapyCore.HeartOfSwarm.Controllers
@@ -25,6 +26,26 @@ namespace ScrapyCore.HeartOfSwarm.Controllers
         {
             return cache.SearchKeys("instance*").Result;
         }
+
+
+        [Route("instance-lists/{model}")]
+        [HttpGet]
+        public async Task<IEnumerable<object>> GetInstanceInformations(
+            [FromRoute(Name = "model")]string modelType)
+        {
+            var keys = this.GetKeys();
+            List<object> result = new List<object>();
+            foreach (var key in keys)
+            {
+                var heartBeatModel = await cache.RestoreAsync<HeartBeatModel>(key);
+                if (heartBeatModel.Model == modelType)
+                {
+                    result.Add(heartBeatModel.External);
+                }
+            }
+            return result;
+        }
+
 
         [HttpGet("{id}")]
         public ActionResult<HeartBeatModel> Get(string id)

@@ -14,16 +14,18 @@ namespace ScrapyCore.Core.HostMachine
         private readonly string id;
         public override string Id => id;
         public override string PrivateIpAddress => privateIpAddress;
-        public override string PublicIpAddress => GetPublicIpAddressViaSohu();
+        public override string PublicIpAddress { get; }
         public override string HostName => Dns.GetHostName();
         public HostedLocalMachine()
         {
             id = Guid.NewGuid().ToString();
             privateIpAddress = NetworkInterface.GetAllNetworkInterfaces()
-                                                               .Select(p => p.GetIPProperties())
-                                                               .SelectMany(p => p.UnicastAddresses)
-                                                               .Where(p => p.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(p.Address))
-                                                               .FirstOrDefault()?.Address.ToString();
+                                    .Select(p => p.GetIPProperties())
+                                    .SelectMany(p => p.UnicastAddresses)
+                                    .Where(p => p.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(p.Address))
+                                    .FirstOrDefault()?.Address.ToString();
+
+            PublicIpAddress = GetPublicIpAddressViaSohu();
         }
 
     }

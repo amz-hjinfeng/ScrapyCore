@@ -1,55 +1,66 @@
 ﻿{
+  "Varables": [
+    [ "environment", "local" ],
+    [ "Entrance", "utralisks-kerrigan" ],
+    [ "Termination", "kerrigan-hydralisk" ],
+    [ "HeartbeatCache", "default-cache" ],
+    [ "CoreStorage", "core-storage" ]
+  ],
   "Bootstrap": {
-    "Storage": "configure/bootstrap-storage.json",
-    "ThreadMode": "Task"
+    "Storage": "configure/{$environment}/bootstrap-storage.json",
+    "ThreadMode": "Manual"
   },
   "Provisioning": {
     "Storages": [
       {
         "Name": "hydralisk",
-        "ConfigureFile": "configure/hydralisk.json"
+        "ConfigureFile": "configure/{$environment}/hydralisk.json"
       },
       {
-        "Name" "kerrigan",
-        "ConfigureFile": "configure/kerrigan.json"
+        "Name": "kerrigan",
+        "ConfigureFile": "configure/{$environment}/kerrigan.json"
+      },
+      {
+        "Name": "core-storage",
+        "ConfigureFile": "configure/{$environment}/corestorage.json"
       }
     ],
     "MessageQueues": [
       {
         "Name": "kerrigan-hydralisk",
-        "ConfigureFile": "configure/kerrigan-hydralisk.json"
+        "ConfigureFile": "configure/{$environment}/kerrigan-hydralisk.json"
       },
       {
         "Name": "hydralisk-utralisks",
-        "ConfigureFile": "configure/hydralisk-utralisk.json"
+        "ConfigureFile": "configure/{$environment}/hydralisk-utralisk.json"
       },
       {
         "Name": "utralisks-kerrigan",
-        "ConfigureFile": "configure/utralisk-kerrigan.json"
+        "ConfigureFile": "configure/{$environment}/utralisk-kerrigan.json"
       }
     ],
     "UserAgents": [
       {
         "Name": "default-agents",
-        "ConfigureFile": "configure/user-agents.json"
+        "ConfigureFile": "configure/{$environment}/user-agents.json"
       }
     ],
     "Caches": [
       {
         "Name": "default-cache",
-        "ConfigureFile": "configure/cache-in-memory.json"
+        "ConfigureFile": "configure/{$environment}/redis-cache.json"
       }
     ],
     "Analyzer": [
       {
         "Name": "regex-url",
-        "ConfigureFile": "configure/regex-url.json"
+        "ConfigureFile": "configure/{$environment}/regex-url.json"
       }
     ]
   },
   "LazyLoad": {
     "Storage": [],
-    "MessageQueues" [],
+    "MessageQueues": [],
     "UserAgent": [],
     "Caches": []
   }

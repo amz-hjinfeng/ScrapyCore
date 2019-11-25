@@ -19,22 +19,17 @@ namespace ScrapyCore.HeartOfSwarm.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> GetKeys()
+        [Route("congestion")]
+        public async Task<ActionResult> GetChanelCongestion()
         {
-            return cache.SearchKeys("channel*").Result;
+            var listkeys = cache.SearchKeys("channel*").Result;
+            List<ChannelModel> chanelCongestions = new List<ChannelModel>();
+            foreach (var item in listkeys)
+            {
+                chanelCongestions.Add(await cache.RestoreAsync<ChannelModel>(item));
+            }
+            return Json(chanelCongestions);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<ChannelModel> Get(string id)
-        {
-            return cache.Restore<ChannelModel>(id);
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public bool Delete(string id)
-        {
-            return cache.Remove(id);
-        }
     }
 }

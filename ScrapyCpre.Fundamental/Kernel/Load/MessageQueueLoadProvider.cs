@@ -16,7 +16,7 @@ namespace ScrapyCore.Fundamental.Kernel.Load
             this.messageQueue = messageQueue;
         }
 
-        public override Task Load(Stream content, object paramter)
+        public override Task Load(Stream content, LoadContext ldContext)
         {
             throw new NotImplementedException();
         }

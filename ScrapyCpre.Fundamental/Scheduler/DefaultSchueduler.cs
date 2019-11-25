@@ -23,7 +23,7 @@ namespace ScrapyCore.Fundamental.Scheduler
             this.coreCache = corecache;
         }
 
-        public Task ScheduleBack(string messageId, string jobId)
+        public Task ScheduleBack(ScrapySource source, PlatformModel platformModel, List<string> urls, ScheduleMessage scheduleMessage)
         {
             throw new NotImplementedException();
         }
@@ -94,8 +94,10 @@ namespace ScrapyCore.Fundamental.Scheduler
 
         }
 
-
-
+        public Task ScheduleNew(ScheduleMessage scheduleMessage, PlatformModel platformModel)
+        {
+            throw new NotImplementedException();
+        }
 
         private async Task PublishSourceJobs(string name, string messageId, params string[] sourceJobs)
         {

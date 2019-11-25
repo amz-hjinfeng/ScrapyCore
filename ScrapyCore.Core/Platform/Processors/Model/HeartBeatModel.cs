@@ -13,5 +13,7 @@ namespace ScrapyCore.Core.Platform.Processors.Model
         public string ChannelId { get; set; }
 
         public string Model { get; set; }
+
+        public object External { get; set; }
     }
 }

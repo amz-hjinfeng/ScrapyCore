@@ -18,11 +18,11 @@ namespace ScrapyCore.Fundamental.Kernel.Transform
 
         public async Task<Stream> SerialzeToStream(string filetype)
         {
-            // TODO: Extern the other serialzer.
+            // TODO: It should beside here
             MemoryStream memoryStream = new MemoryStream();
             StreamWriter streamWriter = new StreamWriter(memoryStream, Encoding.UTF8);
             JsonSerializer jsonSerializer = new JsonSerializer();
-            jsonSerializer.Serialize(streamWriter, FieldValues);
+            jsonSerializer.Serialize(streamWriter, FieldValues.Values);
             await streamWriter.FlushAsync();
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;

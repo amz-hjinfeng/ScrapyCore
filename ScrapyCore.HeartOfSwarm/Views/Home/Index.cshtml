@@ -3,4 +3,171 @@
 }
 
 
-<a>hello world</a>
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">仪表板</strong> / <small>Dashboard</small></div>
+</div>
+
+<div class="am-cf am-padding">
+    <label> 资源仪表板</label>
+</div>
+<div id="dashboard-major">
+    <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+        <li>
+            <a href="#" class="am-text-success">
+                <span class="am-icon-btn am-icon-bolt"></span>
+                <br>抓取器数量<br><span id="hyrdalisk-num"> 100</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="am-text-success">
+                <span class="am-icon-btn am-icon-bar-chart"></span>
+                <br>解析器数量<br><span id="ultralisks-num">100</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="am-text-success">
+                <span class="am-icon-btn am-icon-cog"></span><br>调度器数量<br><span id="kerrigan-num">100</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="am-text-success">
+                <span class="am-icon-btn am-icon-tasks"></span><br>任务总数<br>1000
+            </a>
+        </li>
+    </ul>
+    <div class="am-cf am-padding">
+        <label> 信道仪表板</label>
+    </div>
+    <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+        <li>
+            <div id="kerrigan-hydralisk">
+
+            </div>
+
+            @*<a href="#" class="am-text-success" id="kerrigan-hydralisk">
+                    <span class="am-icon-btn am-icon-asterisk"></span>
+                    <br>调度-抓取<br> <span id="kerrigan-hydralisk-congestion">拥塞：∞ ms</span>
+                </a>*@
+        </li>
+        <li>
+            <div id="hydralisk-utralisks">
+
+            </div>
+            @*<a href="#" class="am-text-success" id="hydralisk-utralisks">
+                    <span class="am-icon-btn am-icon-asterisk"></span>
+                    <br>抓取-解析<br> <span id="hydralisk-utralisks-congestion">拥塞：∞ ms</span>
+                </a>*@
+        </li>
+        <li>
+            <div id="utralisks-kerrigan">
+
+            </div>
+            @*<a href="#" class="am-text-success" id="utralisks-kerrigan">
+                    <span class="am-icon-btn am-icon-asterisk"></span>
+                    <br>解析-调度<br> <span id="utralisks-kerrigan-congestion">拥塞：∞ ms</span>
+                </a>*@
+        </li>
+        <li>
+            <div id="avg-congestion">
+
+            </div>
+
+            @*<a href="#" class="am-text-success">
+                    <span class="am-icon-btn am-icon-user-md"></span>
+                    <br>在线用户<br>3000
+                </a>*@
+        </li>
+    </ul>
+</div>
+
+
+
+
+<script type="text/javascript">
+    var max = 2000;
+
+    var congestion = {
+        "kerrigan-hydralisk": new JustGage({
+            id: "kerrigan-hydralisk", // the id of the html element
+            value: 0,
+            min: 0,
+            max: max,
+            decimals: 2,
+            gaugeWidthScale: 0.6,
+            label: "信道：调度-抓取"
+        }),
+        "hydralisk-utralisks": new JustGage({
+            id: "hydralisk-utralisks", // the id of the html element
+            value: 0,
+            min: 0,
+            max: max,
+            decimals: 2,
+            gaugeWidthScale: 0.6,
+            label: "信道：抓取-解析"
+        }),
+        "utralisks-kerrigan": new JustGage({
+            id: "utralisks-kerrigan", // the id of the html element
+            value: 0,
+            min: 0,
+            max: max,
+            decimals: 2,
+            gaugeWidthScale: 0.6,
+            label: "信道：抓取-解析"
+        }),
+        avgCongestion: new JustGage({
+            id: "avg-congestion", // the id of the html element
+            value: 0,
+            min: 0,
+            max: max,
+            decimals: 2,
+            gaugeWidthScale: 0.6,
+            label: "平均拥塞"
+        })
+    }
+    function setNumberOfInstances(data) {
+
+    }
+
+    function flushcongestion() {
+        $.ajax(
+            {
+                contentType: "application/json;charset=UTF-8",
+                type: "GET",
+                url: "/api/channels/congestion",
+                success: (data, res) => {
+                    var avgtotal = 0;
+                    data.forEach(x => {
+                        congestion[x.id].refresh(x.congestion);
+                        avgtotal += x.congestion;
+                        //var style = "am-text-success";
+                        //if (x.congestion > 5000) {
+                        //    style = "am-text-warning";
+                        //} else if (x.congestion > 10000) {
+                        //    style = "am-text-danger";
+                        //}
+                        //$("#" + x.id).attr("class", style);
+                        //$("#" + x.id + "-congestion").text("拥塞：" + (0 | x.congestion) + " ms");
+                    });
+                    congestion.avgCongestion.refresh(avgtotal / 3.0);
+                }
+            }
+        );
+    }
+
+
+    function flushUI() {
+        flushcongestion();
+    }
+
+
+    $("#dashboard-major").ready(x => {
+        flushUI();
+        setInterval(y => {
+            flushUI();
+        }, 1000);
+    });
+
+
+
+
+</script>

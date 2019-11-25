@@ -1,4 +1,5 @@
 ﻿using log4net;
+using System;
 using System.Threading;
 
 namespace ScrapyCore.Core.Platform.System
@@ -38,7 +39,9 @@ namespace ScrapyCore.Core.Platform.System
             while (SYSTEM_STOP != SystemStatus)
             {
                 HeartBeatProcessor();
-                Thread.Sleep(100);
+                Random random = new Random(DateTime.Now.Millisecond);
+
+                Thread.Sleep(random.Next(1000, 1500));
             }
         }
 

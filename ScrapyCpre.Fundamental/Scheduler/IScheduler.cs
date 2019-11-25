@@ -1,4 +1,5 @@
-﻿using ScrapyCore.Fundamental.Scheduler.Models;
+﻿using ScrapyCore.Fundamental.Kernel.Extract;
+using ScrapyCore.Fundamental.Scheduler.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,10 @@ namespace ScrapyCore.Fundamental.Scheduler
     {
         Task ScheduleNew(ScheduleMessage scheduleMessage);
 
-        Task ScheduleBack(string messageId, string jobId);
+
+        // TODO: Temp only
+        Task ScheduleBack(ScrapySource source, PlatformModel platformModel, List<string> urls, ScheduleMessage scheduleMessage);
+
+        Task ScheduleNew(ScheduleMessage scheduleMessage, PlatformModel platformModel);
     }
 }
