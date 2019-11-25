@@ -28,7 +28,8 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
         {
             {"Storage","StorageType" },
             {"MessageQueue","MessageQueueEngine"},
-            { "ElasticSearch","ElasticSearhEngine"}
+            { "ElasticSearch","ElasticSearhEngine"},
+            { "Schedule","Type"}
         };
 
         /// <summary>
