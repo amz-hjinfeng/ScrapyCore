@@ -58,7 +58,7 @@ namespace ScrapyCore.Core.Storages
             }
         }
 
-        private FileStream CreateFileWrite(string prefix, string path)
+        private static FileStream CreateFileWrite(string prefix, string path)
         {
             string filePath = Path.Combine(prefix, path);
             FileInfo fileInfo = new FileInfo(filePath);

@@ -44,7 +44,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                         GetFrom = scrapySource.SaveTo,
                         ExportAs = item.ExportAs,
                         JobId = newGuid,
-                        SaveTo = "/Load/" + newGuid.ToMD5Hex(),
+                        SaveTo = "Load/" + newGuid.ToMD5Hex(),
                         MessageId = scrapySource.MessageId,
                         SourceId = scrapySource.JobId
                     };

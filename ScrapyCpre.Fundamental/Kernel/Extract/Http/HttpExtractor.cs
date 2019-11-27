@@ -49,10 +49,15 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 webRequest.ContentType = httpSource.ContentType;
                 var response = await webRequest.GetResponseAsync();
                 Stream stream = response.GetResponseStream();
+                MemoryStream content = new MemoryStream();
+                stream.CopyTo(content);
+                stream.Flush();
+                stream.Close();
+                content.Seek(0, SeekOrigin.Begin);
                 await Storage.WriteBytes(response.Headers.ToByteArray(), path + ".head");
-                await Storage.WriteStream(stream, path);
-                stream.Dispose();
+                await Storage.WriteStream(content, path);
                 Logger.Info("Http Extractor finished :" + httpSource.Url);
+                content.Dispose();
             }
             catch (Exception ex)
             {
