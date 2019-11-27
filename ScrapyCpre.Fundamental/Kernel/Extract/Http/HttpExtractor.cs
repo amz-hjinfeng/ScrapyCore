@@ -59,6 +59,10 @@ namespace ScrapyCore.Fundamental.Kernel.Extract.Http
                 Logger.Info("Http Extractor finished :" + httpSource.Url);
                 content.Dispose();
             }
+            catch (WebException webex)
+            {
+
+            }
             catch (Exception ex)
             {
                 Logger.Error("HttpExtractor Exception", ex);

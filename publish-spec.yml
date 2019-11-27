@@ -38,6 +38,20 @@ phases:
         - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/bootstrap/bootstrap-aws.json ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/Bootstrap.json
         - cp ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/configure/bootstrap/bootstrap-aws.json ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/Bootstrap.json
 
+        - rm -rf ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/log4net.config
+        - rm -rf ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/log4net-fundamental.config
+        - rm -rf ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/log4net.config
+        - rm -rf ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/log4net-fundamental.config
+        - rm -rf ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/log4net.config
+        - rm -rf ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/log4net-fundamental.config
+
+        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+
         - cp ./ScrapyCore.HeartOfSwarm/DeployScript/Linux/* ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Kerrigan/DeployScript/Linux/* ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Hydralisk/DeployScript/Linux/* ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/

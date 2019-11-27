@@ -136,6 +136,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="configure\log4net\aws\log4net-fundamental.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="configure\log4net\aws\log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="log4net-fundamental.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
