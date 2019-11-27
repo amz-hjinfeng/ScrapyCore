@@ -1,6 +1,6 @@
 ﻿{
   "StorageType": "AmazonS3",
-  "Prefix": "/",
+  "Prefix": "",
   "Configure": [
     [ "region", "ap-southeast-1" ],
     [ "bucket", "scrapy-core-storage" ]

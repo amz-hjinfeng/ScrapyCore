@@ -93,7 +93,7 @@ namespace ScrapyCore.Fundamental.Scheduler.Gen
                     JobId = Guid.NewGuid().ToString(),
                     MessageId = messageId,
                     Source = sourceObject,
-                    SaveTo = "/transform/" + param.RecommendLocation + ".dat"
+                    SaveTo = "transform/" + param.RecommendLocation + ".dat"
                 };
                 result.Add(item.Name, scrapySource);
             }

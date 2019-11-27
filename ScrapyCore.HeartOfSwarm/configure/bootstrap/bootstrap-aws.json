@@ -1,7 +1,7 @@
 ﻿{
   "Varables": [
     [ "environment", "aws" ],
-    [ "Entrance", "kerrigan-hydralisk" ],
+    [ "Entrance", "utralisks-kerrigan" ],
     [ "Termination", "kerrigan-hydralisk" ],
     [ "HeartbeatCache", "default-cache" ]
   ],

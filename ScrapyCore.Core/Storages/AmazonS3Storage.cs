@@ -44,7 +44,7 @@ namespace ScrapyCore.Core.Storages
                 var obj = await amazonS3Client.GetObjectAsync(new GetObjectRequest()
                 {
                     BucketName = this.bucketName,
-                    Key = Prefix + path
+                    Key = Path.Combine(Prefix,path)
                 });
                 return obj.ToString();
             }
@@ -92,7 +92,7 @@ namespace ScrapyCore.Core.Storages
                 {
                     BucketName = bucketName,
                     InputStream = stream,
-                    Key = Prefix + path
+                    Key = Path.Combine(Prefix , path)
                 });
             }
             catch (Exception ex)
