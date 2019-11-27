@@ -2,6 +2,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.CloudWatch;
+using ScrapyCore.Core.Metric;
 
 namespace ScrapyCore.Core.Platform
 {
@@ -10,11 +12,16 @@ namespace ScrapyCore.Core.Platform
         private static ILog logger = LogManager.GetLogger("Scrapy-Repo", typeof(MessagePipline));
         public IMessageEntrance Entrance { get; }
         public IMessageTermination Termination { get; }
+        private IMetricCollector IdleCollector { get; }
+        private IMetricCollector BusyCollector { get; }
 
         public MessagePipline(IMessageEntrance messageEntrance, IMessageTermination messageTermination)
         {
             Entrance = messageEntrance;
             Termination = messageTermination;
+            BusyCollector = MetricCollections.Default.MetricGetMetricCollector("busy");
+            IdleCollector = MetricCollections.Default.MetricGetMetricCollector("idle");
+
         }
         public async Task Drive()
         {
@@ -37,10 +44,12 @@ namespace ScrapyCore.Core.Platform
                     logger.Info("Message Terminated");
                 }
                 await messageHandler.Complete();
+                BusyCollector.Increase(1);
                 logger.Info("Message Pipline Completed");
             }
             else
             {
+                IdleCollector.Increase(1);
                 logger.Info("Message get nothing from Queue");
                 Thread.Sleep(1000);
             }

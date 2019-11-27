@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Text;
 using ScrapyCore.Fundamental.Kernel.Transform;
 using System.Threading;
+using ScrapyCore.Core.Metric;
 
 namespace ScrapyCore.Utralisks
 {
@@ -25,6 +26,8 @@ namespace ScrapyCore.Utralisks
             : base(bootstrap)
         {
             messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            MetricCollections.Default.AddMetricCollector("idle", new IncreasedMetricCollector("UtraliskIdle"));
+            MetricCollections.Default.AddMetricCollector("busy", new IncreasedMetricCollector("UtraliskBusy"));
             WorkingProcessor = new TransformIntegration(
                 bootstrap.GetCachedFromVariableSet("CoreCache"),
                 bootstrap.GetStorageFromVariableSet("CoreStorage")

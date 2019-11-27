@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using ScrapyCore.Core;
 using ScrapyCore.Core.HostMachine;
+using ScrapyCore.Core.Metric;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors.Model;
@@ -27,6 +28,8 @@ namespace ScrapyCore.Kerrigan
             : base(bootstrap)
         {
             var entrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
+            MetricCollections.Default.AddMetricCollector("idle", new IncreasedMetricCollector("KerriganIdle"));
+            MetricCollections.Default.AddMetricCollector("busy", new IncreasedMetricCollector("KerriganBusy"));
             this.loadProviderManager = new LoadProviderManager();
             this.WorkingProcessor = new LoadIntegration(
                 bootstrap.GetCachedFromVariableSet("HeartbeatCache"),

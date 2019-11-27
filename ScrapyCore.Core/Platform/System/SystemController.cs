@@ -1,4 +1,6 @@
 ﻿using log4net;
+using ScrapyCore.Core.Metric;
+using ScrapyCore.Core.Metric.Reporter;
 using System;
 using System.Threading;
 
@@ -17,9 +19,17 @@ namespace ScrapyCore.Core.Platform.System
 
         public virtual IWorkingMessageProcessor WorkingProcessor { get; protected set; }
 
+        private IMetricReporter metricReporter;
+
         public SystemController(Bootstrap bootstrap)
         {
             this.bootstrap = bootstrap;
+            switch (bootstrap.GetVariableSet("environment"))
+            {
+                case "aws": metricReporter = new AWSCloudWatchReporter(); break;
+                default: metricReporter = new DefaultReporter(); break;
+            }
+
         }
 
         /// <summary>
@@ -39,8 +49,8 @@ namespace ScrapyCore.Core.Platform.System
             while (SYSTEM_STOP != SystemStatus)
             {
                 HeartBeatProcessor();
+                metricReporter.Report(MetricCollections.Default).Wait();
                 Random random = new Random(DateTime.Now.Millisecond);
-
                 Thread.Sleep(random.Next(1000, 1500));
             }
         }

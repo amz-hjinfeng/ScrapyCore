@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using ScrapyCore.Core;
 using ScrapyCore.Core.HostMachine;
+using ScrapyCore.Core.Metric;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors.Model;
@@ -27,6 +28,8 @@ namespace ScrapyCore.Hydralisk
             IMessageEntrance messageEntrance = new MessageEntrance(bootstrap.GetMessageQueueFromVariableSet("Entrance"));
             WorkingProcessor = new SourceIntergation(bootstrap.Provisioning.Caches["default-cache"],
                 new ExtractorManager(bootstrap.InjectionProvider));
+            MetricCollections.Default.AddMetricCollector("idle", new IncreasedMetricCollector("HydraliskIdle"));
+            MetricCollections.Default.AddMetricCollector("busy", new IncreasedMetricCollector("HydraliskBusy"));
             IMessageTermination messageTermination = new MessageTermination(bootstrap, this);
             messagePipline = new MessagePipline(messageEntrance, messageTermination);
             messageOut = bootstrap.GetMessageQueueFromVariableSet("Termination");

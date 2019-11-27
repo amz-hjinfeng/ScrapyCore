@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using Newtonsoft.Json;
 using ScrapyCore.Core;
+using ScrapyCore.Core.Consts;
 using ScrapyCore.Core.ElasticSearch;
 using ScrapyCore.Fundamental.Kernel.Transform;
 using System;
@@ -12,6 +14,8 @@ namespace ScrapyCore.Fundamental.Kernel.Load
 {
     public class ElasticSearchLoadProvider : LoadProvider
     {
+        private static ILog logger = LogManager.GetLogger(LogConst.SCRAPY_FUNDAMENTAL, nameof(ElasticSearchLoadProvider));
+
         private readonly IElasticSearch elasticSearch;
 
         private ElasticSearchTypeManager elasticSearchType = ElasticSearchTypeManager.Manager;
@@ -23,6 +27,8 @@ namespace ScrapyCore.Fundamental.Kernel.Load
 
         public override async Task Load(Stream content, LoadContext ldContext)
         {
+
+            logger.Info("elasticsearch loaded:" + ldContext.LoadEvent.JobId);
             StreamReader reader = new StreamReader(content);
             List<TransformFieldWithValue> values =
                 JsonConvert.DeserializeObject<List<TransformFieldWithValue>>(

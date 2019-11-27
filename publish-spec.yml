@@ -45,12 +45,12 @@ phases:
         - rm -rf ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/log4net.config
         - rm -rf ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/log4net-fundamental.config
 
-        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
-        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Hydralisk/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
-        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
-        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Utralisks/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net.config ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
+        - cp ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/configure/log4net/aws/log4net-fundamental.config ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
 
         - cp ./ScrapyCore.HeartOfSwarm/DeployScript/Linux/* ./ScrapyCore.HeartOfSwarm/bin/Release/netcoreapp2.1/publish/
         - cp ./ScrapyCore.Kerrigan/DeployScript/Linux/* ./ScrapyCore.Kerrigan/bin/Release/netcoreapp2.1/publish/
