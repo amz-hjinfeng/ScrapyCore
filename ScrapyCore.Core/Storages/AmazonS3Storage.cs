@@ -46,7 +46,8 @@ namespace ScrapyCore.Core.Storages
                     BucketName = this.bucketName,
                     Key = Path.Combine(Prefix,path)
                 });
-                return obj.ToString();
+                StreamReader streamReader = new StreamReader(obj.ResponseStream);
+                return await streamReader.ReadToEndAsync();
             }
             catch (Exception ex)
             {
