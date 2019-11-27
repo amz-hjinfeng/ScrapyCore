@@ -31,7 +31,7 @@
         </li>
         <li>
             <a href="#" class="am-text-success">
-                <span class="am-icon-btn am-icon-tasks"></span><br>任务总数<br>1000
+                <span class="am-icon-btn am-icon-tasks"></span><br>任务总数<br><span id="total_instance"></span>1000
             </a>
         </li>
     </ul>
@@ -139,14 +139,6 @@
                     data.forEach(x => {
                         congestion[x.id].refresh(x.congestion);
                         avgtotal += x.congestion;
-                        //var style = "am-text-success";
-                        //if (x.congestion > 5000) {
-                        //    style = "am-text-warning";
-                        //} else if (x.congestion > 10000) {
-                        //    style = "am-text-danger";
-                        //}
-                        //$("#" + x.id).attr("class", style);
-                        //$("#" + x.id + "-congestion").text("拥塞：" + (0 | x.congestion) + " ms");
                     });
                     congestion.avgCongestion.refresh(avgtotal / 3.0);
                 }
