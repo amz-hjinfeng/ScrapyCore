@@ -2,7 +2,7 @@
   "Varables": [
     [ "environment", "aws" ],
     [ "Entrance", "kerrigan-hydralisk" ],
-    [ "Termination", "hydralisk-utralisks" ],
+    [ "Termination", "kerrigan-hydralisk" ],
     [ "HeartbeatCache", "default-cache" ]
   ],
   "Bootstrap": {
