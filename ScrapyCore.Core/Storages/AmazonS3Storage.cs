@@ -78,7 +78,10 @@ namespace ScrapyCore.Core.Storages
 
         public override Task WriteBytes(byte[] byteArray, string path)
         {
-            throw new NotImplementedException();
+            MemoryStream ms = new MemoryStream(byteArray);
+            ms.Seek(0, SeekOrigin.Begin);
+            return WriteStream(ms,path);
+            
         }
 
         public override async Task WriteStream(Stream stream, string path)
