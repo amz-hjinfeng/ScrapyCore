@@ -3,7 +3,9 @@
     [ "environment", "aws" ],
     [ "Entrance", "kerrigan-hydralisk" ],
     [ "Termination", "hydralisk-utralisks" ],
-    [ "HeartbeatCache", "default-cache" ]
+    [ "HeartbeatCache", "default-cache" ],
+    [ "CoreCache", "default-cache" ],
+    [ "CoreStorage", "core-storage" ]
   ],
   "Bootstrap": {
     "Storage": "configure/{$environment}/bootstrap-storage.json",
@@ -18,6 +20,10 @@
       {
         "Name": "kerrigan",
         "ConfigureFile": "configure/{$environment}/Kerrigan.json"
+      },
+      {
+        "Name": "core-storage",
+        "ConfigureFile": "configure/{$environment}/corestorage.json"
       }
     ],
     "MessageQueues": [

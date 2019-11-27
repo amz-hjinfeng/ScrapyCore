@@ -1,5 +1,8 @@
 ﻿{
-  "StorageType": "LocalFileSystem",
-  "Prefix": "./hydralisk",
-  "Configure": []
+  "StorageType": "AmazonS3",
+  "Prefix": "/",
+  "Configure": [
+    [ "region", "ap-southeast-1" ],
+    [ "bucket", "scrapy-core-storage" ]
+  ]
 }
