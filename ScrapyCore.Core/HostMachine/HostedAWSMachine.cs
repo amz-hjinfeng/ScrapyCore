@@ -18,7 +18,14 @@ namespace ScrapyCore.Core.HostMachine
 
         public string GetPublicAddress()
         {
-            return GetContect("http://169.254.169.254/latest/meta-data/public-ipv4");
+            try
+            {
+                return GetContect("http://169.254.169.254/latest/meta-data/public-ipv4");
+            }
+            catch (Exception)
+            {
+                return "-";
+            }
         }
 
         private static string GetContect(string url)
