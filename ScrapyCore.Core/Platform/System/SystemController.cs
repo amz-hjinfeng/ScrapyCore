@@ -1,4 +1,5 @@
 ﻿using log4net;
+using ScrapyCore.Core.HostMachine;
 using ScrapyCore.Core.Metric;
 using ScrapyCore.Core.Metric.Reporter;
 using System;
@@ -19,6 +20,8 @@ namespace ScrapyCore.Core.Platform.System
 
         public virtual IWorkingMessageProcessor WorkingProcessor { get; protected set; }
 
+        public IHostingManager HostingManager { get; protected set; }
+
         private IMetricReporter metricReporter;
 
         public SystemController(Bootstrap bootstrap)
@@ -26,8 +29,14 @@ namespace ScrapyCore.Core.Platform.System
             this.bootstrap = bootstrap;
             switch (bootstrap.GetVariableSet("environment"))
             {
-                case "aws": metricReporter = new AWSCloudWatchReporter(); break;
-                default: metricReporter = new DefaultReporter(); break;
+                case "aws":
+                    metricReporter = new AWSCloudWatchReporter();
+                    HostingManager = new AWSHostingManager();
+                    break;
+                default:
+                    metricReporter = new DefaultReporter();
+                    HostingManager = new LocalHostingManager();
+                    break;
             }
 
         }
@@ -63,7 +72,11 @@ namespace ScrapyCore.Core.Platform.System
             bootstrap.Provisioning.ThreadManager.DoWork(RollingHeartBeat);
             while (SystemStatus != SYSTEM_STOP)
             {
-                if (SystemStatus == SYSTEM_PAUSE) continue;
+                if (SystemStatus == SYSTEM_PAUSE)
+                {
+                    Thread.Sleep(1);
+                    continue;
+                }
                 bootstrap.Provisioning.ThreadManager.DoWork(Processor);
             }
         }
@@ -74,6 +87,11 @@ namespace ScrapyCore.Core.Platform.System
         public virtual void Stop()
         {
             this.SystemStatus = SYSTEM_STOP;
+        }
+
+        public void Terminate()
+        {
+            HostingManager.Terminate(bootstrap.HostedMachine).Wait();
         }
     }
 }

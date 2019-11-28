@@ -11,7 +11,6 @@ using ScrapyCore.Core.Platform.Message;
 using Newtonsoft.Json;
 using System.Text;
 using ScrapyCore.Fundamental.Kernel.Transform;
-using System.Threading;
 using ScrapyCore.Core.Metric;
 
 namespace ScrapyCore.Utralisks

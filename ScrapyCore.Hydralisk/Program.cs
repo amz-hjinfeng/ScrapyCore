@@ -1,6 +1,4 @@
 ﻿using ScrapyCore.Core;
-using ScrapyCore.Core.HostMachine;
-using System;
 
 namespace ScrapyCore.Hydralisk
 {

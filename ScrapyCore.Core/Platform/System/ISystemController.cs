@@ -12,5 +12,7 @@ namespace ScrapyCore.Core.Platform.System
         void Pause();
 
         void Stop();
+
+        void Terminate();
     }
 }

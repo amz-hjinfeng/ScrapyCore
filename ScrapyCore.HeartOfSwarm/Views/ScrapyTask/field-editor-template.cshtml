@@ -5,8 +5,9 @@
 }
 <script id="field-editor-template" type="text/x-handlebars-template">
     <div id="field-editor-{{Id}}" class="am-margin-top">
-        <label for="fieldTitle">Title:</label>
-        <input type="text" name="fieldTitle" id="fieldTitle" value="{{Title}}">
+        
+        @*<label for="fieldTitle">Title:</label>
+        <input type="text" name="fieldTitle" id="fieldTitle" value="{{Title}}">*@
         <label for="fieldName">Name:</label>
         <input type="text" name="fieldName" id="fieldName" value="{{Name}}">
         <label for="nullable">Nullable</label>
@@ -79,7 +80,7 @@
             var conventorEditor = html.find("#conventor-added");
             html.find("#btnFinished").click(x => {
                 var fieldName = html.find("#fieldName").val();
-                var fieldTitle = html.find("#fieldTitle").val();
+                var fieldTitle = fieldName;//html.find("#fieldTitle").val();
                 var conventors = new Array();
                 $(conventorEditor).find("a").each((e, i) => {
                     conventors.push({
