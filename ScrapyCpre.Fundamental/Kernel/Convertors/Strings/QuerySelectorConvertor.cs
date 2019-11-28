@@ -21,7 +21,7 @@ namespace ScrapyCore.Fundamental.Kernel.Convertors.Strings
             var document = contentData.AngleSharpDocument;
             var element = document.QuerySelector(query);
             ContextData newContextData = new ContextData();
-            newContextData.ContentText = element.Text();
+            newContextData.ContentText = element == null ? "" : element.Text();
             return newContextData;
         }
     }

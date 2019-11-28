@@ -5,7 +5,7 @@
     [ "Termination", "utralisks-kerrigan" ],
     [ "HeartbeatCache", "default-cache" ],
     [ "CoreCache", "default-cache" ],
-    [ "CoreStorage", "utralisks" ]
+    [ "CoreStorage", "corestorage" ]
   ],
   "Bootstrap": {
     "Storage": "configure/{$environment}/bootstrap-storage.json",
@@ -24,6 +24,10 @@
       {
         "Name": "utralisks",
         "ConfigureFile": "configure/{$environment}/utralisks.json"
+      },
+      {
+        "Name": "corestorage",
+        "ConfigureFile": "configure/{$environment}/corestorage.json"
       }
     ],
     "MessageQueues": [

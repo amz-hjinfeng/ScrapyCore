@@ -48,8 +48,22 @@
 				"Header-Map": "Map",
 				"SeedUrl": "https://news.sina.com.cn/c/2019-11-24/doc-iihnzhfz1272001.shtml",
 				"Depth": "2"
-			},
-			"id": "5cf699d8-3f57-4abb-ae6f-dc864a80eb6a"
+			}
+		},
+		{
+			"Name": "SohuSource",
+			"Type": "DigHttpSource",
+			"Parameters": {
+				"Encoding": "utf-8",
+				"ContentType": "text/html; charset=utf-8",
+				"Method": "GET",
+				"Referer": "",
+				"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+				"UserAgent": "Random",
+				"Header-Map": "Map",
+				"SeedUrl": "https://www.sohu.com/",
+				"Depth": "2"
+			}
 		}
 	],
 	"Transforms": [
@@ -119,7 +133,8 @@
 		{
 			"Name": "TransformNew",
 			"MapToSource": [
-				"Sina-Other","Sina-Detail"
+				"Sina-Other",
+				"Sina-Detail"
 			],
 			"FieldDefinitions": [
 				{
@@ -180,6 +195,69 @@
 			]
 		},
 		{
+			"Name": "SohuAnalysis",
+			"MapToSource": [
+				"SohuSource"
+			],
+			"FieldDefinitions": [
+				{
+					"Title": "Name",
+					"Name": "Name",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "QuerySelector",
+							"Parameter": ".text-title h1"
+						}
+					]
+				},
+				{
+					"Title": "Title",
+					"Name": "Title",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "QuerySelector",
+							"Parameter": ".text-title h1"
+						}
+					]
+				},
+				{
+					"Title": "Source",
+					"Name": "Source",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "QuerySelector",
+							"Parameter": "[data-role='original-link'] a"
+						}
+					]
+				},
+				{
+					"Title": "Content",
+					"Name": "Content",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "QuerySelector",
+							"Parameter": "article"
+						}
+					]
+				},
+				{
+					"Title": "PublishTime",
+					"Name": "PublishTime",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "QuerySelector",
+							"Parameter": ".article-info #news-time"
+						}
+					]
+				}
+			]
+		},
+		{
 			"Name": "NewsUrlCrawler",
 			"MapToSource": [
 				"Sina-Head"
@@ -193,6 +271,29 @@
 						{
 							"Name": "Regex",
 							"Parameter": "https://news.sina.com.cn/[\\w|/|-]*\\.shtml"
+						},
+						{
+							"Name": "Distinct",
+							"Parameter": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"Name": "SohuURLCrawler",
+			"MapToSource": [
+				"SohuSource"
+			],
+			"FieldDefinitions": [
+				{
+					"Title": "URLs",
+					"Name": "URLs",
+					"CanNullable": "true",
+					"ConvertorNavigators": [
+						{
+							"Name": "Regex",
+							"Parameter": "http[s]?://www.sohu.com/a/[\\w|?|\\=|\\.|\\-|\\&]*"
 						},
 						{
 							"Name": "Distinct",
@@ -218,7 +319,16 @@
 				"Type": "Storage",
 				"Name": "StoreToLocal",
 				"Context": {
-					"Prefix": "/localdata",
+					"Prefix": "/localdatastorage/sina",
+					"StorageType": "LocalFileSystem",
+					"Configure": ""
+				}
+			},
+			{
+				"Type": "Storage",
+				"Name": "SinaStoreToLocal",
+				"Context": {
+					"Prefix": "/localdatastorage/sohu",
 					"StorageType": "LocalFileSystem",
 					"Configure": ""
 				}
@@ -239,6 +349,11 @@
 		],
 		"LoadMaps": [
 			{
+				"FromTransform": "SohuURLCrawler",
+				"LoadProvider": "Scheduler-URL",
+				"Parameter": ""
+			},
+			{
 				"FromTransform": "NewsUrlCrawler",
 				"LoadProvider": "Scheduler-URL",
 				"Parameter": ""
@@ -257,6 +372,16 @@
 				"FromTransform": "TransformNew",
 				"LoadProvider": "ES-SINA-Article",
 				"Parameter": "SinaArtical"
+			},
+			{
+				"FromTransform": "SohuAnalysis",
+				"LoadProvider": "ES-SINA-Article",
+				"Parameter": "SinaArtical"
+			},
+			{
+				"FromTransform": "SohuAnalysis",
+				"LoadProvider": "SinaStoreToLocal",
+				"Parameter": "{hash}{date-time}.json"
 			}
 		]
 	}
