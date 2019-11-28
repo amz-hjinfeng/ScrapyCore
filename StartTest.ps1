@@ -12,3 +12,5 @@ cd $x
 cd ScrapyCore.Utralisks\bin\Debug\netcoreapp2.1
 start dotnet ScrapyCore.Utralisks.dll
 
+cd $x
+

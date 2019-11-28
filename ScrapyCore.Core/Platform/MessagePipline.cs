@@ -25,7 +25,7 @@ namespace ScrapyCore.Core.Platform
         }
         public async Task Drive()
         {
-            logger.Info("Message Pipline Started");
+            logger.Info("Message Pipeline Started");
             var messageHandler = await Entrance.FetchMessage();
             if (messageHandler != null)
             {

@@ -1,8 +1,5 @@
 ﻿using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.System;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ScrapyCore.Core.Platform.Processors
@@ -19,6 +16,7 @@ namespace ScrapyCore.Core.Platform.Processors
         public Task ProcessAsync(PlatformMessage platformMessage)
         {
             systemController.Stop();
+            systemController.Terminate();
             return Task.CompletedTask;
         }
     }

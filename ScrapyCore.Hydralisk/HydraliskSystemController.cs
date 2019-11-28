@@ -73,9 +73,29 @@ namespace ScrapyCore.Hydralisk
 
         protected override void Processor()
         {
-            logger.Debug("Process Started");
-            messagePipline.Drive().Wait();
-            logger.Debug("Process Completed");
+            try
+            {
+                logger.Debug("Process Started");
+                messagePipline.Drive().Wait();
+                logger.Debug("Process Completed");
+            }
+            catch (AggregateException agex)
+            {
+                var sysException = agex.InnerException as ScrapySystemException;
+                if (sysException != null)
+                {
+                    logger.Error(sysException);
+                    if (sysException.Action == ScrapySystemException.SystemNeedToShutDown)
+                    {
+                        this.Terminate();
+                    }
+                }
+                logger.Error(agex);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
         }
 
         protected override void ProvisionWebHost()

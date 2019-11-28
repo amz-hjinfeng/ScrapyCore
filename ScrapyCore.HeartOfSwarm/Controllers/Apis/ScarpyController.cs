@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapyCore.Core;
-using ScrapyCore.Core.External.Utils;
 using ScrapyCore.Core.Platform;
 using ScrapyCore.Core.Platform.Message;
 using ScrapyCore.Core.Platform.Processors;
@@ -8,7 +7,6 @@ using ScrapyCore.Fundamental.Scheduler;
 using ScrapyCore.Fundamental.Scheduler.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
@@ -74,5 +72,15 @@ namespace ScrapyCore.HeartOfSwarm.Controllers.Apis
             return Json($"Send {loop} heavy message delay {delay} to hyralisk.....");
         }
 
+        [Route("mock-401-error/{ip}")]
+        public ActionResult Mock401Error([FromRoute(Name = "ip")]string ip)
+        {
+            string data = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            if (data == ip)
+            {
+                return Unauthorized();
+            }
+            return Ok();
+        }
     }
 }

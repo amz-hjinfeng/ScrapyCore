@@ -72,9 +72,16 @@ namespace ScrapyCore.Utralisks
 
         protected override void Processor()
         {
-            logger.Info("Process Started");
-            messagePipline.Drive().Wait();
-            logger.Info("Process Completed");
+            try
+            {
+                logger.Info("Process Started");
+                messagePipline.Drive().Wait();
+                logger.Info("Process Completed");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
         }
 
         protected override void ProvisionWebHost()

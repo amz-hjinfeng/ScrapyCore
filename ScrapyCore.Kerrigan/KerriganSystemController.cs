@@ -76,9 +76,16 @@ namespace ScrapyCore.Kerrigan
 
         protected override void Processor()
         {
-            logger.Debug("Process Started");
-            messagePipline.Drive().Wait();
-            logger.Debug("Process Completed");
+            try
+            {
+                logger.Debug("Process Started");
+                messagePipline.Drive().Wait();
+                logger.Debug("Process Completed");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
         }
 
         protected override void ProvisionWebHost()
