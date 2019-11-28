@@ -22,6 +22,7 @@ namespace ScrapyCore.Core.HostMachine
 
         static HotedMachineManager()
         {
+            HostedMachines = new Dictionary<string, Lazy<IHostedMachine>>();
             HostedMachines.Add("aws", new Lazy<IHostedMachine>(() => new HostedAWSMachine()));
             HostedMachines.Add("local", new Lazy<IHostedMachine>(() => new HostedLocalMachine()));
         }
