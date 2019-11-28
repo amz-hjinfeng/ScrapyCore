@@ -15,6 +15,7 @@ using ScrapyCore.Core.Configure.Storage;
 using ScrapyCore.Core.Configure.UserAgents;
 using ScrapyCore.Core.Consts;
 using ScrapyCore.Core.ElasticSearch;
+using ScrapyCore.Core.HostMachine;
 using ScrapyCore.Core.Injection;
 using ScrapyCore.Core.MessageQueues;
 using ScrapyCore.Core.Storages;
@@ -39,6 +40,7 @@ namespace ScrapyCore.Core
 
         private const int MAX_THREAD = 10;
         private static ILog logger;
+        public IHostedMachine HostedMachine;
 
         private IStorage initialStorage;
 
@@ -65,7 +67,7 @@ namespace ScrapyCore.Core
             var model = JsonConvert.DeserializeObject<Model>(initialStorage.GetString(boostrapFile));
             Provisioning = new ProvisioningModel(model, initialStorage);
             InjectionProvider = new InjectionProvider(this);
-
+            HostedMachine = HotedMachineManager.GetHostedMachine(this.GetVariableSet("environment"));
         }
 
         public string GetVariableSet(string variableKey)

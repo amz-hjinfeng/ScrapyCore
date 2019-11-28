@@ -9,8 +9,7 @@ namespace ScrapyCore.Hydralisk
         static void Main(string[] args)
         {
             Bootstrap bootstrap = Bootstrap.DefaultInstance;
-            IHostedMachine hostedMachine = new HostedLocalMachine();
-            HydraliskSystemController hydraliskSystemController = new HydraliskSystemController(bootstrap, hostedMachine);
+            HydraliskSystemController hydraliskSystemController = new HydraliskSystemController(bootstrap, bootstrap.HostedMachine);
             hydraliskSystemController.Start();
         }
     }

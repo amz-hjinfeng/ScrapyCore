@@ -23,7 +23,7 @@ namespace ScrapyCore.Core.Metric.Reporter
             {
                 Namespace = "HOS",
                 MetricData = collections.Metrics.Values.Select(x => new MetricDatum()
-                {
+                {    
                     Unit = StandardUnit.Count,
                     MetricName = x.MetricName,
                     Value = x.GetCurrentReset()
